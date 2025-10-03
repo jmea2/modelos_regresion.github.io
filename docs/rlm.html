@@ -141,6 +141,12 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./diapositivas/generalidades.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Generalidades</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./rls.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Regresion Lineal Simple</span></a>
   </div>
@@ -196,15 +202,15 @@ window.Quarto = {
 <section id="actividad" class="level2">
 <h2 class="anchored" data-anchor-id="actividad">Actividad</h2>
 <p>En grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento <a href="https://docs.google.com/document/d/14ND4Nwbb_JrdgKPnaqloWxHrYRLdm2f3u8pAUXdI2MU/edit?usp=sharing">Documento de trabajo</a>, copiando y pegando pantallazos de los resultados y sus interpretaciones.</p>
-<p>El dataset <code>lowbwt</code> que se puede descargar aca 👉 <a href="lowbwt.rds">Descargar lowbwt.rds</a> contiene información para una muestra de 100 recién nacidos con bajo peso al nacer. mediciones de presión arterial sistolica son guardadas bajo el nombre de <code>sbp</code> y valores de edad gestacional bajo el nombre de <code>gestage</code>.</p>
-<p>Descargue el siguiente archivo denominado <code>Codigo_taller2.R</code> 👉 <a href="codigo_taller1.R">Descargar Codigo_taller2.R</a>, donde encontrara los codigos necesarios para obtener los resultados solicitados en el taller.</p>
+<p>El dataset <code>lowbwt</code> que se puede descargar aca 👉 <a href="datasets/lowbwt.rds">Descargar lowbwt.rds</a> contiene información para una muestra de 100 recién nacidos con bajo peso al nacer. mediciones de presión arterial sistolica son guardadas bajo el nombre de <code>sbp</code> y valores de edad gestacional bajo el nombre de <code>gestage</code>.</p>
+<p>Descargue el siguiente archivo denominado <code>Codigo_taller2.R</code> 👉 <a href="codigo_taller2.R">Descargar Codigo_taller2.R</a>, donde encontrara los codigos necesarios para obtener los resultados solicitados en el taller.</p>
 <p>Recuerde que en el pasado ya habian encontrado una relación significativa entre la presion arterial sistolica de neonatos con bajo peso (<code>sbp</code>)y la edad gestacional (<code>gestage</code>). En este nuevo analisis utilizaremos la variable Apgar a los 5 minutos (<code>apgar5</code>), es una variable oridnal, pero frecuentemente es tratada como continua.</p>
 </section>
 <section id="taller-2-regresion-lineal-multiple" class="level2">
 <h2 class="anchored" data-anchor-id="taller-2-regresion-lineal-multiple">Taller 2: Regresion Lineal Multiple</h2>
 <ol type="1">
 <li><p>Construya un grafico de dispersión de presion artetial sistolica y apgar . ¿Parece tener una relación lineal entre las dos variables?.</p></li>
-<li><p>Usando la la presion arterial sistolica como variable dependiente (respuesta), la edad gestacional y el apgar como variables explicatorias. Estime los parametros del modelo <span class="math display">\[\hat \mu_{sbp} = \beta_0 + \beta_1 \times gestage + \beta_2 \times apgar\]</span></p></li>
+<li><p>Usando la presión arterial sistolica como variable dependiente (respuesta), la edad gestacional y el apgar como variables explicatorias. Estime los parametros del modelo <span class="math display">\[\hat \mu_{sbp} = \beta_0 + \beta_1 \times gestage + \beta_2 \times apgar\]</span></p></li>
 </ol>
 <ul>
 <li>Interprete <span class="math inline">\(\hat \beta_1\)</span>, ¿qué significa en palabras?, realice lo mismo para <span class="math inline">\(\hat \beta_2\)</span></li>

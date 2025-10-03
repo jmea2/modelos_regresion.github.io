@@ -37,7 +37,7 @@ Después de este modulo, se espera que los estudiantes sean capaces de:
 
 ## Conjunto de datos: *coronary.rds* {.smaller}
 
--   Usaremos el dataset **coronary.rds** en formato `R`. 👉 [Descargar coronary.rds](dataset/coronary.rds)\
+-   Usaremos el dataset **coronary.rds** en formato `R`. 👉 [Descargar coronary.rds](datasets/coronary.rds)\
 -   Corresponde a un **ensayo clínico hipotético** con información de características individuales, niveles de colesterol total y grupos de intervención.\
 -   Contiene **200 observaciones** y **9 variables**:
 

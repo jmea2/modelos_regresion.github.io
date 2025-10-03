@@ -29,71 +29,6 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -404,22 +339,6 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
 </div>
 
 </section>
-<section class="slide level2">
-
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(rio)</span>
-<span id="cb1-2"><a></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.0.4     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>coronary <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"datasets/coronary.dta"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
 <section id="motivación-por-qué-usar-modelos-de-regresión-en-epidemiología" class="title-slide slide level1 center">
 <h1>Motivación: ¿Por qué usar modelos de regresión en epidemiología?</h1>
 
@@ -429,17 +348,18 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
 <section id="modelos-de-regresión" class="title-slide slide level1 center">
 <h1>Modelos de Regresión</h1>
 <ul>
-<li><p>No es un paso mas o final en el analisis estadistico</p></li>
-<li><p>No deberia ser una receta metodologica</p></li>
+<li><p>No es un paso mas o final en el análisis estadístico</p></li>
+<li><p>No debería ser una receta metodológica</p></li>
 <li><p>All models are wrong, but some are useful!. <strong>George E. P. Box</strong></p></li>
 </ul>
 </section>
 <section id="utilidad-propósitos-primarios-de-los-modelos-en-epidemiología" class="slide level2">
 <h2>Utilidad: <strong>Propósitos Primarios de los Modelos en Epidemiología:</strong></h2>
-<p>Los modelos epidemiológicos se utilizan para dos propósitos principales:</p>
+<p>La regresión puede ser una herramienta poderosa para direccionar tres preguntas relevantes:</p>
 <ol type="1">
-<li>Hacer predicciones.</li>
-<li>Controlar el factor de confusión (confounding). (Estimar efectos)</li>
+<li>Predicción (En la era de la IA)</li>
+<li>Aislar el efecto de una exposición/covariable</li>
+<li>Comprender la relaciones de múltiples exposiciones hacia un efecto (confusión - interacción - mediación)</li>
 </ol>
 </section>
 <section id="modelos-de-predicción" class="slide level2">
@@ -453,17 +373,13 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
 <section id="modelos-de-explicación" class="slide level2">
 <h2>Modelos de Explicación</h2>
 <ul>
-<li>Estimar efecto (fuerza de asociación) de consumo cigarrillo con el cáncer gástrico bajo diferentes niveles de exposición al consumo de embutidos. En Esta relación podría el consumo de embutidos actuar como confusor o modificador de efecto (Interacción).</li>
+<li>Estimar efecto (fuerza de asociación) de consumo cigarrillo con el cáncer gástrico bajo diferentes niveles de exposición al consumo de embutidos. En esta relación podría el consumo de embutidos actuar como confusor o modificador de efecto (Interacción).</li>
 </ul>
 <p><strong>Diagramas DAG</strong></p>
-<h3 id="estimaciones-descriptivas-en-subpoblaciones-mas-efientemente">Estimaciones (Descriptivas) en subpoblaciones (Mas efientemente)</h3>
+<h3 id="estimaciones-descriptivas-en-sub-poblaciones-mas-eficientemente">Estimaciones (Descriptivas) en sub-poblaciones (Mas eficientemente)</h3>
 <ul>
 <li>Aplicación de Estimación de prevalencias ajustadas en subpoblaciones (VIH)</li>
 </ul>
-</section>
-<section id="utilidades-y-aplicaciones-de-la-regresión-en-epidemiología" class="slide level2">
-<h2>Utilidades y aplicaciones de la Regresión en Epidemiología</h2>
-<p>Debe ir las aplicaciones del libro de regression methods in biostatistic</p>
 </section>
 <section id="modelos-de-regresión-clasicos" class="slide level2">
 <h2>Modelos de Regresión clasicos</h2>
@@ -518,9 +434,9 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
 <div class="smaller">
 <table class="caption-top">
 <colgroup>
-<col style="width: 28%">
-<col style="width: 23%">
-<col style="width: 47%">
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -593,14 +509,9 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
 </section></section>
 <section id="relación-lineal" class="title-slide slide level1 center">
 <h1>Relación lineal</h1>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(coronary, <span class="fu">aes</span>(<span class="at">x =</span> chol, <span class="at">y =</span>sbp))<span class="sc">+</span></span>
-<span id="cb4-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
-<span id="cb4-3"><a></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
-<span id="cb4-4"><a></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">25</span>))<span class="sc">+</span></span>
-<span id="cb4-5"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Colestero mmol/L"</span>, <span class="at">y =</span> <span class="st">"Presion sistolica (mmHg)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
-<img data-src="generalidades_files/figure-html/unnamed-chunk-2-1.png" width="672" class="r-stretch"><div class="quarto-auto-generated-content">
+<img data-src="generalidades_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"><div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 <p>[Bioestadistica III]</p>
 </div>
@@ -818,6 +729,44 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

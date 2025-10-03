@@ -11,24 +11,25 @@ format:
     slide-number: true
     chalkboard: true
 execute:
-  echo: true
+  echo: false
   output: asis
   freeze: auto
 cache: true
 ---
+
 ```{r}
 library(rio)
 library(tidyverse)
-coronary <- import("datasets/coronary.dta")
+coronary <- import("datasets/coronary.rds")
 ```
 
 # Motivación: ¿Por qué usar modelos de regresión en epidemiología?
 
 # Modelos de Regresión
 
--   No es un paso mas o final en el analisis estadistico
+-   No es un paso mas o final en el análisis estadístico
 
--   No deberia ser una receta metodologica
+-   No debería ser una receta metodológica
 
 -   All models are wrong, but some are useful!. **George E. P. Box**
 
@@ -36,10 +37,11 @@ coronary <- import("datasets/coronary.dta")
 
 ## Utilidad: **Propósitos Primarios de los Modelos en Epidemiología:**
 
-Los modelos epidemiológicos se utilizan para dos propósitos principales:
+La regresión puede ser una herramienta poderosa para direccionar tres preguntas relevantes:
 
-1.  Hacer predicciones.
-2.  Controlar el factor de confusión (confounding). (Estimar efectos)
+1.  Predicción (En la era de la IA)
+2.  Aislar el efecto de una exposición/covariable
+3.  Comprender la relaciones de múltiples exposiciones hacia un efecto (confusión - interacción - mediación)
 
 ## Modelos de Predicción
 
@@ -51,17 +53,13 @@ Los modelos epidemiológicos se utilizan para dos propósitos principales:
 
 ## Modelos de Explicación
 
--   Estimar efecto (fuerza de asociación) de consumo cigarrillo con el cáncer gástrico bajo diferentes niveles de exposición al consumo de embutidos. En Esta relación podría el consumo de embutidos actuar como confusor o modificador de efecto (Interacción).
+-   Estimar efecto (fuerza de asociación) de consumo cigarrillo con el cáncer gástrico bajo diferentes niveles de exposición al consumo de embutidos. En esta relación podría el consumo de embutidos actuar como confusor o modificador de efecto (Interacción).
 
 **Diagramas DAG**
 
-### Estimaciones (Descriptivas) en subpoblaciones (Mas efientemente)
+### Estimaciones (Descriptivas) en sub-poblaciones (Mas eficientemente)
 
 -   Aplicación de Estimación de prevalencias ajustadas en subpoblaciones (VIH)
-
-## Utilidades y aplicaciones de la Regresión en Epidemiología
-
-Debe ir las aplicaciones del libro de regression methods in biostatistic
 
 ## Modelos de Regresión clasicos
 
@@ -72,7 +70,7 @@ Debe ir las aplicaciones del libro de regression methods in biostatistic
 ## Modelos según la variable dependiente
 
 | Tipo de variable dependiente | Modelo estadístico |
-|------------------------------------|------------------------------------|
+|----|----|
 | Continua | **Regresión lineal** |
 | Binaria (sí/no) | **Regresión logística** |
 | Conteo (número de eventos) | **Regresión de Poisson** / Binomial Negativa |
@@ -84,7 +82,7 @@ Debe ir las aplicaciones del libro de regression methods in biostatistic
 
 ::: smaller
 | Tipo de variable dependiente | Modelo | Ejemplo aplicado |
-|-------------------|----------------|--------------------------------|
+|----|----|----|
 | Continua | Regresión lineal | Relación entre presión arterial sistólica y edad en adultos |
 | Binaria | Regresión logística | Probabilidad de tener tuberculosis según contacto previo |
 | Conteo | Regresión de Poisson / Binomial Negativa | Número de casos de dengue por barrio en un mes |
@@ -95,10 +93,9 @@ Debe ir las aplicaciones del libro de regression methods in biostatistic
 
 ## Los modelos como representaciones de la realidad
 
-- Un su forma mas simple un  **modelo estadístico** es una representación matemática simplificada de un fenómeno real.  
-- El **Modelo Lineal Generalizado (GLM)** se basa en expresar la variable dependiente como función lineal de las variables independientes.  
-- La idea central es que la relación entre la variable dependiente y los predictores se asume **lineal** en los parámetros.  
-
+-   Un su forma mas simple un **modelo estadístico** es una representación matemática simplificada de un fenómeno real.\
+-   El **Modelo Lineal Generalizado (GLM)** se basa en expresar la variable dependiente como función lineal de las variables independientes.\
+-   La idea central es que la relación entre la variable dependiente y los predictores se asume **lineal** en los parámetros.
 
 ## Expresión matemática
 
@@ -106,19 +103,18 @@ Modelo Lineal generalizado simple
 
 $$ E(Y \mid X_1, X_2, \ldots, X_i) = \beta_0 + \beta_1 X_1$$
 
-Donde:  
-- $E(Y \mid X)$: valor esperado de $Y$ dado los predictores.  
-- $\beta_0$: intercepto. (donde la linea atraviesa el Eje Y)  
-- $\beta_1$: coeficiente que representan el efecto de cada variable $X_1$.  
-
+Donde:\
+- $E(Y \mid X)$: valor esperado de $Y$ dado los predictores.\
+- $\beta_0$: intercepto. (donde la linea atraviesa el Eje Y)\
+- $\beta_1$: coeficiente que representan el efecto de cada variable $X_1$.
 
 ## Modelo Lineal generalizado
 
 $$ E(Y \mid X_1, X_2, \ldots, X_i) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_i X_i$$
 
-Donde:  
-- $E(Y \mid X)$: valor esperado de $Y$ dado los predictores.  
-- $\beta_0$: intercepto.  
+Donde:\
+- $E(Y \mid X)$: valor esperado de $Y$ dado los predictores.\
+- $\beta_0$: intercepto.\
 - $\beta_j$: coeficientes que representan el efecto de cada variable $X_j$.
 
 # Relación lineal
@@ -130,4 +126,3 @@ ggplot2::ggplot(coronary, aes(x = chol, y =sbp))+
   theme(text = element_text(size = 25))+
   labs(x = "Colestero mmol/L", y = "Presion sistolica (mmHg)")
 ```
-

@@ -179,70 +179,90 @@
     "href": "diapositivas/generalidades.html#utilidad-propósitos-primarios-de-los-modelos-en-epidemiología",
     "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
     "section": "Utilidad: Propósitos Primarios de los Modelos en Epidemiología:",
-    "text": "Utilidad: Propósitos Primarios de los Modelos en Epidemiología:\nLos modelos epidemiológicos se utilizan para dos propósitos principales:\n\nHacer predicciones.\nControlar el factor de confusión (confounding). (Estimar efectos)"
+    "text": "Utilidad: Propósitos Primarios de los Modelos en Epidemiología:\nLa regresión puede ser una herramienta poderosa para direccionar tres preguntas relevantes:\n\nPredicción (En la era de la IA)\nAislar el efecto de una exposición/covariable\nComprender la relaciones de múltiples exposiciones hacia un efecto (confusión - interacción - mediación)",
+    "crumbs": [
+      "Generalidades"
+    ]
   },
   {
     "objectID": "diapositivas/generalidades.html#modelos-de-predicción",
     "href": "diapositivas/generalidades.html#modelos-de-predicción",
     "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
     "section": "Modelos de Predicción",
-    "text": "Modelos de Predicción\n\nLos modelos de predicción se emplean para estimar el riesgo o efecto (o alguna otra medida epidemiológica).\nEsta estimación se basa en la información proporcionada por los predictores o covariables.\n\nEjemplo: Una ecuación puede estimar el riesgo de un ataque cardíaco durante un período de 10 años, basándose en la combinación de predictores como edad, sexo, historial familiar, presión arterial, historial de tabaquismo, peso, altura, hábitos de ejercicio e historial médico."
+    "text": "Modelos de Predicción\n\nLos modelos de predicción se emplean para estimar el riesgo o efecto (o alguna otra medida epidemiológica).\nEsta estimación se basa en la información proporcionada por los predictores o covariables.\n\nEjemplo: Una ecuación puede estimar el riesgo de un ataque cardíaco durante un período de 10 años, basándose en la combinación de predictores como edad, sexo, historial familiar, presión arterial, historial de tabaquismo, peso, altura, hábitos de ejercicio e historial médico.",
+    "crumbs": [
+      "Generalidades"
+    ]
   },
   {
     "objectID": "diapositivas/generalidades.html#modelos-de-explicación",
     "href": "diapositivas/generalidades.html#modelos-de-explicación",
     "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
     "section": "Modelos de Explicación",
-    "text": "Modelos de Explicación\n\nEstimar efecto (fuerza de asociación) de consumo cigarrillo con el cáncer gástrico bajo diferentes niveles de exposición al consumo de embutidos. En Esta relación podría el consumo de embutidos actuar como confusor o modificador de efecto (Interacción).\n\nDiagramas DAG\nEstimaciones (Descriptivas) en subpoblaciones (Mas efientemente)\n\nAplicación de Estimación de prevalencias ajustadas en subpoblaciones (VIH)"
-  },
-  {
-    "objectID": "diapositivas/generalidades.html#utilidades-y-aplicaciones-de-la-regresión-en-epidemiología",
-    "href": "diapositivas/generalidades.html#utilidades-y-aplicaciones-de-la-regresión-en-epidemiología",
-    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
-    "section": "Utilidades y aplicaciones de la Regresión en Epidemiología",
-    "text": "Utilidades y aplicaciones de la Regresión en Epidemiología\nDebe ir las aplicaciones del libro de regression methods in biostatistic"
+    "text": "Modelos de Explicación\n\nEstimar efecto (fuerza de asociación) de consumo cigarrillo con el cáncer gástrico bajo diferentes niveles de exposición al consumo de embutidos. En esta relación podría el consumo de embutidos actuar como confusor o modificador de efecto (Interacción).\n\nDiagramas DAG\nEstimaciones (Descriptivas) en sub-poblaciones (Mas eficientemente)\n\nAplicación de Estimación de prevalencias ajustadas en subpoblaciones (VIH)",
+    "crumbs": [
+      "Generalidades"
+    ]
   },
   {
     "objectID": "diapositivas/generalidades.html#modelos-de-regresión-clasicos",
     "href": "diapositivas/generalidades.html#modelos-de-regresión-clasicos",
     "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
     "section": "Modelos de Regresión clasicos",
-    "text": "Modelos de Regresión clasicos\n\nUna variable dependiente (Nivel de medición)\nUna o más variables independientes (Continua, categorica dicotomica, cateogica politomica)"
+    "text": "Modelos de Regresión clasicos\n\nUna variable dependiente (Nivel de medición)\nUna o más variables independientes (Continua, categorica dicotomica, cateogica politomica)",
+    "crumbs": [
+      "Generalidades"
+    ]
   },
   {
     "objectID": "diapositivas/generalidades.html#modelos-según-la-variable-dependiente",
     "href": "diapositivas/generalidades.html#modelos-según-la-variable-dependiente",
     "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
     "section": "Modelos según la variable dependiente",
-    "text": "Modelos según la variable dependiente\n\n\n\n\n\n\n\nTipo de variable dependiente\nModelo estadístico\n\n\n\n\nContinua\nRegresión lineal\n\n\nBinaria (sí/no)\nRegresión logística\n\n\nConteo (número de eventos)\nRegresión de Poisson / Binomial Negativa\n\n\nTiempo hasta evento\nModelos de supervivencia (Cox, paramétricos)\n\n\nOrdinal (categorías ordenadas)\nRegresión logística ordinal\n\n\nNominal (categorías no ordenadas)\nRegresión logística multinomial"
+    "text": "Modelos según la variable dependiente\n\n\n\n\n\n\n\nTipo de variable dependiente\nModelo estadístico\n\n\n\n\nContinua\nRegresión lineal\n\n\nBinaria (sí/no)\nRegresión logística\n\n\nConteo (número de eventos)\nRegresión de Poisson / Binomial Negativa\n\n\nTiempo hasta evento\nModelos de supervivencia (Cox, paramétricos)\n\n\nOrdinal (categorías ordenadas)\nRegresión logística ordinal\n\n\nNominal (categorías no ordenadas)\nRegresión logística multinomial",
+    "crumbs": [
+      "Generalidades"
+    ]
   },
   {
     "objectID": "diapositivas/generalidades.html#ejemplos-en-epidemiología",
     "href": "diapositivas/generalidades.html#ejemplos-en-epidemiología",
     "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
     "section": "Ejemplos en Epidemiología",
-    "text": "Ejemplos en Epidemiología\n\n\n\n\n\n\n\n\n\nTipo de variable dependiente\nModelo\nEjemplo aplicado\n\n\n\n\nContinua\nRegresión lineal\nRelación entre presión arterial sistólica y edad en adultos\n\n\nBinaria\nRegresión logística\nProbabilidad de tener tuberculosis según contacto previo\n\n\nConteo\nRegresión de Poisson / Binomial Negativa\nNúmero de casos de dengue por barrio en un mes\n\n\nTiempo hasta evento\nModelos de supervivencia (Cox, Weibull, etc.)\nTiempo hasta la recaída de pacientes con malaria tras el tratamiento\n\n\nOrdinal\nRegresión logística ordinal\nGrado de severidad de la desnutrición infantil (leve, moderada, severa) en función de variables socioeconómicas\n\n\nNominal\nRegresión logística multinomial\nTipo de desenlace obstétrico (parto eutócico, cesárea, parto instrumental) según factores maternos"
+    "text": "Ejemplos en Epidemiología\n\n\n\n\n\n\n\n\n\nTipo de variable dependiente\nModelo\nEjemplo aplicado\n\n\n\n\nContinua\nRegresión lineal\nRelación entre presión arterial sistólica y edad en adultos\n\n\nBinaria\nRegresión logística\nProbabilidad de tener tuberculosis según contacto previo\n\n\nConteo\nRegresión de Poisson / Binomial Negativa\nNúmero de casos de dengue por barrio en un mes\n\n\nTiempo hasta evento\nModelos de supervivencia (Cox, Weibull, etc.)\nTiempo hasta la recaída de pacientes con malaria tras el tratamiento\n\n\nOrdinal\nRegresión logística ordinal\nGrado de severidad de la desnutrición infantil (leve, moderada, severa) en función de variables socioeconómicas\n\n\nNominal\nRegresión logística multinomial\nTipo de desenlace obstétrico (parto eutócico, cesárea, parto instrumental) según factores maternos",
+    "crumbs": [
+      "Generalidades"
+    ]
   },
   {
     "objectID": "diapositivas/generalidades.html#los-modelos-como-representaciones-de-la-realidad",
     "href": "diapositivas/generalidades.html#los-modelos-como-representaciones-de-la-realidad",
     "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
     "section": "Los modelos como representaciones de la realidad",
-    "text": "Los modelos como representaciones de la realidad\n\nUn su forma mas simple un modelo estadístico es una representación matemática simplificada de un fenómeno real.\n\nEl Modelo Lineal Generalizado (GLM) se basa en expresar la variable dependiente como función lineal de las variables independientes.\n\nLa idea central es que la relación entre la variable dependiente y los predictores se asume lineal en los parámetros."
+    "text": "Los modelos como representaciones de la realidad\n\nUn su forma mas simple un modelo estadístico es una representación matemática simplificada de un fenómeno real.\n\nEl Modelo Lineal Generalizado (GLM) se basa en expresar la variable dependiente como función lineal de las variables independientes.\n\nLa idea central es que la relación entre la variable dependiente y los predictores se asume lineal en los parámetros.",
+    "crumbs": [
+      "Generalidades"
+    ]
   },
   {
     "objectID": "diapositivas/generalidades.html#expresión-matemática",
     "href": "diapositivas/generalidades.html#expresión-matemática",
     "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
     "section": "Expresión matemática",
-    "text": "Expresión matemática\nModelo Lineal generalizado simple\n\\[ E(Y \\mid X_1, X_2, \\ldots, X_i) = \\beta_0 + \\beta_1 X_1\\]\nDonde:\n- \\(E(Y \\mid X)\\): valor esperado de \\(Y\\) dado los predictores.\n- \\(\\beta_0\\): intercepto. (donde la linea atraviesa el Eje Y)\n- \\(\\beta_1\\): coeficiente que representan el efecto de cada variable \\(X_1\\)."
+    "text": "Expresión matemática\nModelo Lineal generalizado simple\n\\[ E(Y \\mid X_1, X_2, \\ldots, X_i) = \\beta_0 + \\beta_1 X_1\\]\nDonde:\n- \\(E(Y \\mid X)\\): valor esperado de \\(Y\\) dado los predictores.\n- \\(\\beta_0\\): intercepto. (donde la linea atraviesa el Eje Y)\n- \\(\\beta_1\\): coeficiente que representan el efecto de cada variable \\(X_1\\).",
+    "crumbs": [
+      "Generalidades"
+    ]
   },
   {
     "objectID": "diapositivas/generalidades.html#modelo-lineal-generalizado",
     "href": "diapositivas/generalidades.html#modelo-lineal-generalizado",
     "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
     "section": "Modelo Lineal generalizado",
-    "text": "Modelo Lineal generalizado\n\\[ E(Y \\mid X_1, X_2, \\ldots, X_i) = \\beta_0 + \\beta_1 X_1 + \\beta_2 X_2 + \\cdots + \\beta_i X_i\\]\nDonde:\n- \\(E(Y \\mid X)\\): valor esperado de \\(Y\\) dado los predictores.\n- \\(\\beta_0\\): intercepto.\n- \\(\\beta_j\\): coeficientes que representan el efecto de cada variable \\(X_j\\)."
+    "text": "Modelo Lineal generalizado\n\\[ E(Y \\mid X_1, X_2, \\ldots, X_i) = \\beta_0 + \\beta_1 X_1 + \\beta_2 X_2 + \\cdots + \\beta_i X_i\\]\nDonde:\n- \\(E(Y \\mid X)\\): valor esperado de \\(Y\\) dado los predictores.\n- \\(\\beta_0\\): intercepto.\n- \\(\\beta_j\\): coeficientes que representan el efecto de cada variable \\(X_j\\).",
+    "crumbs": [
+      "Generalidades"
+    ]
   },
   {
     "objectID": "rlm.html#actividad",
@@ -259,17 +279,10 @@
     "href": "rlm.html#taller-2-regresion-lineal-multiple",
     "title": "Regresion Lineal Multiple",
     "section": "Taller 2: Regresion Lineal Multiple",
-    "text": "Taller 2: Regresion Lineal Multiple\n\nConstruya un grafico de dispersión de presion artetial sistolica y apgar . ¿Parece tener una relación lineal entre las dos variables?.\nUsando la la presion arterial sistolica como variable dependiente (respuesta), la edad gestacional y el apgar como variables explicatorias. Estime los parametros del modelo \\[\\hat \\mu_{sbp} = \\beta_0 + \\beta_1 \\times gestage + \\beta_2 \\times apgar\\]\n\n\nInterprete \\(\\hat \\beta_1\\), ¿qué significa en palabras?, realice lo mismo para \\(\\hat \\beta_2\\)\n\n\nCual es la media estimada de la presión arterial para la población de recien nacidos con bajo peso en quienes la edad gestacional es 31 semanas y apgar a los 5 minutos sea de 7, Interprete.\nConstruya un intervalo de confianza para la media cuando la edad gestacional es 31 semanas y el apgar es de 7. Interpretelo.\nA un nivel de 0.05 de error alfa, contraste \\(H_0: \\beta_2 = 0\\)?, ¿Qué concluye?\n¿El modelo ajustado parece ajustar a los datos observados?.Revise el \\(R^2\\) ajustado comente e interprete. estime la tasa de error de las predicciones.\nla inclusión del apgar aporta significativamente al modelo como para dejarlo en el modelo?.\nConstruya los graficos de diagnostico, hay cumplimiento de los supuestos de validez del modelo?",
+    "text": "Taller 2: Regresion Lineal Multiple\n\nConstruya un grafico de dispersión de presion artetial sistolica y apgar . ¿Parece tener una relación lineal entre las dos variables?.\nUsando la presión arterial sistolica como variable dependiente (respuesta), la edad gestacional y el apgar como variables explicatorias. Estime los parametros del modelo \\[\\hat \\mu_{sbp} = \\beta_0 + \\beta_1 \\times gestage + \\beta_2 \\times apgar\\]\n\n\nInterprete \\(\\hat \\beta_1\\), ¿qué significa en palabras?, realice lo mismo para \\(\\hat \\beta_2\\)\n\n\nCual es la media estimada de la presión arterial para la población de recien nacidos con bajo peso en quienes la edad gestacional es 31 semanas y apgar a los 5 minutos sea de 7, Interprete.\nConstruya un intervalo de confianza para la media cuando la edad gestacional es 31 semanas y el apgar es de 7. Interpretelo.\nA un nivel de 0.05 de error alfa, contraste \\(H_0: \\beta_2 = 0\\)?, ¿Qué concluye?\n¿El modelo ajustado parece ajustar a los datos observados?.Revise el \\(R^2\\) ajustado comente e interprete. estime la tasa de error de las predicciones.\nla inclusión del apgar aporta significativamente al modelo como para dejarlo en el modelo?.\nConstruya los graficos de diagnostico, hay cumplimiento de los supuestos de validez del modelo?",
     "crumbs": [
       "Regresion Lineal Multiple"
     ]
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
   },
   {
     "objectID": "index.html#objetivos-de-aprendizaje",
@@ -286,7 +299,7 @@
     "href": "rls.html#actividad",
     "title": "Regresion Lineal Simple",
     "section": "Actividad",
-    "text": "Actividad\nEn grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento 👉 Documento de Trabajo, copiando y pegando pantallazos de los resultados y sus interpretaciones.\nEl dataset lowbwt que se puede descargar aca 👉 Descargar lowbwt.rds contiene información para una muestra de 100 recién nacidos con bajo peso al nacer. mediciones de presión arterial sistolica son guardadas bajo el nombre de sbp y valores de edad gestacional bajo el nombre de gestage.\nDescargue el siguiente archivo denominado Codigo_taller1.R 👉 Descargar Codigo_taller1.R, donde encontrara los codigos necesarios para obtener los resultados solicitados en el taller.",
+    "text": "Actividad\nEn grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento 👉 Documento de Trabajo, copiando y pegando pantallazos de los resultados y sus interpretaciones.\nEl dataset lowbwt que se puede descargar aca 👉 Descargar lowbwt.rds contiene información para una muestra de 100 recién nacidos con bajo peso al nacer. Mediciones de presión arterial sistolica son guardadas bajo el nombre de sbp y valores de edad gestacional bajo el nombre de gestage.\nDescargue el siguiente archivo denominado Codigo_taller1.R 👉 Descargar Codigo_taller1.R, donde encontrara los códigos necesarios para obtener los resultados solicitados en el taller.",
     "crumbs": [
       "Regresion Lineal Simple"
     ]
@@ -296,7 +309,7 @@
     "href": "rls.html#taller-1-regresion-lineal-simple",
     "title": "Regresion Lineal Simple",
     "section": "Taller 1: Regresion Lineal Simple",
-    "text": "Taller 1: Regresion Lineal Simple\n\nCon covariable continua\n\nConstruya un grafico de dispersión de presion artetial sistolica y edad gestacional. Sugiere el grafico acerca de la naturaleza de la relación entre las variables (haga una breve interpretacion del grafico).\nUsando la la presion arterial sistolica como variable dependiente (respuesta) y la edad gestacional como la variable explicatoria. Estime una regresion lineal e interprete los coeficientes. ¿Que significan en palabras?.\nA un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a edad gestacional es igual a cero. ¿Qué concluye?\nCual es la media estimada de la presión arterial para la población de recien nacidos con bajo peso en quienes la edad gestacional es 31 semanas.\nConstruya un intervalo de confianza para la media cuando la edad gestacional es 31 semanas.\n¿El modelo ajustado parece ajustar a los datos observados?. comente e interprete el coeficiente de determinación, la tasa de error de las predicciones y los gráficos de diagnostico. Interprete cada uno de ellos.\n\n\n\nCon covariable categorica\nLos niveles de glucosa por encima de 125 mg/dL son diagnósticos de diabetes, mientras que niveles en el rango de 100 a 125 mg/dL indican un mayor riesgo de progresar hacia esta condición seria y cada vez más frecuente. Por ello, resulta de interés determinar si el ejercicio, un factor de estilo de vida modificable, podría ayudar a las personas sin diabetes a reducir sus niveles de glucosa y, de esta manera, evitar la diabetes.\nResponder de manera definitiva a esta pregunta requeriría un ensayo clínico aleatorizado, lo cual constituye una tarea difícil y costosa. Como resultado, preguntas de investigación como esta suelen abordarse inicialmente con datos observacionales. Sin embargo, esto se complica por el hecho de que las personas que hacen ejercicio difieren en muchos aspectos de aquellas que no lo hacen, y algunas de esas diferencias podrían explicar cualquier asociación no ajustada entre el ejercicio y el nivel de glucosa.\nPara los siguientes puntos se usara los datos del estudio HERS que se puede descargar directamente desde R copian y pegando directamente en la consola el siguinete codigo hers &lt;- rio::import(\"https://regression.ucsf.edu/sites/g/files/tkssra16191/files/wysiwyg/home/data/hersdata.dta\") %&gt;% filter(diabetes == 0).\nEn el archivo denominado Codigo_taller1.R 👉 Descargar Codigo_taller1.R se encuentran los codigos para reproducir los resultados necesarios para contestar las siguientes preguntas:\n\nUsando la glucosa como variable dependiente (respuesta) y la actividad fisica como la variable explicatoria. Estime una regresión lineal e interprete el coeficiente. ¿Que significan en palabras?. Escriba la ecuacion de regresión con los coeficientes estimados.\nA un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a actividad fisica al menos 3 veces por semana es igual a cero. ¿Qué concluye?\nCual es la media estimada de la glucosa para la población que no realiza actividad fisica.\nConstruya un intervalo de confianza al 95% para la media en la glucosa de quienes realizan actividad fisica.\n¿El modelo ajustado parece ajustar a los datos observados?. comente e interprete el coeficiente de determinación, la tasa de error de las predicciones y los gráficos de diagnostico. Interprete cada uno de ellos.",
+    "text": "Taller 1: Regresion Lineal Simple\n\nCon covariable continua\n\nConstruya un grafico de dispersión de presion artetial sistolica y edad gestacional. Sugiere el grafico acerca de la naturaleza de la relación entre las variables (haga una breve interpretacion del grafico).\nUsando la la presion arterial sistolica como variable dependiente (respuesta) y la edad gestacional como la variable explicatoria. Estime una regresion lineal e interprete los coeficientes. ¿Que significan en palabras?.\nA un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a edad gestacional es igual a cero. ¿Qué concluye?\nCual es la media estimada de la presión arterial para la población de recien nacidos con bajo peso en quienes la edad gestacional es 31 semanas.\nConstruya un intervalo de confianza para la media cuando la edad gestacional es 31 semanas.\n¿El modelo ajustado parece ajustar a los datos observados?. comente e interprete el coeficiente de determinación, la tasa de error de las predicciones y los gráficos de diagnostico. Interprete cada uno de ellos.\n\n\n\nCon covariable categorica\nLos niveles de glucosa por encima de 125 mg/dL son diagnósticos de diabetes, mientras que niveles en el rango de 100 a 125 mg/dL indican un mayor riesgo de progresar hacia esta condición seria y cada vez más frecuente. Por ello, resulta de interés determinar si el ejercicio, un factor de estilo de vida modificable, podría ayudar a las personas sin diabetes a reducir sus niveles de glucosa y, de esta manera, evitar la diabetes.\nResponder de manera definitiva a esta pregunta requeriría un ensayo clínico aleatorizado, lo cual constituye una tarea difícil y costosa. Como resultado, preguntas de investigación como esta suelen abordarse inicialmente con datos observacionales. Sin embargo, esto se complica por el hecho de que las personas que hacen ejercicio difieren en muchos aspectos de aquellas que no lo hacen, y algunas de esas diferencias podrían explicar cualquier asociación no ajustada entre el ejercicio y el nivel de glucosa.\nPara los siguientes puntos se usara los datos del estudio HERS que se puede descargar directamente desde R copian y pegando directamente en la consola el siguinete codigo hers &lt;- rio::import(\"https://regression.ucsf.edu/sites/g/files/tkssra16191/files/wysiwyg/home/data/hersdata.dta\") %&gt;% filter(diabetes == 0). (Debes tener conexión a internet)\nEn el archivo denominado Codigo_taller1.R 👉 Descargar Codigo_taller1.R se encuentran los códigos para reproducir los resultados necesarios para contestar las siguientes preguntas:\n\nUsando la glucosa como variable dependiente (respuesta) y la actividad física como la variable explicatoria. Estime una regresión lineal e interprete el coeficiente. ¿Que significan en palabras?. Escriba la ecuación de regresión con los coeficientes estimados.\nA un nivel de 0.05 de error alfa, contraste la hipótesis nula que el coeficiente asociado a actividad física al menos 3 veces por semana es igual a cero. ¿Qué concluye?\nCual es la media estimada de la glucosa para la población que no realiza actividad fisica.\nConstruya un intervalo de confianza al 95% para la media en la glucosa de quienes realizan actividad física.\n¿El modelo ajustado parece ajustar a los datos observados?. comente e interprete el coeficiente de determinación, la tasa de error de las predicciones y los gráficos de diagnostico. Interprete cada uno de ellos.",
     "crumbs": [
       "Regresion Lineal Simple"
     ]

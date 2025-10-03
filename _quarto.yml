@@ -22,6 +22,8 @@ website:
     contents:
      - href: index.qmd
        text: Inicio
+     - href: diapositivas/generalidades.qmd
+       text: Generalidades
      - href: rls.qmd
        text: Regresion Lineal Simple
      - href: rlm.qmd
