@@ -1,0 +1,40 @@
+---
+title: "Regresion Lineal Multiple"
+editor: source
+---
+
+## Diapositivas
+
+```{=html}
+<iframe class="slide-deck" src="/diapositivas/RLSM_2.html" height="420" width="747" style="border: 1px solid #2e3846;"></iframe>
+```
+
+## Actividad
+
+En grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento [Documento de trabajo](https://docs.google.com/document/d/14ND4Nwbb_JrdgKPnaqloWxHrYRLdm2f3u8pAUXdI2MU/edit?usp=sharing), copiando y pegando pantallazos de los resultados y sus interpretaciones.
+
+El dataset `lowbwt` que se puede descargar aca 👉 [Descargar lowbwt.rds](lowbwt.rds) contiene información para una muestra de 100 recién nacidos con bajo peso al nacer. mediciones de presión arterial sistolica son guardadas bajo el nombre de `sbp` y valores de edad gestacional bajo el nombre de `gestage`.
+
+Descargue el siguiente archivo denominado `Codigo_taller2.R` 👉 [Descargar Codigo_taller2.R](codigo_taller1.R), donde encontrara los codigos necesarios para obtener los resultados solicitados en el taller.
+
+Recuerde que en el pasado ya habian encontrado una relación significativa entre la presion arterial sistolica de neonatos con bajo peso (`sbp`)y la edad gestacional (`gestage`). En este nuevo analisis utilizaremos la variable Apgar a los 5 minutos (`apgar5`), es una variable oridnal, pero frecuentemente es tratada como continua.
+
+## Taller 2: Regresion Lineal Multiple
+
+1.  Construya un grafico de dispersión de presion artetial sistolica y apgar . ¿Parece tener una relación lineal entre las dos variables?.
+
+2.  Usando la la presion arterial sistolica como variable dependiente (respuesta), la edad gestacional y el apgar como variables explicatorias. Estime los parametros del modelo $$\hat \mu_{sbp} = \beta_0 + \beta_1 \times gestage + \beta_2 \times apgar$$
+
+-   Interprete $\hat \beta_1$, ¿qué significa en palabras?, realice lo mismo para $\hat \beta_2$
+
+3.  Cual es la media estimada de la presión arterial para la población de recien nacidos con bajo peso en quienes la edad gestacional es 31 semanas y apgar a los 5 minutos sea de 7, Interprete.
+
+4.  Construya un intervalo de confianza para la media cuando la edad gestacional es 31 semanas y el apgar es de 7. Interpretelo.
+
+5.  A un nivel de 0.05 de error alfa, contraste $H_0: \beta_2 = 0$?, ¿Qué concluye?
+
+6.  ¿El modelo ajustado parece ajustar a los datos observados?.Revise el $R^2$ ajustado comente e interprete. estime la tasa de error de las predicciones.
+
+7.  la inclusión del apgar aporta significativamente al modelo como para dejarlo en el modelo?.
+
+8.  Construya los graficos de diagnostico, hay cumplimiento de los supuestos de validez del modelo?

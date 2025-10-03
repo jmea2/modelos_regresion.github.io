@@ -1,0 +1,44 @@
+---
+title: "Modelos de Regresion para Epidemiologos"
+subtitle: "Asignatura de Bioestadistica III y  IV de Maestria en Epidemiologia"
+editor: source
+---
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(pacman)
+library(tidyverse)
+library(rio)
+```
+
+------------------------------------------------------------------------
+
+# Remoto mediado por TICS
+
+-   Bioestadistica III: Octubre 3, 4, 10, 11, 17 y 18 2025
+
+------------------------------------------------------------------------
+
+| Fecha | Dia | Hora | Tema |
+|----|----|----|----|
+| 03-10-2025 | Viernes | 2:00 pm a 7:00 pm | Regresion lineal simple |
+| 04-10-2025 | Sabado | 8:00 am a 2:00 pm | Regresion lineal simple (taller) |
+| 10-10-2025 | Viernes | 2:00 pm a 7:00 pm | Regresion logistica simple |
+| 11-10-2025 | Sabado | 8:00 am a 2:00 pm | Regresion Logistica multiple (taller de utilidades de la regresion logistica) |
+| 17-10-2025 | Viernes | 2:00 pm a 7:00 pm | Interaccion y confusion en Regresion logistica multiple |
+| 18-10-2025 | Sabado | 8:00 am a 2:00 pm | Prueba final aplicada |
+
+## Objetivos de Aprendizaje
+
+-   Aprender el modelo multivariado adecuado para el control de la interacción y confusión de variables
+-   Implementar los modelos multivariados en los análisis de factores de riesgo frente a la enfermedad
+-   Identificar los métodos adecuados para evaluar relaciones entre dos variables
+-   Determinar cuál es el mejor método de análisis cuando la variable principal de resultado es de tipo cuantitativo o categórico
+-   Analizar e interpretar las principales metodologías estadísticas en el análisis de datos.
+
+# Instructor principal
+
+![](imagenes/yo1.jpeg){style="float:right;padding: 0 0 0 10px;" fig-alt="Headshot of Daniel D. Sjoberg" width="150"}
+
+[**Jorge Mario Estrada A.**](https://jmea2.github.io) es Lic. Matemáticas y Epidemiologo de Campo (FETP), PhD. en Estadística Matemática y Aplicada en la Universidad de Granada y Maestrías en Epidemiologia y Estadistica Aplicada. Sus intereses en investigación incluyen, Implementación de métodos estadísticos para Epidemiología e investigación clinica, Epidemiologia de enfermedades infecciosas, Ciencia de datos aplicada a Salud Pública, Métodos de estimación para prevalencias bajas de enfermedades/infecciones.
+
+Apasionado por el Ciclomontañismo 🚵 (modalidad de Marathon) y tratando de incursionar en el ciclismo Gravel (Bikepacking, Carreras Gravel larga distancia).

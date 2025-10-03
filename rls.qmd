@@ -1,0 +1,54 @@
+---
+title: "Regresion Lineal Simple"
+editor: source
+---
+
+## Diapositivas
+
+```{=html}
+<iframe class="slide-deck" src="/diapositivas/RLSM.html" height="420" width="747" style="border: 1px solid #2e3846;"></iframe>
+```
+
+## Actividad
+
+En grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento 👉 [Documento de Trabajo](https://docs.google.com/document/d/1PY8HqA_WJRxLfvw7tueUCnLf6b3OXlQFvYFI7MWhcr4/edit?usp=sharing), copiando y pegando pantallazos de los resultados y sus interpretaciones.
+
+El dataset `lowbwt` que se puede descargar aca 👉 [Descargar lowbwt.rds](lowbwt.rds) contiene información para una muestra de 100 recién nacidos con bajo peso al nacer. mediciones de presión arterial sistolica son guardadas bajo el nombre de `sbp` y valores de edad gestacional bajo el nombre de `gestage`.
+
+Descargue el siguiente archivo denominado `Codigo_taller1.R` 👉 [Descargar Codigo_taller1.R](codigo_taller1.R), donde encontrara los codigos necesarios para obtener los resultados solicitados en el taller.
+
+## Taller 1: Regresion Lineal Simple
+
+### Con covariable continua
+
+1.  Construya un grafico de dispersión de presion artetial sistolica y edad gestacional. Sugiere el grafico acerca de la naturaleza de la relación entre las variables (haga una breve interpretacion del grafico).
+
+2.  Usando la la presion arterial sistolica como variable dependiente (respuesta) y la edad gestacional como la variable explicatoria. Estime una regresion lineal e interprete los coeficientes. ¿Que significan en palabras?.
+
+3.  A un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a edad gestacional es igual a cero. ¿Qué concluye?
+
+4.  Cual es la media estimada de la presión arterial para la población de recien nacidos con bajo peso en quienes la edad gestacional es 31 semanas.
+
+5.  Construya un intervalo de confianza para la media cuando la edad gestacional es 31 semanas.
+
+6.  ¿El modelo ajustado parece ajustar a los datos observados?. comente e interprete el coeficiente de determinación, la tasa de error de las predicciones y los gráficos de diagnostico. Interprete cada uno de ellos.
+
+### Con covariable categorica
+
+Los niveles de glucosa por encima de 125 mg/dL son diagnósticos de diabetes, mientras que niveles en el rango de 100 a 125 mg/dL indican un mayor riesgo de progresar hacia esta condición seria y cada vez más frecuente. Por ello, resulta de interés determinar si el ejercicio, un factor de estilo de vida modificable, podría ayudar a las personas sin diabetes a reducir sus niveles de glucosa y, de esta manera, evitar la diabetes.
+
+Responder de manera definitiva a esta pregunta requeriría un ensayo clínico aleatorizado, lo cual constituye una tarea difícil y costosa. Como resultado, preguntas de investigación como esta suelen abordarse inicialmente con datos observacionales. Sin embargo, esto se complica por el hecho de que las personas que hacen ejercicio difieren en muchos aspectos de aquellas que no lo hacen, y algunas de esas diferencias podrían explicar cualquier asociación no ajustada entre el ejercicio y el nivel de glucosa.
+
+Para los siguientes puntos se usara los datos del estudio *HERS* que se puede descargar directamente desde `R` copian y pegando directamente en la consola el siguinete codigo `hers <- rio::import("https://regression.ucsf.edu/sites/g/files/tkssra16191/files/wysiwyg/home/data/hersdata.dta") %>% filter(diabetes == 0)`.
+
+En el archivo denominado `Codigo_taller1.R` 👉 [Descargar Codigo_taller1.R](codigo_taller1.R) se encuentran los codigos para reproducir los resultados necesarios para contestar las siguientes preguntas:
+
+1.  Usando la glucosa como variable dependiente (respuesta) y la actividad fisica como la variable explicatoria. Estime una regresión lineal e interprete el coeficiente. ¿Que significan en palabras?. Escriba la ecuacion de regresión con los coeficientes estimados.
+
+2.  A un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a actividad fisica al menos 3 veces por semana es igual a cero. ¿Qué concluye?
+
+3.  Cual es la media estimada de la glucosa para la población que no realiza actividad fisica.
+
+4.  Construya un intervalo de confianza al 95% para la media en la glucosa de quienes realizan actividad fisica.
+
+5.  ¿El modelo ajustado parece ajustar a los datos observados?. comente e interprete el coeficiente de determinación, la tasa de error de las predicciones y los gráficos de diagnostico. Interprete cada uno de ellos.

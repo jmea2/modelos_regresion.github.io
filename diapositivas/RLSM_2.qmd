@@ -1,0 +1,332 @@
+---
+title: "Regresion Lineal Multiple"
+author: "Jorge Mario Estrada Alvarez PhD. MSc. FETP"
+footer:  "Bioestadistica III"
+#logo: "images/imagen-cursoR.png"
+editor: source
+format: 
+  revealjs: 
+    theme: slides.scss
+    transition: fade
+    slide-number: true
+    chalkboard: true
+execute:
+  echo: true
+  output: asis
+  freeze: auto
+cache: false
+---
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(rio)
+library(tidyverse)
+library(marginaleffects)
+library(knitr)
+coronary <- import("datasets/coronary.rds")
+```
+
+## Objetivos de aprendizaje
+
+Después de este modulo, se espera que los estudiantes sean capaces de:
+
+-   Entender el concepto de **regresión lineal simple** y **regresión lineal múltiple**
+-   Realizar un análisis de regresión lineal simple (ajustar el modelo)
+-   Realizar regresión lineal múltiple (ajuste con más de un predictor)
+-   Evaluar el **ajuste del modelo** de regresión lineal (diagnósticos, $R^2$, residuos, supuestos)
+-   Presentar e interpretar los resultados del análisis de regresión lineal (coeficientes, intervalos, significado)
+
+## Conjunto de datos: *coronary.rds* {.smaller}
+
+-   Usaremos el dataset **coronary.rds** en formato `R`. 👉 [Descargar coronary.rds](dataset/coronary.rds)\
+-   Corresponde a un **ensayo clínico hipotético** con información de características individuales, niveles de colesterol total y grupos de intervención.\
+-   Contiene **200 observaciones** y **9 variables**:
+
+| Variable | Descripción |
+|----|----|
+| **id** | Identificación del sujeto |
+| **cad** | Estado de enfermedad coronaria (categórica: *sin CAD*, *con CAD*) |
+| **sbp** | Presión arterial sistólica (mmHg, numérica) |
+| **dbp** | Presión arterial diastólica (mmHg, numérica) |
+| **chol** | Colesterol total (mmol/L, numérica) |
+| **age** | Edad en años (numérica) |
+| **bmi** | Índice de masa corporal (numérica) |
+| **race** | Raza (categórica: malayo, chino, indio) |
+| **gender** | Sexo (categórica: mujer, hombre) |
+
+## Regresión Lineal Multiple {.smaller}
+
+-   La **Regresión Lineal Multiple (RLM)** modela la relación lineal entre:
+    -   Una **variable dependiente numérica** (ej. colesterol).\
+    -   **dos o más predictores** (numéricas y categóricas).
+
+### Expresión matemática
+
+$$
+E(Y \mid X_1,X_2,X_3 \dots X_i) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \dots \beta_i X_i
+$$
+
+Donde:\
+- $E(Y \mid X_i)$: valor esperado (predicho) (promedio) de la variable dependiente dado las $X_i$.\
+- $\beta_0$: intercepto.\
+- $\beta_i$: coeficientes de cada predictor $X_i$.
+
+# Estimación de los parametros del modelo
+
+## Estimación por Máxima Verosimilitud (caso 1 covariable)
+
+-   La idea central es elegir los parámetros $\beta_i$ que **maximizan la probabilidad** de observar los datos.
+
+### Supuestos básicos
+
+-   Los errores $\varepsilon_i$ se asumen **independientes** y distribuidos:\
+    $\varepsilon_i \sim N(0, \sigma^2)$
+
+-   Entonces:\
+    $$
+    Y_i \sim N(\beta_0 + \beta_1 X_i, \, \sigma^2)
+    $$
+
+## Función de verosimilitud {.smaller}
+
+$$
+L(\beta_0, \beta_1,\dots \beta_p \sigma^2 \mid Y) 
+= \prod_{i=1}^n 
+\frac{1}{\sqrt{2\pi\sigma^2}} \exp \left( -\frac{(Y_i - \beta_0 - \beta_1 X_{i1} - \dots \beta_p X_{ip})^2}{2\sigma^2} \right)
+$$
+
+## Estimadores MLE
+
+$$
+\hat{\beta}_j : \text{ solucionan } 
+\sum_{i=1}^n X_{ik} Y_i = \sum_{j=0}^p \hat{\beta}_j \sum_{i=1}^n X_{ik}X_{ij},
+\quad k=0,\ldots,p.
+$$
+
+### Varianza del error
+
+$$
+\hat{\sigma}^2_{ML} = \frac{1}{n} \sum_{i=1}^n 
+\left( Y_i - \hat{\beta}_0 - \hat{\beta}_1 X_{i1} - \cdots - \hat{\beta}_p X_{ip} \right)^2.
+$$
+
+### Errores estándar
+
+$$
+SE(\hat{\beta}_j) = 
+\sqrt{\hat{\sigma}^2 \cdot c_{jj}}, \quad j=0,\ldots,p,
+$$
+
+## Modelo: Colesterol en funcion de la Presión arterial sistolica
+
+**Objetivo:** Se requiere predecir los valores de colesterol de pacientes cuando se conoce su presion arterial sistolica, presencia de enfermedad cardiaca, sexo, BMI y raza
+
+-   Asumimos que la relación entre las variables es lineal. (deberia validarse en el bivariado)
+
+-   Segun el modelo lineal planteado seria:
+
+$$\mu_{chol} = \beta_0 + \beta_1 \times sbp + \beta_2 \times gender + \beta_3 \times bmi + \beta_4 \times race$$
+
+Que valores asumen $\beta_i$
+
+## Ajuste del modelo
+
+```{r,results='hide'}
+modelo_multiple <- lm(data = coronary, formula = chol~sbp+gender+bmi+race)
+summary(modelo_multiple)
+```
+
+![](rml.png){width="150"}
+
+## ¿el modelo es adecuado? {.smaller}
+
+### Prueba F
+
+`F-statistic: 10.54 on 5 and 194 DF,  p-value: 5.728e-09`: el modelo es significativo, con la `las variables` se permite explicar el `colesterol`.
+
+### Error estandar residual
+
+`Residual standard error: 19.1` para saber que tan grande es: Tasa de error de predicción:
+
+```{r}
+summary(modelo_multiple)$sigma/mean(coronary$chol)*100
+```
+
+Una tasas de error de 17.1%
+
+### Coeficiente de determinacion $R^2$ y $R^2-ajustado$
+
+```{r}
+summary(modelo_multiple)$r.squared
+```
+
+```{r}
+summary(modelo_multiple)$adj.r.squared
+```
+
+El ajuste es regular, se explica el 19.3% de la variabilidad del Colesterol
+
+## Estimación de coeficientes {.smaller}
+
+```{r, results='asis'}
+summary(modelo_multiple)$coefficients %>% 
+  kable()
+```
+
+Modelo completo: $$\mu_{chol} = 97.66 + 0.29 \times sbp + 1.49 \times gender -0.83 \times bmi + 6.59 \times chino + 12.25 \times hindu$$
+
+## Interpretación de Coeficientes
+
+-   $\beta_0$ Representa la respuesta media cuando todos los predictores valen cero. Hay que ser cautos con su interpretación, porque su valor puede no tener un significado práctico.
+
+-   $\beta_1$: las pendientes (o gradientes). Representan el cambio en la respuesta media por unidad de aumento en la variable explicativa asociada, cuando todos los otros predictores se mantienen constantes. Es decir, nos dicen en qué medida cada variable explicativa afecta a la variable respuesta si aislamos los efectos de todos los demás predictores.
+
+$$\mu_{chol} = 97.66 + 0.29 \times sbp + 1.49 \times gender -0.83 \times bmi + 6.59 \times chino + 12.25 \times hindu$$
+
+## Predicciones con el modelo e inferencia
+
+Un población de sujetos tiene `sbp`$= 120$, `gender` $=$ `Mujer`, `bmi` $= 23$ `race` $=$ `hindu`
+
+```{r}
+predictions(modelo_multiple, newdata = data.frame(sbp = 120, gender = "Mujer",bmi = 23,
+                                                 race = "Hindu")) %>% 
+  select(2:9) %>% 
+   kable(digits = 2,align = "c","html")
+```
+
+```{r}
+predictions(modelo_multiple, newdata = data.frame(sbp = 180, gender = "Mujer",bmi = 23,
+                                                 race = "Hindu")) %>% 
+  select(2:9) %>% 
+   kable(digits = 2,align = "c","html")
+```
+
+## Inferencia: Coeficientes {.smaller}
+
+```{r}
+summary(modelo_multiple)$coefficients %>% 
+  kable()
+```
+
+```{r}
+confint(modelo_multiple) %>% kable()
+```
+
+## Comparación de modelo: Seleccion de variables
+
+-   Se hace necesario evaluar la contribucion de las variables que ingresan al modelo, ya que un modelo mas *parsimonioso* (menos variables) y explicando la misma variabilidad es mas deseable.
+
+-   Comparar un modelo full vs modelo reducido
+
+### Criterio de informacion de Akaike AIC {.smaller}
+
+```{r, results='hide'}
+modelo_multiple_rdc <- lm(formula = chol ~ sbp + bmi + race, data = coronary)
+```
+
+```{r}
+AIC(modelo_multiple, modelo_multiple_rdc) %>% kable()
+```
+
+## Comparación de modelo: Seleccion de variables
+
+### Prueba F Parcial
+
+La prueba F parcial evalúa si el modelo completo es significativamente mejor que el modelo reducido (Si la variable excluida contribuye significativamente)
+
+```{r}
+anova(modelo_multiple, modelo_multiple_rdc) %>% kable()
+```
+
+##  {.smaller}
+
+```{r}
+summary(modelo_multiple_rdc)$coefficients%>% kable()
+```
+
+```{r}
+summary(modelo_multiple)$coefficients%>% kable()
+```
+
+## En modelos predictivos
+
+En comparaciones multiples se hace dificil probar todos los posible modelos, sin embargo un algortimo automatico puede ayudarnos a reducir el trabajo sin perder el criterio epidemiologico:
+
+```{r, results='hide'}
+final <- step(modelo_multiple,direction = "backward")
+```
+
+```{r}
+summary(final)$coefficients %>% kable()
+```
+
+## Diagnóstico: Supuestos
+
+Determinar si el modelo representa adecuadamente a los datos.
+
+-   Supuestos básicos (acrónimo **LINE**):
+
+-   **L de Linealidad**: Los valores de (Y) se pueden expresar como una función lineal de la variable (X).
+
+-   **I de Independencia**:Los valores de (Y) (o los errores/residuos) son independientes entre sí.
+
+-   **N de Normalidad**:Para cualquier valor fijo de (X), los valores de (Y) (o los errores/residuos) se distribuyen normalmente.
+
+-   **E de Equitatividad (Homoscedasticidad)**: La variación de los valores de (Y) (o los errores/residuos) alrededor de la línea de regresión es constante.
+
+## Diagnostico con graficos (Verificación de supuestos)
+
+::::: columns
+::: {.column width="50%"}
+![](d1.png){width="500"}
+:::
+
+::: {.column width="50%"}
+![](d111.png){width="500"}
+:::
+:::::
+
+Linealidad y homocedasticidad: sin patrones Causas: modelo no lineal, falta de variables explicativas, interacción.
+
+## Diagnostico con graficos (Verificación de supuestos)
+
+::::: columns
+::: {.column width="50%"}
+![](d2.png){width="500"}
+:::
+
+::: {.column width="50%"}
+![](d222.png){width="500"}
+:::
+:::::
+
+Falta de Normalidad: Otro modelos lineales generalizados
+
+## Diagnostico con graficos (Verificación de supuestos)
+
+::::: columns
+::: {.column width="50%"}
+![](d3.png){width="500"}
+:::
+
+::: {.column width="50%"}
+![](d333.png){width="500"}
+:::
+:::::
+
+Homogeneidad de la varianza: Transformaciones
+
+## Diagnostico con graficos (Verificación de supuestos)
+
+::::: columns
+::: {.column width="50%"}
+![](d4.png){width="500"}
+:::
+
+::: {.column width="50%"}
+![](d444.png){width="500"}
+:::
+:::::
+
+Identificar valores inusuales e influyentes: Transformaciones.
+
+# Confusión e Interacción en Regresion Lineal Multiple

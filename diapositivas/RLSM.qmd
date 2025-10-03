@@ -1,0 +1,434 @@
+---
+title: "Regresion Lineal Simple"
+author: "Jorge Mario Estrada Alvarez PhD. MSc. FETP"
+footer:  "Bioestadistica III"
+#logo: "images/imagen-cursoR.png"
+editor: source
+format: 
+  revealjs: 
+    theme: slides.scss
+    transition: fade
+    slide-number: true
+    chalkboard: true
+execute:
+  echo: true
+  output: asis
+  freeze: auto
+cache: false
+---
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(rio)
+library(tidyverse)
+library(marginaleffects)
+library(knitr)
+coronary <- import("datasets/coronary.rds")
+```
+
+## Objetivos de aprendizaje
+
+Después de este modulo, se espera que los estudiantes sean capaces de:
+
+-   Entender el concepto de **regresión lineal simple** y **regresión lineal múltiple**
+-   Realizar un análisis de regresión lineal simple (ajustar el modelo)
+-   Realizar regresión lineal múltiple (ajuste con más de un predictor)
+-   Evaluar el **ajuste del modelo** de regresión lineal (diagnósticos, $R^2$, residuos, supuestos)
+-   Presentar e interpretar los resultados del análisis de regresión lineal (coeficientes, intervalos, significado)
+
+## Conjunto de datos: *coronary.rds* {.smaller}
+
+-   Usaremos el dataset **coronary.rds** en formato `R`. 👉 [Descargar coronary.rds](dataset/coronary.rds)\
+-   Corresponde a un **ensayo clínico hipotético** con información de características individuales, niveles de colesterol total y grupos de intervención.\
+-   Contiene **200 observaciones** y **9 variables**:
+
+| Variable | Descripción |
+|----|----|
+| **id** | Identificación del sujeto |
+| **cad** | Estado de enfermedad coronaria (categórica: *sin CAD*, *con CAD*) |
+| **sbp** | Presión arterial sistólica (mmHg, numérica) |
+| **dbp** | Presión arterial diastólica (mmHg, numérica) |
+| **chol** | Colesterol total (mmol/L, numérica) |
+| **age** | Edad en años (numérica) |
+| **bmi** | Índice de masa corporal (numérica) |
+| **race** | Raza (categórica: malayo, chino, indio) |
+| **gender** | Sexo (categórica: mujer, hombre) |
+
+## Introducción a la Regresión Lineal
+
+-   La regresión lineal es uno de los **análisis estadísticos más comunes** en las ciencias de la salud.
+
+-   Modela la relación lineal (recta) entre una variable resultado **numérica** (por ejemplo colesterol, presión arterial, IMC) y predictores que pueden ser numéricos o categóricos.
+
+-   En términos “coloquiales”, podríamos estar interesados en saber cómo varía (distribución) el nivel de colesterol en terminos de distintas variables.
+
+-   La regresión lineal es un caso particular del **Modelo Lineal Generalizado (GLM)**; los modelos que veremos más adelante (logístico).
+
+# Distribución de Colesterol
+
+```{r}
+ggplot2::ggplot(coronary, aes(x = chol))+
+  geom_histogram(color = "white")+
+  theme_classic()+
+  labs(x = "mg/dl")
+```
+
+# Distribución por una variable
+
+::::: columns
+::: {.column width="50%"}
+```{r}
+ggplot2::ggplot(coronary)+
+  geom_histogram(aes(x = chol, group = as.factor(cad),fill = as.factor(cad)))+
+  theme_classic()+
+  theme(text = element_text(size = 25))+
+  labs(x = "mg/dl")
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+ggplot2::ggplot(coronary, aes(x = chol, y =sbp))+
+  geom_point(size = 2)+
+  theme_classic()+
+  theme(text = element_text(size = 25))+
+  labs(x = "Colestero mg/dl", y = "Presion sistolica (mmHg)")
+```
+:::
+:::::
+
+# Relación lineal
+
+```{r}
+ggplot2::ggplot(coronary, aes(x = chol, y =sbp))+
+  geom_point(size = 2)+
+  theme_classic()+
+  theme(text = element_text(size = 25))+
+  labs(x = "Colestero mg/dl", y = "Presion sistolica (mmHg)")
+```
+
+# Relación lineal
+
+```{r}
+ggplot2::ggplot(coronary, aes(x = chol, y =sbp))+
+  geom_point(size = 2)+
+  theme_classic()+
+  theme(text = element_text(size = 25))+
+  labs(x = "Colestero mg/dl", y = "Presion sistolica (mmHg)")+
+  geom_smooth(method = lm)
+```
+
+## Regresión Lineal Simple {.smaller}
+
+-   La **Regresión Lineal Simple (RLS)** modela la relación lineal entre:
+    -   Una **variable dependiente numérica** (ej. colesterol).\
+    -   **Un único predictor** (numérico o categórico).
+-   Cuando el predictor es categórico, se puede interpretar como un **ANOVA de una vía**.
+
+### Expresión matemática
+
+$$
+E(Y \mid X) = \beta_0 + \beta_1 X
+$$
+
+Donde:\
+- $E(Y \mid X)$: valor esperado (predicho) (promedio) de la variable dependiente dado $X$.\
+- $\beta_0$: intercepto.\
+- $\beta_1$: coeficiente del predictor $X$.
+
+# Estimación de los parametros del modelo
+
+## Estimación por Máxima Verosimilitud (caso 1 covariable)
+
+-   La idea central es elegir los parámetros $\beta_0, \beta_1$ que **maximizan la probabilidad** de observar los datos.
+
+### Supuestos básicos
+
+-   Los errores $\varepsilon_i$ se asumen **independientes** y distribuidos:\
+    $\varepsilon_i \sim N(0, \sigma^2)$
+
+-   Entonces:\
+    $$
+    Y_i \sim N(\beta_0 + \beta_1 X_i, \, \sigma^2)
+    $$
+
+## Función de verosimilitud {.smaller}
+
+$$
+L(\beta_0, \beta_1, \sigma^2 \mid Y) 
+= \prod_{i=1}^n 
+\frac{1}{\sqrt{2\pi\sigma^2}} \exp \left( -\frac{(Y_i - \beta_0 - \beta_1 X_i)^2}{2\sigma^2} \right)
+$$
+
+### Estimadores MLE
+
+$$
+\hat{\beta}_1 = \frac{\sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y})}{\sum_{i=1}^n (X_i - \bar{X})^2}
+$$
+
+$$
+\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}
+$$
+
+::::: columns
+::: {.column width="50%"}
+$\widehat{\sigma}^2 = \frac{1}{n-2} \sum_{i=1}^n \left( Y_i - \hat{Y}_i \right)^2$
+:::
+
+::: {.column width="50%"}
+$SE(\hat{\beta}_1) = \sqrt{ \frac{\widehat{\sigma}^2}{\sum_{i=1}^n (X_i - \bar{X})^2} }$
+
+$SE(\hat{\beta}_0) = \sqrt{ \widehat{\sigma}^2 \left( \frac{1}{n} + \frac{\bar{X}^2}{\sum_{i=1}^n (X_i - \bar{X})^2} \right) }$
+:::
+:::::
+
+## Modelo: Colesterol en funcion de la Presión arterial sistolica
+
+**Objetivo:** Se requiere predecir los valores de colesterol de pacientes cuando se conoce su presion arterial sistolica.
+
+-   Asumimos que la relación entre las variables es lineal $r = 0.39$
+
+-   Segun el modelo lineal planteado seria:
+
+$$\mu_{chol} = \beta_0 + \beta_1 \times sbp$$
+
+Que valores asumen $\beta_0$ y $\beta_1$
+
+## Ajuste del modelo
+
+```{r,results='hide'}
+modelo_simple <- lm(data = coronary, formula = chol~sbp)
+summary(modelo_simple)
+```
+
+![](rsl.png){width="150"}
+
+## ¿el modelo es adecuado? {.smaller}
+
+### Prueba F
+
+`F-statistic: 36.52 on 1 and 198 DF,  p-value: 7.377e-09`: el modelo es significativo, con la `sbp` se permite explicar el `chol`.
+
+### Error estandar residual
+
+`Residual standard error: 19.6` para saber que tan grande es: Tasa de error de predicción:
+
+```{r}
+summary(modelo_simple)$sigma/mean(coronary$chol)*100
+```
+
+Una tasas de error de 17.6%
+
+### Coeficiente de determinacion $R^2$
+
+```{r}
+summary(modelo_simple)$r.squared
+```
+
+El ajuste es regular, se explica el 15.5% de la variabilidad del Colesterol
+
+## Estimación de coeficientes {.smaller}
+
+```{r, results='asis'}
+modelo_simple <- lm(data = coronary, formula = chol~1)
+
+summary(modelo_simple)$coefficients
+```
+
+```{r}
+mean(coronary$chol)
+```
+
+### con covariable
+
+```{r, results='asis'}
+modelo_simple <- lm(data = coronary, formula = chol~sbp)
+summary(modelo_simple)$coefficients %>% kable()
+```
+
+Modelo completo: $\mu_{chol} = 56.33 + 0.42 \times sbp$
+
+## Interpretación de Coeficientes
+
+-   $\beta_0$ es el valor medio que asumen la variable dependiente cuando la covariable toma valor cero. (unidades de la variable dependiente)
+
+-   $\beta_1$: Es el cambio en promedio que tiene la variable dependiente por unidad de cambio de la covariable.
+
+$$\mu_{chol} = 56.33 + 0.42 \times sbp$$
+
+El colesterol cambia en promedio en 0.42 mg/dl por cada mmHg de presión arterial sistolica.
+
+**Ahora si estariamos en capacidad de predecir cual es el valor medio del colesterol para un sujeto que tiene 120 mmHg de presion arterial sistolica.**
+
+## Predicciones con el modelo
+
+```{r}
+predict(modelo_simple,newdata = data.frame(sbp = 120))
+```
+
+```{r}
+predict(modelo_simple,newdata = data.frame(sbp = 180))
+```
+
+## Inferencia: Coeficientes y Predicciones
+
+### Contrastes de hipótesis
+
+-   $H_0: \beta_j = 0$
+
+-   $H_a: \beta_j \neq 0$ para $j=0,1$
+
+-   Estadístico de prueba:\
+    $$t = \frac{\hat{\beta}_j}{SE(\hat{\beta}_j)} \sim t_{n-p-1}$$
+
+### Intervalos de confianza
+
+-   A un nivel de confianza $1-\alpha$:\
+    $$
+    IC_{1-\alpha}(\beta_j) = \hat{\beta}_j \;\pm\; t_{\alpha/2, \, n-p-1} \times SE(\hat{\beta}_j)
+    $$
+
+## Inferencia: Coeficientes y Predicciones
+
+```{r}
+summary(modelo_simple)$coefficients %>% kable()
+```
+
+```{r}
+confint(modelo_simple) %>% kable()
+```
+
+## Inferencia en predicciones
+
+```{r}
+predictions(modelo_simple, newdata = data.frame(sbp = c(120,180))) %>% 
+  select(2:9) %>% 
+  kable(digits = 2,align = "c","html")
+```
+
+```{r, message=FALSE, warning=FALSE}
+avg_comparisons(modelo_simple,variables = list(sbp = c(120, 180))) %>%
+  select(3:9) %>% 
+  kable(digits = 2,align = "c","html")
+```
+
+## Diagnóstico: Supuestos
+
+Determinar si el modelo representa adecuadamente a los datos.
+
+-   Supuestos básicos (acrónimo **LINE**):
+
+-   **L de Linealidad**: Los valores de (Y) se pueden expresar como una función lineal de la variable (X).
+
+-   **I de Independencia**:Los valores de (Y) (o los errores/residuos) son independientes entre sí.
+
+-   **N de Normalidad**:Para cualquier valor fijo de (X), los valores de (Y) (o los errores/residuos) se distribuyen normalmente.
+
+-   **E de Equitatividad (Homoscedasticidad)**: La variación de los valores de (Y) (o los errores/residuos) alrededor de la línea de regresión es constante.
+
+## Diagnostico con graficos (Verificación de supuestos)
+
+::::: columns
+::: {.column width="50%"}
+![](d1.png){width="500"}
+:::
+
+::: {.column width="50%"}
+![](d11.png){width="500"}
+:::
+:::::
+
+Linealidad y homocedasticidad: sin patrones Causas: modelo no lineal, falta de variables explicativas, interacción.
+
+## Diagnostico con graficos (Verificación de supuestos)
+
+::::: columns
+::: {.column width="50%"}
+![](d2.png){width="500"}
+:::
+
+::: {.column width="50%"}
+![](d22.png){width="500"}
+:::
+:::::
+
+Falta de Normalidad: Otro modelos lineales generalizados
+
+## Diagnostico con graficos (Verificación de supuestos)
+
+::::: columns
+::: {.column width="50%"}
+![](d3.png){width="500"}
+:::
+
+::: {.column width="50%"}
+![](d33.png){width="500"}
+:::
+:::::
+
+Homogeneidad de la varianza: Transformaciones
+
+## Diagnostico con graficos (Verificación de supuestos)
+
+::::: columns
+::: {.column width="50%"}
+![](d4.png){width="500"}
+:::
+
+::: {.column width="50%"}
+![](d44.png){width="500"}
+:::
+:::::
+
+Identificar valores inusuales e influyentes: Transformaciones.
+
+## Modelo de regresión lineal simple con una covariable/predictor categorico
+
+$$E(Y \mid X) = \beta_0 + \beta_1 X$$
+
+$X$ = En el caso que sea binaria, el modelo asume codificación ($1=$ Presencia, $0=$ Ausencia)
+
+$E(Y \mid X) = \beta_0 + \beta_1 \times (1)$ indicaría el cambio en la variable dependiente ante la presencia de la condición que fue codificada como $1$.
+
+$E(Y \mid X) = \beta_0 + \beta_1 \times (0)$
+
+$E(Y \mid X) = \beta_0$ indicaría el cambio en la variable dependiente ante la ausencia de la condición que fue codificada como $0$
+
+## Modelo lineal con covariable categorica
+
+```{r}
+modelo_cat <- lm(formula = chol ~ cad, coronary)
+```
+
+![](rsl2.png){width="150"}
+
+## modelo Estimado
+
+$$E(Y \mid X) = 109.855 + 9.9 \times cad$$
+
+Donde $cad = 0,1$
+
+$\beta_1$ es el cambio o diferencia promedio que hay en los niveles de colesterol entre pacientes con y sin enfermedad cardiovascular.
+
+-   Realicemos predicción de la media de colesterol para pacientes con enfermedad
+-   Realicemos predicción de la media de colesterol para pacientes sin enfermedad
+
+## Variable categorica politomica
+
+-   Se debe representar cada categoria de la variable en el modelo, dejando como 1 la presencial de la categoria y 0 las demas (variable dummy)
+
+| $X=$ Malayo | $X=$ Chino | $X =$ Hindu |
+|:-----------:|:----------:|:-----------:|
+|      1      |     0      |      0      |
+|      0      |     1      |      0      |
+|      0      |     0      |      1      |
+
+## modelo con variable categorica politomica
+
+```{r, results='hide'}
+modelo_cat2 <- lm(formula = chol ~ race, coronary)
+summary(modelo_cat2)
+```
+
+![](rsl3.png){width="150"}
+
+# Gracias

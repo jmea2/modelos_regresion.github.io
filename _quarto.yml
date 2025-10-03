@@ -1,0 +1,40 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - "*.qmd"
+website:
+  page-navigation: true
+  title: "Modelos de Regresion para Epidemiologos"
+  description: "Pagina del Curso de Bioestadistica III y  IV para estudiantes de Maestria en Epidemiologia"
+  #site-url: "https://jmea2.github.io"
+  #favicon: "images/imagen-cursoR.png"
+  sidebar:
+    background: "#708090"
+    #logo: "images/imagen-cursoR.png"
+    pinned: true
+    align: center
+    #tools:
+      # - icon: github
+      #   href: https://github.com/ddsjoberg/clinical-reporting-gtsummary-rmed
+      #   text: GitHub
+    style: docked
+    contents:
+     - href: index.qmd
+       text: Inicio
+     - href: rls.qmd
+       text: Regresion Lineal Simple
+     - href: rlm.qmd
+       text: Regresion Lineal Multiple
+
+format:
+  html:
+    theme: [journal, theme.scss]
+    toc: true
+    code-copy: true
+    code-overflow: scroll
+    mainfont: "Atkinson Hyperlegible"
+    highlight-style: a11y
+
+
+
