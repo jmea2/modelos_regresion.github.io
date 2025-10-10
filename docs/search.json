@@ -1,5 +1,560 @@
 [
   {
+    "objectID": "diapositivas/RLSM_2.html#objetivos-de-aprendizaje",
+    "href": "diapositivas/RLSM_2.html#objetivos-de-aprendizaje",
+    "title": "Regresion Lineal Multiple",
+    "section": "Objetivos de aprendizaje",
+    "text": "Objetivos de aprendizaje\nDespués de este modulo, se espera que los estudiantes sean capaces de:\n\nEntender el concepto de regresión lineal simple y regresión lineal múltiple\nRealizar un análisis de regresión lineal simple (ajustar el modelo)\nRealizar regresión lineal múltiple (ajuste con más de un predictor)\nEvaluar el ajuste del modelo de regresión lineal (diagnósticos, \\(R^2\\), residuos, supuestos)\nPresentar e interpretar los resultados del análisis de regresión lineal (coeficientes, intervalos, significado)"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#conjunto-de-datos-coronary.rds",
+    "href": "diapositivas/RLSM_2.html#conjunto-de-datos-coronary.rds",
+    "title": "Regresion Lineal Multiple",
+    "section": "Conjunto de datos: coronary.rds",
+    "text": "Conjunto de datos: coronary.rds\n\nUsaremos el dataset coronary.rds en formato R. 👉 Descargar coronary.rds\n\nCorresponde a un ensayo clínico hipotético con información de características individuales, niveles de colesterol total y grupos de intervención.\n\nContiene 200 observaciones y 9 variables:\n\n\n\n\n\n\n\n\nVariable\nDescripción\n\n\n\n\nid\nIdentificación del sujeto\n\n\ncad\nEstado de enfermedad coronaria (categórica: sin CAD, con CAD)\n\n\nsbp\nPresión arterial sistólica (mmHg, numérica)\n\n\ndbp\nPresión arterial diastólica (mmHg, numérica)\n\n\nchol\nColesterol total (mmol/L, numérica)\n\n\nage\nEdad en años (numérica)\n\n\nbmi\nÍndice de masa corporal (numérica)\n\n\nrace\nRaza (categórica: malayo, chino, indio)\n\n\ngender\nSexo (categórica: mujer, hombre)"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#regresión-lineal-multiple",
+    "href": "diapositivas/RLSM_2.html#regresión-lineal-multiple",
+    "title": "Regresion Lineal Multiple",
+    "section": "Regresión Lineal Multiple",
+    "text": "Regresión Lineal Multiple\n\nLa Regresión Lineal Multiple (RLM) modela la relación lineal entre:\n\nUna variable dependiente numérica (ej. colesterol).\n\ndos o más predictores (numéricas y categóricas).\n\n\nExpresión matemática\n\\[\nE(Y \\mid X_1,X_2,X_3 \\dots X_i) = \\beta_0 + \\beta_1 X_1 + \\beta_2 X_2 + \\beta_3 X_3 + \\dots \\beta_i X_i\n\\]\nDonde:\n- \\(E(Y \\mid X_i)\\): valor esperado (predicho) (promedio) de la variable dependiente dado las \\(X_i\\).\n- \\(\\beta_0\\): intercepto.\n- \\(\\beta_i\\): coeficientes de cada predictor \\(X_i\\)."
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#estimación-por-máxima-verosimilitud-caso-1-covariable",
+    "href": "diapositivas/RLSM_2.html#estimación-por-máxima-verosimilitud-caso-1-covariable",
+    "title": "Regresion Lineal Multiple",
+    "section": "Estimación por Máxima Verosimilitud (caso 1 covariable)",
+    "text": "Estimación por Máxima Verosimilitud (caso 1 covariable)\n\nLa idea central es elegir los parámetros \\(\\beta_i\\) que maximizan la probabilidad de observar los datos.\n\nSupuestos básicos\n\nLos errores \\(\\varepsilon_i\\) se asumen independientes y distribuidos:\n\\(\\varepsilon_i \\sim N(0, \\sigma^2)\\)\nEntonces:\n\\[\nY_i \\sim N(\\beta_0 + \\beta_1 X_i, \\, \\sigma^2)\n\\]"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#función-de-verosimilitud",
+    "href": "diapositivas/RLSM_2.html#función-de-verosimilitud",
+    "title": "Regresion Lineal Multiple",
+    "section": "Función de verosimilitud",
+    "text": "Función de verosimilitud\n\\[\nL(\\beta_0, \\beta_1,\\dots \\beta_p \\sigma^2 \\mid Y)\n= \\prod_{i=1}^n\n\\frac{1}{\\sqrt{2\\pi\\sigma^2}} \\exp \\left( -\\frac{(Y_i - \\beta_0 - \\beta_1 X_{i1} - \\dots \\beta_p X_{ip})^2}{2\\sigma^2} \\right)\n\\]"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#estimadores-mle",
+    "href": "diapositivas/RLSM_2.html#estimadores-mle",
+    "title": "Regresion Lineal Multiple",
+    "section": "Estimadores MLE",
+    "text": "Estimadores MLE\n\\[\n\\hat{\\beta}_j : \\text{ solucionan }\n\\sum_{i=1}^n X_{ik} Y_i = \\sum_{j=0}^p \\hat{\\beta}_j \\sum_{i=1}^n X_{ik}X_{ij},\n\\quad k=0,\\ldots,p.\n\\]\nVarianza del error\n\\[\n\\hat{\\sigma}^2_{ML} = \\frac{1}{n} \\sum_{i=1}^n\n\\left( Y_i - \\hat{\\beta}_0 - \\hat{\\beta}_1 X_{i1} - \\cdots - \\hat{\\beta}_p X_{ip} \\right)^2.\n\\]\nErrores estándar\n\\[\nSE(\\hat{\\beta}_j) =\n\\sqrt{\\hat{\\sigma}^2 \\cdot c_{jj}}, \\quad j=0,\\ldots,p,\n\\]"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#modelo-colesterol-en-funcion-de-la-presión-arterial-sistolica",
+    "href": "diapositivas/RLSM_2.html#modelo-colesterol-en-funcion-de-la-presión-arterial-sistolica",
+    "title": "Regresion Lineal Multiple",
+    "section": "Modelo: Colesterol en funcion de la Presión arterial sistolica",
+    "text": "Modelo: Colesterol en funcion de la Presión arterial sistolica\nObjetivo: Se requiere predecir los valores de colesterol de pacientes cuando se conoce su presion arterial sistolica, presencia de enfermedad cardiaca, sexo, BMI y raza\n\nAsumimos que la relación entre las variables es lineal. (deberia validarse en el bivariado)\nSegun el modelo lineal planteado seria:\n\n\\[\\mu_{chol} = \\beta_0 + \\beta_1 \\times sbp + \\beta_2 \\times gender + \\beta_3 \\times bmi + \\beta_4 \\times race\\]\nQue valores asumen \\(\\beta_i\\)"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#ajuste-del-modelo",
+    "href": "diapositivas/RLSM_2.html#ajuste-del-modelo",
+    "title": "Regresion Lineal Multiple",
+    "section": "Ajuste del modelo",
+    "text": "Ajuste del modelo\n\nmodelo_multiple &lt;- lm(data = coronary, formula = chol~sbp+gender+bmi+race)\nsummary(modelo_multiple)"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#el-modelo-es-adecuado",
+    "href": "diapositivas/RLSM_2.html#el-modelo-es-adecuado",
+    "title": "Regresion Lineal Multiple",
+    "section": "¿el modelo es adecuado?",
+    "text": "¿el modelo es adecuado?\nPrueba F\nF-statistic: 10.54 on 5 and 194 DF,  p-value: 5.728e-09: el modelo es significativo, con la las variables se permite explicar el colesterol.\nError estandar residual\nResidual standard error: 19.1 para saber que tan grande es: Tasa de error de predicción:\nsummary(modelo_multiple)$sigma/mean(coronary$chol)*100\n[1] 17.14911\nUna tasas de error de 17.1%\nCoeficiente de determinacion \\(R^2\\) y \\(R^2-ajustado\\)\nsummary(modelo_multiple)$r.squared\n[1] 0.2136579\nsummary(modelo_multiple)$adj.r.squared\n[1] 0.1933913\nEl ajuste es regular, se explica el 19.3% de la variabilidad del Colesterol"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#estimación-de-coeficientes",
+    "href": "diapositivas/RLSM_2.html#estimación-de-coeficientes",
+    "title": "Regresion Lineal Multiple",
+    "section": "Estimación de coeficientes",
+    "text": "Estimación de coeficientes\nsummary(modelo_multiple)$coefficients %&gt;% \n  kable()\n\n\n\n\nEstimate\nStd. Error\nt value\nPr(&gt;|t|)\n\n\n\n\n(Intercept)\n97.6645899\n22.9492296\n4.2556806\n0.0000324\n\n\nsbp\n0.2951363\n0.0772263\n3.8217067\n0.0001784\n\n\ngenderHombre\n1.4950868\n2.7281238\n0.5480275\n0.5843031\n\n\nbmi\n-0.8339743\n0.5142786\n-1.6216390\n0.1065047\n\n\nraceChino\n6.5975186\n3.3579541\n1.9647436\n0.0508717\n\n\nraceHindu\n12.2553353\n3.6901195\n3.3211215\n0.0010712\n\n\n\nModelo completo: \\[\\mu_{chol} = 97.66 + 0.29 \\times sbp + 1.49 \\times gender -0.83 \\times bmi + 6.59 \\times chino + 12.25 \\times hindu\\]"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#interpretación-de-coeficientes",
+    "href": "diapositivas/RLSM_2.html#interpretación-de-coeficientes",
+    "title": "Regresion Lineal Multiple",
+    "section": "Interpretación de Coeficientes",
+    "text": "Interpretación de Coeficientes\n\n\\(\\beta_0\\) Representa la respuesta media cuando todos los predictores valen cero. Hay que ser cautos con su interpretación, porque su valor puede no tener un significado práctico.\n\\(\\beta_1\\): las pendientes (o gradientes). Representan el cambio en la respuesta media por unidad de aumento en la variable explicativa asociada, cuando todos los otros predictores se mantienen constantes. Es decir, nos dicen en qué medida cada variable explicativa afecta a la variable respuesta si aislamos los efectos de todos los demás predictores.\n\n\\[\\mu_{chol} = 97.66 + 0.29 \\times sbp + 1.49 \\times gender -0.83 \\times bmi + 6.59 \\times chino + 12.25 \\times hindu\\]"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#predicciones-con-el-modelo-e-inferencia",
+    "href": "diapositivas/RLSM_2.html#predicciones-con-el-modelo-e-inferencia",
+    "title": "Regresion Lineal Multiple",
+    "section": "Predicciones con el modelo e inferencia",
+    "text": "Predicciones con el modelo e inferencia\nUn población de sujetos tiene sbp\\(= 120\\), gender \\(=\\) Mujer, bmi \\(= 23\\) race \\(=\\) hindu\npredictions(modelo_multiple, newdata = data.frame(sbp = 120, gender = \"Mujer\",bmi = 23,\n                                                 race = \"Hindu\")) %&gt;% \n  select(2:9) %&gt;% \n   kable(digits = 2,align = \"c\",\"html\")\n\n\n\nestimate\nstd.error\nstatistic\np.value\ns.value\nconf.low\nconf.high\nsbp\n\n\n\n\n126.15\n8.48\n14.88\n0\n163.88\n109.53\n142.78\n120\n\n\n\n\n\npredictions(modelo_multiple, newdata = data.frame(sbp = 180, gender = \"Mujer\",bmi = 23,\n                                                 race = \"Hindu\")) %&gt;% \n  select(2:9) %&gt;% \n   kable(digits = 2,align = \"c\",\"html\")\n\n\n\nestimate\nstd.error\nstatistic\np.value\ns.value\nconf.low\nconf.high\nsbp\n\n\n\n\n143.86\n8.17\n17.62\n0\n228.31\n127.86\n159.87\n180"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#inferencia-coeficientes",
+    "href": "diapositivas/RLSM_2.html#inferencia-coeficientes",
+    "title": "Regresion Lineal Multiple",
+    "section": "Inferencia: Coeficientes",
+    "text": "Inferencia: Coeficientes\nsummary(modelo_multiple)$coefficients %&gt;% \n  kable()\n\n\n\n\nEstimate\nStd. Error\nt value\nPr(&gt;|t|)\n\n\n\n\n(Intercept)\n97.6645899\n22.9492296\n4.2556806\n0.0000324\n\n\nsbp\n0.2951363\n0.0772263\n3.8217067\n0.0001784\n\n\ngenderHombre\n1.4950868\n2.7281238\n0.5480275\n0.5843031\n\n\nbmi\n-0.8339743\n0.5142786\n-1.6216390\n0.1065047\n\n\nraceChino\n6.5975186\n3.3579541\n1.9647436\n0.0508717\n\n\nraceHindu\n12.2553353\n3.6901195\n3.3211215\n0.0010712\n\n\n\nconfint(modelo_multiple) %&gt;% kable()\n\n\n\n\n2.5 %\n97.5 %\n\n\n\n\n(Intercept)\n52.4025696\n142.9266103\n\n\nsbp\n0.1428253\n0.4474472\n\n\ngenderHombre\n-3.8855032\n6.8756768\n\n\nbmi\n-1.8482694\n0.1803208\n\n\nraceChino\n-0.0252651\n13.2203024\n\n\nraceHindu\n4.9774324\n19.5332382"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#comparación-de-modelo-seleccion-de-variables",
+    "href": "diapositivas/RLSM_2.html#comparación-de-modelo-seleccion-de-variables",
+    "title": "Regresion Lineal Multiple",
+    "section": "Comparación de modelo: Seleccion de variables",
+    "text": "Comparación de modelo: Seleccion de variables\n\nSe hace necesario evaluar la contribucion de las variables que ingresan al modelo, ya que un modelo mas parsimonioso (menos variables) y explicando la misma variabilidad es mas deseable.\nComparar un modelo full vs modelo reducido\n\nCriterio de informacion de Akaike AIC\n\nmodelo_multiple_rdc &lt;- lm(formula = chol ~ sbp + bmi + race, data = coronary)\n\nAIC(modelo_multiple, modelo_multiple_rdc) %&gt;% kable()\n\n\n\n\ndf\nAIC\n\n\n\n\nmodelo_multiple\n7\n1756.068\n\n\nmodelo_multiple_rdc\n6\n1754.378"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#comparación-de-modelo-seleccion-de-variables-1",
+    "href": "diapositivas/RLSM_2.html#comparación-de-modelo-seleccion-de-variables-1",
+    "title": "Regresion Lineal Multiple",
+    "section": "Comparación de modelo: Seleccion de variables",
+    "text": "Comparación de modelo: Seleccion de variables\nPrueba F Parcial\nLa prueba F parcial evalúa si el modelo completo es significativamente mejor que el modelo reducido (Si la variable excluida contribuye significativamente)\nanova(modelo_multiple, modelo_multiple_rdc) %&gt;% kable()\n\n\n\nRes.Df\nRSS\nDf\nSum of Sq\nF\nPr(&gt;F)\n\n\n\n\n194\n71024.56\nNA\nNA\nNA\nNA\n\n\n195\n71134.51\n-1\n-109.9541\n0.3003341\n0.5843031"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#section",
+    "href": "diapositivas/RLSM_2.html#section",
+    "title": "Regresion Lineal Multiple",
+    "section": "",
+    "text": "summary(modelo_multiple_rdc)$coefficients%&gt;% kable()\n\n\n\n\nEstimate\nStd. Error\nt value\nPr(&gt;|t|)\n\n\n\n\n(Intercept)\n99.3172356\n22.7093829\n4.373401\n0.0000199\n\n\nsbp\n0.2933061\n0.0770155\n3.808402\n0.0001873\n\n\nbmi\n-0.8540871\n0.5120464\n-1.667988\n0.0969231\n\n\nraceChino\n6.6566350\n3.3501945\n1.986940\n0.0483291\n\n\nraceHindu\n12.4693861\n3.6628016\n3.404330\n0.0008051\n\n\n\nsummary(modelo_multiple)$coefficients%&gt;% kable()\n\n\n\n\nEstimate\nStd. Error\nt value\nPr(&gt;|t|)\n\n\n\n\n(Intercept)\n97.6645899\n22.9492296\n4.2556806\n0.0000324\n\n\nsbp\n0.2951363\n0.0772263\n3.8217067\n0.0001784\n\n\ngenderHombre\n1.4950868\n2.7281238\n0.5480275\n0.5843031\n\n\nbmi\n-0.8339743\n0.5142786\n-1.6216390\n0.1065047\n\n\nraceChino\n6.5975186\n3.3579541\n1.9647436\n0.0508717\n\n\nraceHindu\n12.2553353\n3.6901195\n3.3211215\n0.0010712"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#en-modelos-predictivos",
+    "href": "diapositivas/RLSM_2.html#en-modelos-predictivos",
+    "title": "Regresion Lineal Multiple",
+    "section": "En modelos predictivos",
+    "text": "En modelos predictivos\nEn comparaciones multiples se hace dificil probar todos los posible modelos, sin embargo un algortimo automatico puede ayudarnos a reducir el trabajo sin perder el criterio epidemiologico:\n\nfinal &lt;- step(modelo_multiple,direction = \"backward\")\n\nsummary(final)$coefficients %&gt;% kable()\n\n\n\n\nEstimate\nStd. Error\nt value\nPr(&gt;|t|)\n\n\n\n\n(Intercept)\n99.3172356\n22.7093829\n4.373401\n0.0000199\n\n\nsbp\n0.2933061\n0.0770155\n3.808402\n0.0001873\n\n\nbmi\n-0.8540871\n0.5120464\n-1.667988\n0.0969231\n\n\nraceChino\n6.6566350\n3.3501945\n1.986940\n0.0483291\n\n\nraceHindu\n12.4693861\n3.6628016\n3.404330\n0.0008051"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#diagnóstico-supuestos",
+    "href": "diapositivas/RLSM_2.html#diagnóstico-supuestos",
+    "title": "Regresion Lineal Multiple",
+    "section": "Diagnóstico: Supuestos",
+    "text": "Diagnóstico: Supuestos\nDeterminar si el modelo representa adecuadamente a los datos.\n\nSupuestos básicos (acrónimo LINE):\nL de Linealidad: Los valores de (Y) se pueden expresar como una función lineal de la variable (X).\nI de Independencia:Los valores de (Y) (o los errores/residuos) son independientes entre sí.\nN de Normalidad:Para cualquier valor fijo de (X), los valores de (Y) (o los errores/residuos) se distribuyen normalmente.\nE de Equitatividad (Homoscedasticidad): La variación de los valores de (Y) (o los errores/residuos) alrededor de la línea de regresión es constante."
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#diagnostico-con-graficos-verificación-de-supuestos",
+    "href": "diapositivas/RLSM_2.html#diagnostico-con-graficos-verificación-de-supuestos",
+    "title": "Regresion Lineal Multiple",
+    "section": "Diagnostico con graficos (Verificación de supuestos)",
+    "text": "Diagnostico con graficos (Verificación de supuestos)\n\n\n\n\n\n\nLinealidad y homocedasticidad: sin patrones Causas: modelo no lineal, falta de variables explicativas, interacción."
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#diagnostico-con-graficos-verificación-de-supuestos-1",
+    "href": "diapositivas/RLSM_2.html#diagnostico-con-graficos-verificación-de-supuestos-1",
+    "title": "Regresion Lineal Multiple",
+    "section": "Diagnostico con graficos (Verificación de supuestos)",
+    "text": "Diagnostico con graficos (Verificación de supuestos)\n\n\n\n\n\n\nFalta de Normalidad: Otro modelos lineales generalizados"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#diagnostico-con-graficos-verificación-de-supuestos-2",
+    "href": "diapositivas/RLSM_2.html#diagnostico-con-graficos-verificación-de-supuestos-2",
+    "title": "Regresion Lineal Multiple",
+    "section": "Diagnostico con graficos (Verificación de supuestos)",
+    "text": "Diagnostico con graficos (Verificación de supuestos)\n\n\n\n\n\n\nHomogeneidad de la varianza: Transformaciones"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#diagnostico-con-graficos-verificación-de-supuestos-3",
+    "href": "diapositivas/RLSM_2.html#diagnostico-con-graficos-verificación-de-supuestos-3",
+    "title": "Regresion Lineal Multiple",
+    "section": "Diagnostico con graficos (Verificación de supuestos)",
+    "text": "Diagnostico con graficos (Verificación de supuestos)\n\n\n\n\n\n\nIdentificar valores inusuales e influyentes: Transformaciones."
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#confusión",
+    "href": "diapositivas/RLSM_2.html#confusión",
+    "title": "Regresion Lineal Multiple",
+    "section": "Confusión",
+    "text": "Confusión\n\nDefinición: Es un efecto sesgado o no real entre una exposición y un desenlace, que ocurre como consecuencia de una variable o unas variables confusoras.\nAlgunas variables pueden ser controladas al inicio del estudio (criterios de inclusión).\nSe presentan comúnmente en estudios observacionales.\nSon declarados en el diseño y medidos sin error"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#confusión-1",
+    "href": "diapositivas/RLSM_2.html#confusión-1",
+    "title": "Regresion Lineal Multiple",
+    "section": "Confusión",
+    "text": "Confusión\n\\[E(Y/X) = \\beta_0 + \\beta_1X_1\\]\nPara dos distinto valores \\(X_1\\), \\(A\\) para poblaciones expuestas \\(Y_1\\) y \\(B\\) para no expuestos \\(Y_0\\) la diferencia es representada por:\n\\[E(Y_1)-E(Y_0)= \\beta_0 + \\beta_1A - \\beta_0 - \\beta_1B \\\\= \\beta_1(A-B)\\]\nahora si tenemos en cuenta a \\(X_2\\) en la relacion de \\(Y\\) y \\(X_1\\)\n\\[E(Y/X_1,X_2) = \\beta_0 + \\beta_1X_1 + \\beta_2X_2\\]\nPara valores de \\(X_2\\) distintos \\((C,D)\\) entre expuestos y no expuestos:\n\\[E(Y_1)-E(Y_0)= \\beta_0 + \\beta_1A + \\beta_2C - \\beta_0 - \\beta_1B - \\beta_2D \\\\= \\beta_1(A-B) + \\beta_2(C-D)\\]"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#evidenciemos-los-efectos-del-confusor-modelo-explicativo",
+    "href": "diapositivas/RLSM_2.html#evidenciemos-los-efectos-del-confusor-modelo-explicativo",
+    "title": "Regresion Lineal Multiple",
+    "section": "Evidenciemos los efectos del confusor (modelo explicativo)",
+    "text": "Evidenciemos los efectos del confusor (modelo explicativo)\n\n\n\n\n\nEstimate\nStd. Error\nt value\nPr(&gt;|t|)\n\n\n\n\n(Intercept)\n53.91\n8.86\n6.09\n0\n\n\ndbp\n0.70\n0.11\n6.59\n0"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#etnia-hindu-como-posible-confusor",
+    "href": "diapositivas/RLSM_2.html#etnia-hindu-como-posible-confusor",
+    "title": "Regresion Lineal Multiple",
+    "section": "Etnia Hindu como posible confusor",
+    "text": "Etnia Hindu como posible confusor\nRelación entre raza hindu y presion diastolica\nWelch Two Sample t-test data:  dbp by raza t = -3.96, df = 103.83, p-value = 0.0001376\nmean in group 0 mean in group 1\n79.80         87.76\nRelación entre raza hindu y Colesterol\nWelch Two Sample t-test data:  chol by raza t = -4.3482, df = 104.53, p-value = 0.000003197\nmean in group 0 mean in group 1\n107.07            121.35"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#ajustemos-un-modelo-incluyendo-a-raza",
+    "href": "diapositivas/RLSM_2.html#ajustemos-un-modelo-incluyendo-a-raza",
+    "title": "Regresion Lineal Multiple",
+    "section": "Ajustemos un modelo incluyendo a raza",
+    "text": "Ajustemos un modelo incluyendo a raza\n\n\n\n\nEstimate\nStd. Error\nt value\nPr(&gt;|t|)\n\n\n\n\n(Intercept)\n53.91\n8.86\n6.09\n0\n\n\ndbp\n0.70\n0.11\n6.59\n0\n\n\n\n\n\n\n\n\n\nEstimate\nStd. Error\nt value\nPr(&gt;|t|)\n\n\n\n\n(Intercept)\n59.03\n8.81\n6.70\n0\n\n\ndbp\n0.60\n0.11\n5.55\n0\n\n\nraza\n9.48\n3.01\n3.15\n0"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#interacción",
+    "href": "diapositivas/RLSM_2.html#interacción",
+    "title": "Regresion Lineal Multiple",
+    "section": "Interacción",
+    "text": "Interacción\n\nDefinición: El efecto de una exposición sobre el desenlace varia en función de otra covariable. (heterogeneidad de efectos o modificación de efectos).\n\nEn resumen es evaluar el efecto de una exposición separadamente para los niveles (valores) de otras covariables incluidas en el modelo.\nHasta ahora en Confusión:\nEl efecto de un predictor es independiente de otros en efectos principales.\nEn adelante en Interacción:\nEl efecto de una exposición depende de los valores de otra covariable."
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#modelo-para-evaluar-interacción-i",
+    "href": "diapositivas/RLSM_2.html#modelo-para-evaluar-interacción-i",
+    "title": "Regresion Lineal Multiple",
+    "section": "Modelo para evaluar interacción I",
+    "text": "Modelo para evaluar interacción I\nasumiendo que \\(X_1\\) es la exposición de interés:\n\\[E(Y/X_1,X_2)=\\beta_0+\\beta_1X_1+\\beta_2X_2+\\beta_3X_1X_2\\]\nSe puede re-agrupar:\n\\[E(Y/X_1,X_2)=\\beta_0+\\beta_1X_1+\\beta_2X_2+\\beta_3X_1X_2\\]\n\\[Y=\\beta_0+\\beta_2X_2+\\left(\\beta_1+\\beta_3X_2\\right)X_1\\]\n\\((\\beta_1+\\beta_3X_2)\\) es el efecto de \\(X_1\\) en \\(Y\\) cuando \\(X_2 \\neq 0\\)\n\\(\\beta_1\\) cuando \\(X_2=0\\)."
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#modelo-para-evaluar-interacción-ii",
+    "href": "diapositivas/RLSM_2.html#modelo-para-evaluar-interacción-ii",
+    "title": "Regresion Lineal Multiple",
+    "section": "Modelo para evaluar interacción II",
+    "text": "Modelo para evaluar interacción II\nasumiendo que \\(X_2\\) es la exposición de interés:\n\\[E(Y/X_1,X_2)=\\beta_0+\\beta_1X_1+\\beta_2X_2+\\beta_3X_1X_2\\]\nSe puede re-agrupar:\n\\[Y=\\beta_0+\\beta_1X_1+\\left(\\beta_2+\\beta_3X_1\\right)X_2\\]\n\\((\\beta_2+\\beta_3X_2)\\) es el efecto de \\(X_2\\) en \\(Y\\) cuando \\(X_1 \\neq 0\\)\n\\(\\beta_2\\) cuando \\(X_1=0\\)."
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#ejemplo-interacción-con-categorica",
+    "href": "diapositivas/RLSM_2.html#ejemplo-interacción-con-categorica",
+    "title": "Regresion Lineal Multiple",
+    "section": "ejemplo: Interacción con categorica",
+    "text": "ejemplo: Interacción con categorica\nmodelo_inter &lt;- glm(LDL1 ~ HT + statins + HT:statins, data = hers)\nsummary(modelo_inter)$coefficients %&gt;% kable()\n\n\n\n\n\n\n\n\n\n\n\nEstimate\nStd. Error\nt value\nPr(&gt;|t|)\n\n\n\n\n(Intercept)\n145.156724\n1.325549\n109.506863\n0.0000000\n\n\nHThormone therapy\n-17.728360\n1.870629\n-9.477219\n0.0000000\n\n\nstatinsyes\n-13.809124\n2.152130\n-6.416491\n0.0000000\n\n\nHThormone therapy:statinsyes\n6.244416\n3.076489\n2.029721\n0.0424863\n\n\n\n\\[ LDL = 145.15 -17.72HT - 13.80statins + 6.24HTstatins\\]\navg_comparisons(modelo_inter, variables = \"HT\", by = \"statins\") %&gt;%  \nselect(1:6)%&gt;%\n  kable()\n\n\n\n\n\n\n\n\n\n\n\nterm\ncontrast\nstatins\nestimate\nstd.error\nstatistic\n\n\n\n\nHT\nhormone therapy - placebo\nno\n-17.72836\n1.870629\n-9.477219\n\n\nHT\nhormone therapy - placebo\nyes\n-11.48394\n2.442444\n-4.701824"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#graficamente-la-interacción",
+    "href": "diapositivas/RLSM_2.html#graficamente-la-interacción",
+    "title": "Regresion Lineal Multiple",
+    "section": "Graficamente la interacción:",
+    "text": "Graficamente la interacción:"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#ejemplo-interacción-continua",
+    "href": "diapositivas/RLSM_2.html#ejemplo-interacción-continua",
+    "title": "Regresion Lineal Multiple",
+    "section": "Ejemplo: Interacción Continua",
+    "text": "Ejemplo: Interacción Continua\nmodelo_inter2 &lt;- glm(LDL1 ~ statins + BMI + statins:BMI, data = hers)\nsummary(modelo_inter2)$coefficients %&gt;% kable()\n\n\n\n\n\n\n\n\n\n\n\nEstimate\nStd. Error\nt value\nPr(&gt;|t|)\n\n\n\n\n(Intercept)\n122.1451382\n5.0146274\n24.357769\n0.0000000\n\n\nstatinsyes\n10.0822853\n8.4339549\n1.195440\n0.2320243\n\n\nBMI\n0.4919387\n0.1719634\n2.860717\n0.0042606\n\n\nstatinsyes:BMI\n-0.7146756\n0.2903733\n-2.461230\n0.0139107\n\n\n\n\\[ LDL = 122.14 + 10.08statins + 0.49BMI - 0.71statins*BMI\\]\ncomparisons(modelo_inter2, variables = \"statins\", newdata = datagrid(BMI = range)) %&gt;% select(1:6) %&gt;% kable()\n\n\n\nrowid\nterm\ncontrast\nestimate\nstd.error\nstatistic\n\n\n\n\n1\nstatins\nyes - no\n-0.988039\n4.100950\n-0.2409293\n\n\n2\nstatins\nyes - no\n-28.603103\n7.595175\n-3.7659573"
+  },
+  {
+    "objectID": "diapositivas/RLSM_2.html#graficamente-la-interacción-1",
+    "href": "diapositivas/RLSM_2.html#graficamente-la-interacción-1",
+    "title": "Regresion Lineal Multiple",
+    "section": "Graficamente la interacción:",
+    "text": "Graficamente la interacción:"
+  },
+  {
+    "objectID": "diapositivas/rlgs.html#conjunto-de-datos-stroke.rds",
+    "href": "diapositivas/rlgs.html#conjunto-de-datos-stroke.rds",
+    "title": "Regresión Logistica Simple",
+    "section": "Conjunto de datos: stroke.rds",
+    "text": "Conjunto de datos: stroke.rds\n\nUsaremos el dataset stroke.rds en formato R. 👉 Descargar stroke.rds\n\nContiene 226 observaciones y 7 variables:\n\n\n\n\n\n\n\n\nVariable\nDescripción\n\n\n\n\nstatus\nEstado del paciente durante la hospitalización ( 0 vivo / 1 fallecido)\n\n\ngcs\nEscala de Glasgow al ingreso (3–15)\n\n\nstroke_type\nTipo de ictus (IS = isquémico; HS = hemorrágico)\n\n\nsex\nSexo biológico (1 femenino / 0masculino)\n\n\ndm\nHistoria de diabetes (sí / no)\n\n\nsbp\nPresión arterial sistólica (mmHg)\n\n\nage\nEdad al ingreso (años)"
+  },
+  {
+    "objectID": "diapositivas/rlgs.html#introducción-a-la-regresión-logistica",
+    "href": "diapositivas/rlgs.html#introducción-a-la-regresión-logistica",
+    "title": "Regresión Logistica Simple",
+    "section": "Introducción a la Regresión Logistica",
+    "text": "Introducción a la Regresión Logistica\n\nLa regresión logistica es uno de los análisis estadísticos más comunes en epidemiologia.\nModela la relación lineal entre una variable resultado categorica binaria (por ejemplo estado de infección, estado vital, complicaciones) y predictores que pueden ser numéricos o categóricos.\nLa regresión logística es un caso particular del Modelo Lineal Generalizado (GLM)."
+  },
+  {
+    "objectID": "diapositivas/rlgs.html#regresión-logistica-simple",
+    "href": "diapositivas/rlgs.html#regresión-logistica-simple",
+    "title": "Regresión Logistica Simple",
+    "section": "Regresión Logistica Simple",
+    "text": "Regresión Logistica Simple\n\nLa Regresión Logistica Simple modela la relación lineal entre:\n\nUna variable dependiente categorica (ej. Status).\n\nUn único predictor (numérico o categórico).\n\nCuando el predictor es categórico, se puede interpretar como un prueba de chi-cuadrado.\n\nExpresión matemática\n\\[E(Y \\mid X) = \\beta_0 + \\beta_1 X\\] \\(E(Y) = P(Y)\\) Recordar que \\(Y = [0,1]\\) si se asume asi los valores de \\(Y\\) estimados por el modelo lineal simple siempre los valores estimados de \\(Y\\) se salen de \\(0\\) o de \\(1\\)."
+  },
+  {
+    "objectID": "diapositivas/rlgs.html#modelo-enlace-y-probabilidades",
+    "href": "diapositivas/rlgs.html#modelo-enlace-y-probabilidades",
+    "title": "Regresión Logistica Simple",
+    "section": "Modelo, enlace y probabilidades",
+    "text": "Modelo, enlace y probabilidades\n\\[Odds = \\frac{P(Y)}{1-P(Y)}\\] el logaritmo de Odds \\(Log(odds)\\) si es lineal en terminos de una covariable, y se llama el logit.\n\\[\n\\log(\\frac{P(Y/X)}{1-P(Y/X)}) = \\beta_0 + \\beta_1X\n\\]\n\\[\nP(Y/X)=\\frac{1}{1+e^{-\\left(\\beta_0+\\beta_1 X\\right)}}\n\\]"
+  },
+  {
+    "objectID": "diapositivas/rlgs.html#estimación-por-máxima-verosimilitud-caso-1-covariable",
+    "href": "diapositivas/rlgs.html#estimación-por-máxima-verosimilitud-caso-1-covariable",
+    "title": "Regresión Logistica Simple",
+    "section": "Estimación por Máxima Verosimilitud (caso 1 covariable)",
+    "text": "Estimación por Máxima Verosimilitud (caso 1 covariable)\n\nLa idea central es elegir los parámetros \\(\\beta_0, \\beta_1\\) que maximizan la probabilidad de observar los datos.\n\n\\[\nL(P(\\beta_0,\\beta_1/Y,X))=\\sum_{i=1}^n\\Big[y_i(\\beta_0+\\beta_1 X_i)-\\log\\!\\big(1+e^{\\beta_0+\\beta_1 X_i}\\big)\\Big].\n\\]"
+  },
+  {
+    "objectID": "diapositivas/rlgs.html#modelo-probabilidad-de-muerte-en-funcion-del-sexo",
+    "href": "diapositivas/rlgs.html#modelo-probabilidad-de-muerte-en-funcion-del-sexo",
+    "title": "Regresión Logistica Simple",
+    "section": "Modelo: Probabilidad de muerte en funcion del sexo",
+    "text": "Modelo: Probabilidad de muerte en funcion del sexo\nObjetivo: Se requiere predecir la probabilidad de fallecer (status = 1) en pacientes cuando se conoce su sexo\n\nAsumimos que la relacóon lineal en el \\(logit(P)\\) es decir \\(\\log(\\frac{P}{1-P})\\)\nSegun el modelo lineal planteado seria:\n\n\\[\\log(\\frac{P}{1-P}) = \\beta_0 + \\beta_1 \\times sexo\\]\nQue valores asumen \\(\\beta_0\\) y \\(\\beta_1\\)"
+  },
+  {
+    "objectID": "diapositivas/rlgs.html#ajuste-del-modelo",
+    "href": "diapositivas/rlgs.html#ajuste-del-modelo",
+    "title": "Regresión Logistica Simple",
+    "section": "Ajuste del modelo",
+    "text": "Ajuste del modelo\n\nmodelo &lt;- glm(status ~ sex, \n      data = stroke, \n      family = binomial(link = 'logit'))\nsummary(modelo)"
+  },
+  {
+    "objectID": "diapositivas/rlgs.html#el-modelo-es-adecuado",
+    "href": "diapositivas/rlgs.html#el-modelo-es-adecuado",
+    "title": "Regresión Logistica Simple",
+    "section": "¿el modelo es adecuado?",
+    "text": "¿el modelo es adecuado?\nPrueba chi-cuadrado\nminimizar la perdida de informacion Deviance residual comparada con la nula.\nresiduos_log_1 &lt;- modelo$null.deviance - modelo$deviance\n#Grados de Libertad.\ngrados_log_1 &lt;- modelo$df.null - modelo$df.residual\n#p-value.\npchisq(residuos_log_1, grados_log_1,lower.tail = F)\n[1] 0.01559606"
+  },
+  {
+    "objectID": "diapositivas/rlgs.html#estimación-de-coeficientes",
+    "href": "diapositivas/rlgs.html#estimación-de-coeficientes",
+    "title": "Regresión Logistica Simple",
+    "section": "Estimación de coeficientes",
+    "text": "Estimación de coeficientes\nmodelo_null &lt;- glm(status ~ 1, \n      data = stroke, \n      family = binomial(link = 'logit'))\n\nsummary(modelo_null)$coefficients %&gt;% kable()\n\n\n\n\nEstimate\nStd. Error\nz value\nPr(&gt;|z|)\n\n\n\n\n(Intercept)\n-1.13433\n0.1550153\n-7.31754\n0\n\n\n\nmean(stroke$status)\n[1] 0.2433628\nEl coeficiente \\(-1.13433\\) segun modelo corresponde a:\n\\[\\log(odds) = -1.13433\\] \\[e^{\\log(odds)} = e^{-1.13433}\\] \\(odds = 0.3217\\) ahora devolviendonos \\(P = \\frac{odds}{1+odds}\\) entonces:\n\\[ P = \\frac{0.3217}{1+0.3217} = 0.2424\\]"
+  },
+  {
+    "objectID": "diapositivas/rlgs.html#con-covariable",
+    "href": "diapositivas/rlgs.html#con-covariable",
+    "title": "Regresión Logistica Simple",
+    "section": "con covariable",
+    "text": "con covariable\nmodelo &lt;- glm(status ~ sex, \n      data = stroke, \n      family = binomial(link = 'logit'))\nsummary(modelo)$coefficients %&gt;% kable()\n\n\n\n\nEstimate\nStd. Error\nz value\nPr(&gt;|z|)\n\n\n\n\n(Intercept)\n-0.8362480\n0.1917084\n-4.362084\n0.0000129\n\n\nsex\n-0.7856124\n0.3340625\n-2.351693\n0.0186882\n\n\n\nModelo completo: \\(\\log(odds) = -0.835 - 0.785 \\times sex\\)\n\n\nAhora vamos a la interpretación de coeficientes"
+  },
+  {
+    "objectID": "diapositivas/rlgs.html#interpretación-de-coeficientes",
+    "href": "diapositivas/rlgs.html#interpretación-de-coeficientes",
+    "title": "Regresión Logistica Simple",
+    "section": "Interpretación de Coeficientes",
+    "text": "Interpretación de Coeficientes\n\n\\(\\beta_0\\) es el valor medio que asumen la variable dependiente (\\(\\log(odds)\\)) cuando la covariable toma valor cero (en nuestro caso ser hombre).\n\n\\[\\log(odds) = -0.835 - 0.785(0) = -0.835\\]\n\\[odds_{hombre} = e^{-0.835} = 0.43\\]\n\npasadolo a probabilidad seria \\(\\frac{0.43}{1-0.43} = 0.302\\).\n\nSi recordamos la tabla de \\(2\\times 2\\)"
+  },
+  {
+    "objectID": "diapositivas/rlgs.html#interpretación-de-coeficientes-1",
+    "href": "diapositivas/rlgs.html#interpretación-de-coeficientes-1",
+    "title": "Regresión Logistica Simple",
+    "section": "Interpretación de Coeficientes",
+    "text": "Interpretación de Coeficientes\n\n\\(\\beta_1\\): para obtener interpretación de este coeficiente realizamos la siguiente comparación de resultados del modelo cuando sexo asume ser F contra M.\n\n\\[e^{\\log(odds_{mujer})} =odds_{mujer} = e^{\\beta_0 + \\beta_1(1)}\\] \\[e^{\\log(odds_{hombre})} =odds_{hombre} = e^{\\beta_0 + \\beta_1(0)}\\] \\[\\frac{odds_{mujer}}{odds_{hombre}} = \\frac{e^{\\beta_0 + \\beta_1(1)}}{e^{\\beta_0 + \\beta_1(0)}} = e^{\\beta_0 + \\beta_1(1)}e^{-\\beta_0 - \\beta_1(0)} = e^{\\beta_1}\\] ¿Se concluye entonces qué?"
+  },
+  {
+    "objectID": "diapositivas/rlgs.html#predicciones-con-el-modelo",
+    "href": "diapositivas/rlgs.html#predicciones-con-el-modelo",
+    "title": "Regresión Logistica Simple",
+    "section": "Predicciones con el modelo",
+    "text": "Predicciones con el modelo\npredict(modelo,newdata = data.frame(sex = 1),type = \"response\")\n    1 \n0.1649485\npredict(modelo,newdata = data.frame(sex = 0), type = \"response\")\n    1 \n0.3023256"
+  },
+  {
+    "objectID": "diapositivas/rlgs.html#inferencia-coeficientes-y-predicciones",
+    "href": "diapositivas/rlgs.html#inferencia-coeficientes-y-predicciones",
+    "title": "Regresión Logistica Simple",
+    "section": "Inferencia: Coeficientes y Predicciones",
+    "text": "Inferencia: Coeficientes y Predicciones\nsummary(modelo)$coefficients %&gt;% kable()\n\n\n\n\nEstimate\nStd. Error\nz value\nPr(&gt;|z|)\n\n\n\n\n(Intercept)\n-0.8362480\n0.1917084\n-4.362084\n0.0000129\n\n\nsex\n-0.7856124\n0.3340625\n-2.351693\n0.0186882\n\n\n\nexp(coefficients(modelo))\n(Intercept) sex 0.4333333 0.4558405\nexp(confint(modelo))\n            2.5 %    97.5 %\n(Intercept) 0.2944922 0.6258239 sex 0.2316497 0.8640154"
+  },
+  {
+    "objectID": "diapositivas/rlgs.html#inferencia-en-predicciones",
+    "href": "diapositivas/rlgs.html#inferencia-en-predicciones",
+    "title": "Regresión Logistica Simple",
+    "section": "Inferencia en predicciones",
+    "text": "Inferencia en predicciones\npredictions(modelo, newdata = data.frame(sex = c(1))) %&gt;% \n  kable()\n\n\n\nrowid\nestimate\np.value\ns.value\nconf.low\nconf.high\nsex\nstatus\n\n\n\n\n1\n0.1649485\n0\n28.2834\n0.1035799\n0.2524374\n1\n0"
+  },
+  {
+    "objectID": "diapositivas/rlgs.html#diagnóstico-supuestos",
+    "href": "diapositivas/rlgs.html#diagnóstico-supuestos",
+    "title": "Regresión Logistica Simple",
+    "section": "Diagnóstico: Supuestos",
+    "text": "Diagnóstico: Supuestos\nDeterminar si el modelo representa adecuadamente a los datos.\n\nL de Linealidad: Los valores de (Y) se pueden expresar como una función lineal de la variable (X).\nI de Independencia:Los valores de (Y) (o los errores/residuos) son independientes entre sí."
+  },
+  {
+    "objectID": "diapositivas/rlgs.html#diagnostico-con-graficos-verificación-de-supuestos",
+    "href": "diapositivas/rlgs.html#diagnostico-con-graficos-verificación-de-supuestos",
+    "title": "Regresión Logistica Simple",
+    "section": "Diagnostico con graficos (Verificación de supuestos)",
+    "text": "Diagnostico con graficos (Verificación de supuestos)"
+  },
+  {
+    "objectID": "diapositivas/rlgs.html#modelo-lineal-con-covariable-numerica",
+    "href": "diapositivas/rlgs.html#modelo-lineal-con-covariable-numerica",
+    "title": "Regresión Logistica Simple",
+    "section": "Modelo lineal con covariable numerica",
+    "text": "Modelo lineal con covariable numerica\nmodelo con glasglow como covariable\n\nmodelo_num &lt;- glm(formula = status ~ gcs, stroke, family = binomial(link = 'logit'))\nsummary(modelo_num)"
+  },
+  {
+    "objectID": "diapositivas/rlgs.html#modelo-estimado",
+    "href": "diapositivas/rlgs.html#modelo-estimado",
+    "title": "Regresión Logistica Simple",
+    "section": "modelo Estimado",
+    "text": "modelo Estimado\n\\[\\log(odds) = 3.29 - 0.38 \\times gcs\\]\n\\(\\beta_1\\) es el cambio promedio en \\(\\log(odds)\\) por cada punto en la escala de glasglow\nExponenciemos el coeficiente para glasglow \\(e^{-0.38} = 0.68\\)\n¿Qué significa?\nPor cada punto que aumenta el GCS, la odds de morir se multiplica por 0.68, es decir, disminuye un 32% (1 − 0.68 = 0.32).\nEquivalentemente, por cada 1 punto que disminuye el GCS, la odds de morir aumenta \\(1/0.68 ≈ 1.47\\) veces (\\(+47\\%\\))."
+  },
+  {
+    "objectID": "diapositivas/rlgs.html#diagnostico-del-modelo",
+    "href": "diapositivas/rlgs.html#diagnostico-del-modelo",
+    "title": "Regresión Logistica Simple",
+    "section": "Diagnostico del modelo",
+    "text": "Diagnostico del modelo"
+  },
+  {
+    "objectID": "diapositivas/rlgs.html#revisemos-linealidad-entre-odds-de-fallecer-y-glasglow",
+    "href": "diapositivas/rlgs.html#revisemos-linealidad-entre-odds-de-fallecer-y-glasglow",
+    "title": "Regresión Logistica Simple",
+    "section": "Revisemos linealidad entre Odds de fallecer y Glasglow",
+    "text": "Revisemos linealidad entre Odds de fallecer y Glasglow"
+  },
+  {
+    "objectID": "diapositivas/generalidades.html#utilidad-propósitos-primarios-de-los-modelos-en-epidemiología",
+    "href": "diapositivas/generalidades.html#utilidad-propósitos-primarios-de-los-modelos-en-epidemiología",
+    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
+    "section": "Utilidad: Propósitos Primarios de los Modelos en Epidemiología:",
+    "text": "Utilidad: Propósitos Primarios de los Modelos en Epidemiología:\nLa regresión puede ser una herramienta poderosa para direccionar tres preguntas relevantes:\n\nPredicción (En la era de la IA)\nAislar el efecto de una exposición/covariable\nComprender la relaciones de múltiples exposiciones hacia un efecto (confusión - interacción - mediación)",
+    "crumbs": [
+      "Generalidades"
+    ]
+  },
+  {
+    "objectID": "diapositivas/generalidades.html#modelos-de-predicción",
+    "href": "diapositivas/generalidades.html#modelos-de-predicción",
+    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
+    "section": "Modelos de Predicción",
+    "text": "Modelos de Predicción\n\nLos modelos de predicción se emplean para estimar el riesgo o efecto (o alguna otra medida epidemiológica).\nEsta estimación se basa en la información proporcionada por los predictores o covariables.\n\nEjemplo: Una ecuación puede estimar el riesgo de un ataque cardíaco durante un período de 10 años, basándose en la combinación de predictores como edad, sexo, historial familiar, presión arterial, historial de tabaquismo, peso, altura, hábitos de ejercicio e historial médico.",
+    "crumbs": [
+      "Generalidades"
+    ]
+  },
+  {
+    "objectID": "diapositivas/generalidades.html#modelos-de-explicación",
+    "href": "diapositivas/generalidades.html#modelos-de-explicación",
+    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
+    "section": "Modelos de Explicación",
+    "text": "Modelos de Explicación\n\nEstimar efecto (fuerza de asociación) de consumo cigarrillo con el cáncer gástrico bajo diferentes niveles de exposición al consumo de embutidos. En esta relación podría el consumo de embutidos actuar como confusor o modificador de efecto (Interacción).\n\nDiagramas DAG\nEstimaciones (Descriptivas) en sub-poblaciones (Mas eficientemente)\n\nAplicación de Estimación de prevalencias ajustadas en subpoblaciones (VIH)",
+    "crumbs": [
+      "Generalidades"
+    ]
+  },
+  {
+    "objectID": "diapositivas/generalidades.html#modelos-de-regresión-clasicos",
+    "href": "diapositivas/generalidades.html#modelos-de-regresión-clasicos",
+    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
+    "section": "Modelos de Regresión clasicos",
+    "text": "Modelos de Regresión clasicos\n\nUna variable dependiente (Nivel de medición)\nUna o más variables independientes (Continua, categorica dicotomica, cateogica politomica)",
+    "crumbs": [
+      "Generalidades"
+    ]
+  },
+  {
+    "objectID": "diapositivas/generalidades.html#modelos-según-la-variable-dependiente",
+    "href": "diapositivas/generalidades.html#modelos-según-la-variable-dependiente",
+    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
+    "section": "Modelos según la variable dependiente",
+    "text": "Modelos según la variable dependiente\n\n\n\n\n\n\n\nTipo de variable dependiente\nModelo estadístico\n\n\n\n\nContinua\nRegresión lineal\n\n\nBinaria (sí/no)\nRegresión logística\n\n\nConteo (número de eventos)\nRegresión de Poisson / Binomial Negativa\n\n\nTiempo hasta evento\nModelos de supervivencia (Cox, paramétricos)\n\n\nOrdinal (categorías ordenadas)\nRegresión logística ordinal\n\n\nNominal (categorías no ordenadas)\nRegresión logística multinomial",
+    "crumbs": [
+      "Generalidades"
+    ]
+  },
+  {
+    "objectID": "diapositivas/generalidades.html#ejemplos-en-epidemiología",
+    "href": "diapositivas/generalidades.html#ejemplos-en-epidemiología",
+    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
+    "section": "Ejemplos en Epidemiología",
+    "text": "Ejemplos en Epidemiología\n\n\n\n\n\n\n\n\n\nTipo de variable dependiente\nModelo\nEjemplo aplicado\n\n\n\n\nContinua\nRegresión lineal\nRelación entre presión arterial sistólica y edad en adultos\n\n\nBinaria\nRegresión logística\nProbabilidad de tener tuberculosis según contacto previo\n\n\nConteo\nRegresión de Poisson / Binomial Negativa\nNúmero de casos de dengue por barrio en un mes\n\n\nTiempo hasta evento\nModelos de supervivencia (Cox, Weibull, etc.)\nTiempo hasta la recaída de pacientes con malaria tras el tratamiento\n\n\nOrdinal\nRegresión logística ordinal\nGrado de severidad de la desnutrición infantil (leve, moderada, severa) en función de variables socioeconómicas\n\n\nNominal\nRegresión logística multinomial\nTipo de desenlace obstétrico (parto eutócico, cesárea, parto instrumental) según factores maternos",
+    "crumbs": [
+      "Generalidades"
+    ]
+  },
+  {
+    "objectID": "diapositivas/generalidades.html#los-modelos-como-representaciones-de-la-realidad",
+    "href": "diapositivas/generalidades.html#los-modelos-como-representaciones-de-la-realidad",
+    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
+    "section": "Los modelos como representaciones de la realidad",
+    "text": "Los modelos como representaciones de la realidad\n\nUn su forma mas simple un modelo estadístico es una representación matemática simplificada de un fenómeno real.\n\nEl Modelo Lineal Generalizado (GLM) se basa en expresar la variable dependiente como función lineal de las variables independientes.\n\nLa idea central es que la relación entre la variable dependiente y los predictores se asume lineal en los parámetros.",
+    "crumbs": [
+      "Generalidades"
+    ]
+  },
+  {
+    "objectID": "diapositivas/generalidades.html#expresión-matemática",
+    "href": "diapositivas/generalidades.html#expresión-matemática",
+    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
+    "section": "Expresión matemática",
+    "text": "Expresión matemática\nModelo Lineal generalizado simple\n\\[ E(Y \\mid X_1, X_2, \\ldots, X_i) = \\beta_0 + \\beta_1 X_1\\]\nDonde:\n- \\(E(Y \\mid X)\\): valor esperado de \\(Y\\) dado los predictores.\n- \\(\\beta_0\\): intercepto. (donde la linea atraviesa el Eje Y)\n- \\(\\beta_1\\): coeficiente que representan el efecto de cada variable \\(X_1\\).",
+    "crumbs": [
+      "Generalidades"
+    ]
+  },
+  {
+    "objectID": "diapositivas/generalidades.html#modelo-lineal-generalizado",
+    "href": "diapositivas/generalidades.html#modelo-lineal-generalizado",
+    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
+    "section": "Modelo Lineal generalizado",
+    "text": "Modelo Lineal generalizado\n\\[ E(Y \\mid X_1, X_2, \\ldots, X_i) = \\beta_0 + \\beta_1 X_1 + \\beta_2 X_2 + \\cdots + \\beta_i X_i\\]\nDonde:\n- \\(E(Y \\mid X)\\): valor esperado de \\(Y\\) dado los predictores.\n- \\(\\beta_0\\): intercepto.\n- \\(\\beta_j\\): coeficientes que representan el efecto de cada variable \\(X_j\\).",
+    "crumbs": [
+      "Generalidades"
+    ]
+  },
+  {
+    "objectID": "rlg_simple.html#actividad",
+    "href": "rlg_simple.html#actividad",
+    "title": "Regresión Logistica Simple",
+    "section": "Actividad",
+    "text": "Actividad\nEn grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento 👉 Documento de Trabajo.\nEl dataset coronary que se puede descargar aca 👉 Descargar coronary.rds.\nDescargue el siguiente archivo denominado Codigo_taller4.R 👉 Descargar Codigo_taller4.R, donde encontrara los códigos necesarios para obtener los resultados solicitados en el taller.",
+    "crumbs": [
+      "Regresión Logistica Simple"
+    ]
+  },
+  {
+    "objectID": "rlg_simple.html#taller-1-regresion-logistica-simple",
+    "href": "rlg_simple.html#taller-1-regresion-logistica-simple",
+    "title": "Regresión Logistica Simple",
+    "section": "Taller 1: Regresion Logistica Simple",
+    "text": "Taller 1: Regresion Logistica Simple\n\nCon covariable categorica\n\nUsando la variable cad como variable dependiente (respuesta) y el sexo como la variable explicatoria. Estime una regresion logistica e interprete los coeficientes. ¿Que significan en palabras?.\nA un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a sexo es igual a cero. ¿Qué concluye?\nCual es la interpretacion para el coeficiente de sexo ? no olvide exponenciarlo \\(e^{\\beta_1}\\)\nRealice una predicción de probabilidad de enfermedad cardiaca si se es mujer no olvide interpretar el intervalo de confianza.\n\n\n\nCon covariable numerica\n\nUsando la variable cad como variable dependiente (respuesta) y el colesterol como la variable explicatoria. Estime una regresion logistica e interprete los coeficientes. ¿Que significan en palabras?.\nA un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a colesterol es igual a cero. ¿Qué concluye?\nCual es la interpretacion para el coeficiente de colesterol ? no olvide exponenciarlo \\(e^{\\beta_1}\\)\nRealice una predicción de probabilidad de enfermedad cardiaca si se tiene un colesterol de 248 y luego con colesterol de 140. Si hace la razon de estas dos cantidades estimadas a que medida epidemiologica corresponde ? interprete.",
+    "crumbs": [
+      "Regresión Logistica Simple"
+    ]
+  },
+  {
+    "objectID": "index.html#objetivos-de-aprendizaje",
+    "href": "index.html#objetivos-de-aprendizaje",
+    "title": "Modelos de Regresion para Epidemiologos",
+    "section": "Objetivos de Aprendizaje",
+    "text": "Objetivos de Aprendizaje\n\nAprender el modelo multivariado adecuado para el control de la interacción y confusión de variables\nImplementar los modelos multivariados en los análisis de factores de riesgo frente a la enfermedad\nIdentificar los métodos adecuados para evaluar relaciones entre dos variables\nDeterminar cuál es el mejor método de análisis cuando la variable principal de resultado es de tipo cuantitativo o categórico\nAnalizar e interpretar las principales metodologías estadísticas en el análisis de datos.",
+    "crumbs": [
+      "Inicio"
+    ]
+  },
+  {
+    "objectID": "rls.html#actividad",
+    "href": "rls.html#actividad",
+    "title": "Regresion Lineal Simple",
+    "section": "Actividad",
+    "text": "Actividad\nEn grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento 👉 Documento de Trabajo, copiando y pegando pantallazos de los resultados y sus interpretaciones.\nEl dataset lowbwt que se puede descargar aca 👉 Descargar lowbwt.rds contiene información para una muestra de 100 recién nacidos con bajo peso al nacer. Mediciones de presión arterial sistolica son guardadas bajo el nombre de sbp y valores de edad gestacional bajo el nombre de gestage.\nDescargue el siguiente archivo denominado Codigo_taller1.R 👉 Descargar Codigo_taller1.R, donde encontrara los códigos necesarios para obtener los resultados solicitados en el taller.",
+    "crumbs": [
+      "Regresión Lineal Simple"
+    ]
+  },
+  {
+    "objectID": "rls.html#taller-1-regresion-lineal-simple",
+    "href": "rls.html#taller-1-regresion-lineal-simple",
+    "title": "Regresion Lineal Simple",
+    "section": "Taller 1: Regresion Lineal Simple",
+    "text": "Taller 1: Regresion Lineal Simple\n\nCon covariable continua\n\nConstruya un grafico de dispersión de presion artetial sistolica y edad gestacional. Sugiere el grafico acerca de la naturaleza de la relación entre las variables (haga una breve interpretacion del grafico).\nUsando la la presion arterial sistolica como variable dependiente (respuesta) y la edad gestacional como la variable explicatoria. Estime una regresion lineal e interprete los coeficientes. ¿Que significan en palabras?.\nA un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a edad gestacional es igual a cero. ¿Qué concluye?\nCual es la media estimada de la presión arterial para la población de recien nacidos con bajo peso en quienes la edad gestacional es 31 semanas.\nConstruya un intervalo de confianza para la media cuando la edad gestacional es 31 semanas.\n¿El modelo ajustado parece ajustar a los datos observados?. comente e interprete el coeficiente de determinación, la tasa de error de las predicciones y los gráficos de diagnostico. Interprete cada uno de ellos.\n\n\n\nCon covariable categorica\nLos niveles de glucosa por encima de 125 mg/dL son diagnósticos de diabetes, mientras que niveles en el rango de 100 a 125 mg/dL indican un mayor riesgo de progresar hacia esta condición seria y cada vez más frecuente. Por ello, resulta de interés determinar si el ejercicio, un factor de estilo de vida modificable, podría ayudar a las personas sin diabetes a reducir sus niveles de glucosa y, de esta manera, evitar la diabetes.\nResponder de manera definitiva a esta pregunta requeriría un ensayo clínico aleatorizado, lo cual constituye una tarea difícil y costosa. Como resultado, preguntas de investigación como esta suelen abordarse inicialmente con datos observacionales. Sin embargo, esto se complica por el hecho de que las personas que hacen ejercicio difieren en muchos aspectos de aquellas que no lo hacen, y algunas de esas diferencias podrían explicar cualquier asociación no ajustada entre el ejercicio y el nivel de glucosa.\nPara los siguientes puntos se usara los datos del estudio HERS que se puede descargar directamente desde R copian y pegando directamente en la consola el siguinete codigo hers &lt;- rio::import(\"https://regression.ucsf.edu/sites/g/files/tkssra16191/files/wysiwyg/home/data/hersdata.dta\") %&gt;% filter(diabetes == 0). (Debes tener conexión a internet)\nEn el archivo denominado Codigo_taller1.R 👉 Descargar Codigo_taller1.R se encuentran los códigos para reproducir los resultados necesarios para contestar las siguientes preguntas:\n\nUsando la glucosa como variable dependiente (respuesta) y la actividad física como la variable explicatoria. Estime una regresión lineal e interprete el coeficiente. ¿Que significan en palabras?. Escriba la ecuación de regresión con los coeficientes estimados.\nA un nivel de 0.05 de error alfa, contraste la hipótesis nula que el coeficiente asociado a actividad física al menos 3 veces por semana es igual a cero. ¿Qué concluye?\nCual es la media estimada de la glucosa para la población que no realiza actividad fisica.\nConstruya un intervalo de confianza al 95% para la media en la glucosa de quienes realizan actividad física.\n¿El modelo ajustado parece ajustar a los datos observados?. comente e interprete el coeficiente de determinación, la tasa de error de las predicciones y los gráficos de diagnostico. Interprete cada uno de ellos.",
+    "crumbs": [
+      "Regresión Lineal Simple"
+    ]
+  },
+  {
+    "objectID": "rlm.html#actividad",
+    "href": "rlm.html#actividad",
+    "title": "Regresion Lineal Multiple",
+    "section": "Actividad",
+    "text": "Actividad\nEn grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento Documento de trabajo, copiando y pegando pantallazos de los resultados y sus interpretaciones.\nEl dataset lowbwt que se puede descargar aca 👉 Descargar lowbwt.rds contiene información para una muestra de 100 recién nacidos con bajo peso al nacer. mediciones de presión arterial sistolica son guardadas bajo el nombre de sbp y valores de edad gestacional bajo el nombre de gestage.\nDescargue el siguiente archivo denominado Codigo_taller2.R 👉 Descargar Codigo_taller2.R, donde encontrara los codigos necesarios para obtener los resultados solicitados en el taller.\nRecuerde que en el pasado ya habian encontrado una relación significativa entre la presion arterial sistolica de neonatos con bajo peso (sbp)y la edad gestacional (gestage). En este nuevo analisis utilizaremos la variable Apgar a los 5 minutos (apgar5), es una variable oridnal, pero frecuentemente es tratada como continua.",
+    "crumbs": [
+      "Regresión Lineal Multiple"
+    ]
+  },
+  {
+    "objectID": "rlm.html#taller-2-regresion-lineal-multiple",
+    "href": "rlm.html#taller-2-regresion-lineal-multiple",
+    "title": "Regresion Lineal Multiple",
+    "section": "Taller 2: Regresion Lineal Multiple",
+    "text": "Taller 2: Regresion Lineal Multiple\n\nConstruya un grafico de dispersión de presion artetial sistolica y apgar . ¿Parece tener una relación lineal entre las dos variables?.\nUsando la presión arterial sistolica como variable dependiente (respuesta), la edad gestacional y el apgar como variables explicatorias. Estime los parametros del modelo \\[\\hat \\mu_{sbp} = \\beta_0 + \\beta_1 \\times gestage + \\beta_2 \\times apgar\\]\n\n\nInterprete \\(\\hat \\beta_1\\), ¿qué significa en palabras?, realice lo mismo para \\(\\hat \\beta_2\\)\n\n\nCual es la media estimada de la presión arterial para la población de recien nacidos con bajo peso en quienes la edad gestacional es 31 semanas y apgar a los 5 minutos sea de 7, Interprete.\nConstruya un intervalo de confianza para la media cuando la edad gestacional es 31 semanas y el apgar es de 7. Interpretelo.\nA un nivel de 0.05 de error alfa, contraste \\(H_0: \\beta_2 = 0\\)?, ¿Qué concluye?\n¿El modelo ajustado parece ajustar a los datos observados?.Revise el \\(R^2\\) ajustado comente e interprete. estime la tasa de error de las predicciones.\nla inclusión del apgar aporta significativamente al modelo como para dejarlo en el modelo?.\nConstruya los graficos de diagnostico, hay cumplimiento de los supuestos de validez del modelo?",
+    "crumbs": [
+      "Regresión Lineal Multiple"
+    ]
+  },
+  {
+    "objectID": "rlm.html#taller-3-ajuste-para-confusion-e-interacción-en-regresion-lineal-multiple",
+    "href": "rlm.html#taller-3-ajuste-para-confusion-e-interacción-en-regresion-lineal-multiple",
+    "title": "Regresion Lineal Multiple",
+    "section": "Taller 3: Ajuste para confusion e interacción en regresion lineal multiple",
+    "text": "Taller 3: Ajuste para confusion e interacción en regresion lineal multiple\nEn grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento Documento de trabajo.\nSi desea reproducir los resultados en su PC, los datos se pueden descargar aca 👉 Descargar hers.rds.\n\nConfusión\nSe esta estudiando los efectos que se puedan dar sobre los niveles de glucosa sobre un grupo de pacientes, para esto se ajusto inicialmente un modelo que estimo el principal que tiene un programa donde se recibe actividad física 3 veces a la semana, los resultados fueron los siguientes:\n\nmod_unjus &lt;- lm(formula = glucose ~ exercise, data = hers)\nsummary(mod_unjus)\n\n\nCall:\nlm(formula = glucose ~ exercise, data = hers)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-85.561 -20.561 -12.561   2.672 189.672 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) 114.5611     0.8922 128.408  &lt; 2e-16 ***\nexerciseyes  -6.2333     1.4350  -4.344 1.45e-05 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 36.73 on 2761 degrees of freedom\nMultiple R-squared:  0.006788,  Adjusted R-squared:  0.006428 \nF-statistic: 18.87 on 1 and 2761 DF,  p-value: 1.451e-05\n\nconfint(mod_unjus)\n\n                 2.5 %     97.5 %\n(Intercept) 112.811683 116.310441\nexerciseyes  -9.047117  -3.419576\n\n\nA la luz de las estimaciones:\n\nInterprete el coeficiente asociado al programa de actividad física, acompañe esta interpretación de sus respectivos intervalos de confianza al 95% y valor de p.\n\nSin embargo es de conocimiento pleno que otras variables tambien se relacionan con los niveles de glucosa en sangre, específicamente se tiene conocimiento que el indice de masa corporal que define obesidad, podria tambine jugar un papel preponderante tanto con la glucosa como el programa de actividad fisica. Dado esto se ajusta el efecto entre el progama de actividad fisica y glucosa:\n\nmod &lt;- lm(formula = glucose ~ exercise + BMI , data = hers)\nsummary(mod)\n\n\nCall:\nlm(formula = glucose ~ exercise + BMI, data = hers)\n\nResiduals:\n   Min     1Q Median     3Q    Max \n-79.18 -18.72 -10.35   3.79 192.38 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  62.4154     3.7402  16.688   &lt;2e-16 ***\nexerciseyes  -2.8932     1.4066  -2.057   0.0398 *  \nBMI           1.7794     0.1242  14.331   &lt;2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 35.46 on 2755 degrees of freedom\n  (5 observations deleted due to missingness)\nMultiple R-squared:  0.07576,   Adjusted R-squared:  0.07509 \nF-statistic: 112.9 on 2 and 2755 DF,  p-value: &lt; 2.2e-16\n\n\n\nEl efecto que tiene el programa de ejercicio cambio despues del ajuste?, si fue asi, qué dirección tomo?, cuantifique su cambio porcentual (\\(\\frac{\\beta_{crudo}-\\beta_{ajustado}}{\\beta_{crudo}}\\times100\\)). Se confirma que BMI sesgaba el efecto que tenia el programa de ejercicio sobre la glucosa?. Explique.\nAhora interprete el coeficiente ajustado del programa de actividad fisica. acompañelos de intervalos de confianza y valor de p.\n\n\nconfint(mod)\n\n                2.5 %     97.5 %\n(Intercept) 55.081469 69.7492613\nexerciseyes -5.651330 -0.1350112\nBMI          1.535926  2.0228348\n\n\n\npor ultimo asuma que evalúa por el contrario el efecto de BMI sobre la glucosa teniendo en cuenta el ajuste por pertenecer a un programa de actividad fisica. Interprete coeficiente ajustado de BMI, no olvide en su interpretación hablar de los intervalos de confianza y valores de p.\nFinalmente se ajusta el siguiente modelo explicativo sobre el efecto sobre la glucosa que tienen diversas variables. Interprete cada uno de los coeficientes, como efecto principal.\n\n\nmod_com &lt;- lm(formula = glucose ~ exercise + BMI + age + drinkany + smoking , data = hers)\nsummary(mod_com)\n\n\nCall:\nlm(formula = glucose ~ exercise + BMI + age + drinkany + smoking, \n    data = hers)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-77.533 -18.879  -9.858   4.765 192.487 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  89.7184     8.7503  10.253  &lt; 2e-16 ***\nexerciseyes  -3.5013     1.4193  -2.467  0.01369 *  \nBMI           1.6225     0.1274  12.733  &lt; 2e-16 ***\nage          -0.2843     0.1051  -2.705  0.00687 ** \ndrinkanyyes  -7.1882     1.3832  -5.197 2.17e-07 ***\nsmokingyes   -6.3218     2.0852  -3.032  0.00245 ** \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 35.24 on 2750 degrees of freedom\n  (7 observations deleted due to missingness)\nMultiple R-squared:  0.08872,   Adjusted R-squared:  0.08707 \nF-statistic: 53.55 on 5 and 2750 DF,  p-value: &lt; 2.2e-16\n\nconfint(mod_com)\n\n                 2.5 %       97.5 %\n(Intercept)  72.560556 106.87633140\nexerciseyes  -6.284288  -0.71838376\nBMI           1.372648   1.87237829\nage          -0.490288  -0.07822204\ndrinkanyyes  -9.900321  -4.47606535\nsmokingyes  -10.410451  -2.23321159\n\n\n\n\nInteracción\nSe quiere evaluar en el modelo de efectos principales del programa de actividad fisica sobre la glucosa la posibilidad de una heterogeneidad de efectos mediada por el indice de masa corporal. Para este proposito se ajusto un modelo con un termino de interacción, entre BMI y el programa de ejercicio:\n\nEscribe la ecuación del modelo con el termino de interacción:\n\n\nmod2 &lt;- lm(formula = glucose ~ exercise + BMI + exercise:BMI, data = hers)\nsummary(mod2)\n\n\nCall:\nlm(formula = glucose ~ exercise + BMI + exercise:BMI, data = hers)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-84.543 -18.890 -10.382   4.243 193.710 \n\nCoefficients:\n                Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)      67.2848     4.4908  14.983   &lt;2e-16 ***\nexerciseyes     -17.4940     7.5928  -2.304   0.0213 *  \nBMI               1.6133     0.1504  10.730   &lt;2e-16 ***\nexerciseyes:BMI   0.5211     0.2663   1.957   0.0505 .  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 35.44 on 2754 degrees of freedom\n  (5 observations deleted due to missingness)\nMultiple R-squared:  0.07705,   Adjusted R-squared:  0.07604 \nF-statistic: 76.63 on 3 and 2754 DF,  p-value: &lt; 2.2e-16\n\n\n\nDespeje de la ecuación de regresión escrita por ud, el efecto (pendiente) del programa de ejercicio para un BMI de 15.2 y para BMI 54.1, calculelo según el modelo estimado e interprételo.\nDespeje de la ecuación de regresión escrita por ud, el efecto (pendiente) del BMI para pertenecer y no al programa de ejercicio, calculelo según el modelo estimado e interprételo.\nEl siguiente grafico refuerza tiene coherencia frente al resultado calculado en el punto anterior (efecto de BMI sobre glucosa según pertenezca al programa)\n\n\nplot_predictions(mod2, by = c(\"BMI\", \"exercise\"))+\n  theme(axis.text = element_text(size = 20), axis.title = element_text(size = 20))",
+    "crumbs": [
+      "Regresión Lineal Multiple"
+    ]
+  },
+  {
     "objectID": "diapositivas/RLSM.html#objetivos-de-aprendizaje",
     "href": "diapositivas/RLSM.html#objetivos-de-aprendizaje",
     "title": "Regresion Lineal Simple",
@@ -173,299 +728,5 @@
     "title": "Regresion Lineal Simple",
     "section": "modelo con variable categorica politomica",
     "text": "modelo con variable categorica politomica\n\nmodelo_cat2 &lt;- lm(formula = chol ~ race, coronary)\nsummary(modelo_cat2)"
-  },
-  {
-    "objectID": "diapositivas/generalidades.html#utilidad-propósitos-primarios-de-los-modelos-en-epidemiología",
-    "href": "diapositivas/generalidades.html#utilidad-propósitos-primarios-de-los-modelos-en-epidemiología",
-    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
-    "section": "Utilidad: Propósitos Primarios de los Modelos en Epidemiología:",
-    "text": "Utilidad: Propósitos Primarios de los Modelos en Epidemiología:\nLa regresión puede ser una herramienta poderosa para direccionar tres preguntas relevantes:\n\nPredicción (En la era de la IA)\nAislar el efecto de una exposición/covariable\nComprender la relaciones de múltiples exposiciones hacia un efecto (confusión - interacción - mediación)",
-    "crumbs": [
-      "Generalidades"
-    ]
-  },
-  {
-    "objectID": "diapositivas/generalidades.html#modelos-de-predicción",
-    "href": "diapositivas/generalidades.html#modelos-de-predicción",
-    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
-    "section": "Modelos de Predicción",
-    "text": "Modelos de Predicción\n\nLos modelos de predicción se emplean para estimar el riesgo o efecto (o alguna otra medida epidemiológica).\nEsta estimación se basa en la información proporcionada por los predictores o covariables.\n\nEjemplo: Una ecuación puede estimar el riesgo de un ataque cardíaco durante un período de 10 años, basándose en la combinación de predictores como edad, sexo, historial familiar, presión arterial, historial de tabaquismo, peso, altura, hábitos de ejercicio e historial médico.",
-    "crumbs": [
-      "Generalidades"
-    ]
-  },
-  {
-    "objectID": "diapositivas/generalidades.html#modelos-de-explicación",
-    "href": "diapositivas/generalidades.html#modelos-de-explicación",
-    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
-    "section": "Modelos de Explicación",
-    "text": "Modelos de Explicación\n\nEstimar efecto (fuerza de asociación) de consumo cigarrillo con el cáncer gástrico bajo diferentes niveles de exposición al consumo de embutidos. En esta relación podría el consumo de embutidos actuar como confusor o modificador de efecto (Interacción).\n\nDiagramas DAG\nEstimaciones (Descriptivas) en sub-poblaciones (Mas eficientemente)\n\nAplicación de Estimación de prevalencias ajustadas en subpoblaciones (VIH)",
-    "crumbs": [
-      "Generalidades"
-    ]
-  },
-  {
-    "objectID": "diapositivas/generalidades.html#modelos-de-regresión-clasicos",
-    "href": "diapositivas/generalidades.html#modelos-de-regresión-clasicos",
-    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
-    "section": "Modelos de Regresión clasicos",
-    "text": "Modelos de Regresión clasicos\n\nUna variable dependiente (Nivel de medición)\nUna o más variables independientes (Continua, categorica dicotomica, cateogica politomica)",
-    "crumbs": [
-      "Generalidades"
-    ]
-  },
-  {
-    "objectID": "diapositivas/generalidades.html#modelos-según-la-variable-dependiente",
-    "href": "diapositivas/generalidades.html#modelos-según-la-variable-dependiente",
-    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
-    "section": "Modelos según la variable dependiente",
-    "text": "Modelos según la variable dependiente\n\n\n\n\n\n\n\nTipo de variable dependiente\nModelo estadístico\n\n\n\n\nContinua\nRegresión lineal\n\n\nBinaria (sí/no)\nRegresión logística\n\n\nConteo (número de eventos)\nRegresión de Poisson / Binomial Negativa\n\n\nTiempo hasta evento\nModelos de supervivencia (Cox, paramétricos)\n\n\nOrdinal (categorías ordenadas)\nRegresión logística ordinal\n\n\nNominal (categorías no ordenadas)\nRegresión logística multinomial",
-    "crumbs": [
-      "Generalidades"
-    ]
-  },
-  {
-    "objectID": "diapositivas/generalidades.html#ejemplos-en-epidemiología",
-    "href": "diapositivas/generalidades.html#ejemplos-en-epidemiología",
-    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
-    "section": "Ejemplos en Epidemiología",
-    "text": "Ejemplos en Epidemiología\n\n\n\n\n\n\n\n\n\nTipo de variable dependiente\nModelo\nEjemplo aplicado\n\n\n\n\nContinua\nRegresión lineal\nRelación entre presión arterial sistólica y edad en adultos\n\n\nBinaria\nRegresión logística\nProbabilidad de tener tuberculosis según contacto previo\n\n\nConteo\nRegresión de Poisson / Binomial Negativa\nNúmero de casos de dengue por barrio en un mes\n\n\nTiempo hasta evento\nModelos de supervivencia (Cox, Weibull, etc.)\nTiempo hasta la recaída de pacientes con malaria tras el tratamiento\n\n\nOrdinal\nRegresión logística ordinal\nGrado de severidad de la desnutrición infantil (leve, moderada, severa) en función de variables socioeconómicas\n\n\nNominal\nRegresión logística multinomial\nTipo de desenlace obstétrico (parto eutócico, cesárea, parto instrumental) según factores maternos",
-    "crumbs": [
-      "Generalidades"
-    ]
-  },
-  {
-    "objectID": "diapositivas/generalidades.html#los-modelos-como-representaciones-de-la-realidad",
-    "href": "diapositivas/generalidades.html#los-modelos-como-representaciones-de-la-realidad",
-    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
-    "section": "Los modelos como representaciones de la realidad",
-    "text": "Los modelos como representaciones de la realidad\n\nUn su forma mas simple un modelo estadístico es una representación matemática simplificada de un fenómeno real.\n\nEl Modelo Lineal Generalizado (GLM) se basa en expresar la variable dependiente como función lineal de las variables independientes.\n\nLa idea central es que la relación entre la variable dependiente y los predictores se asume lineal en los parámetros.",
-    "crumbs": [
-      "Generalidades"
-    ]
-  },
-  {
-    "objectID": "diapositivas/generalidades.html#expresión-matemática",
-    "href": "diapositivas/generalidades.html#expresión-matemática",
-    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
-    "section": "Expresión matemática",
-    "text": "Expresión matemática\nModelo Lineal generalizado simple\n\\[ E(Y \\mid X_1, X_2, \\ldots, X_i) = \\beta_0 + \\beta_1 X_1\\]\nDonde:\n- \\(E(Y \\mid X)\\): valor esperado de \\(Y\\) dado los predictores.\n- \\(\\beta_0\\): intercepto. (donde la linea atraviesa el Eje Y)\n- \\(\\beta_1\\): coeficiente que representan el efecto de cada variable \\(X_1\\).",
-    "crumbs": [
-      "Generalidades"
-    ]
-  },
-  {
-    "objectID": "diapositivas/generalidades.html#modelo-lineal-generalizado",
-    "href": "diapositivas/generalidades.html#modelo-lineal-generalizado",
-    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
-    "section": "Modelo Lineal generalizado",
-    "text": "Modelo Lineal generalizado\n\\[ E(Y \\mid X_1, X_2, \\ldots, X_i) = \\beta_0 + \\beta_1 X_1 + \\beta_2 X_2 + \\cdots + \\beta_i X_i\\]\nDonde:\n- \\(E(Y \\mid X)\\): valor esperado de \\(Y\\) dado los predictores.\n- \\(\\beta_0\\): intercepto.\n- \\(\\beta_j\\): coeficientes que representan el efecto de cada variable \\(X_j\\).",
-    "crumbs": [
-      "Generalidades"
-    ]
-  },
-  {
-    "objectID": "rlm.html#actividad",
-    "href": "rlm.html#actividad",
-    "title": "Regresion Lineal Multiple",
-    "section": "Actividad",
-    "text": "Actividad\nEn grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento Documento de trabajo, copiando y pegando pantallazos de los resultados y sus interpretaciones.\nEl dataset lowbwt que se puede descargar aca 👉 Descargar lowbwt.rds contiene información para una muestra de 100 recién nacidos con bajo peso al nacer. mediciones de presión arterial sistolica son guardadas bajo el nombre de sbp y valores de edad gestacional bajo el nombre de gestage.\nDescargue el siguiente archivo denominado Codigo_taller2.R 👉 Descargar Codigo_taller2.R, donde encontrara los codigos necesarios para obtener los resultados solicitados en el taller.\nRecuerde que en el pasado ya habian encontrado una relación significativa entre la presion arterial sistolica de neonatos con bajo peso (sbp)y la edad gestacional (gestage). En este nuevo analisis utilizaremos la variable Apgar a los 5 minutos (apgar5), es una variable oridnal, pero frecuentemente es tratada como continua.",
-    "crumbs": [
-      "Regresion Lineal Multiple"
-    ]
-  },
-  {
-    "objectID": "rlm.html#taller-2-regresion-lineal-multiple",
-    "href": "rlm.html#taller-2-regresion-lineal-multiple",
-    "title": "Regresion Lineal Multiple",
-    "section": "Taller 2: Regresion Lineal Multiple",
-    "text": "Taller 2: Regresion Lineal Multiple\n\nConstruya un grafico de dispersión de presion artetial sistolica y apgar . ¿Parece tener una relación lineal entre las dos variables?.\nUsando la presión arterial sistolica como variable dependiente (respuesta), la edad gestacional y el apgar como variables explicatorias. Estime los parametros del modelo \\[\\hat \\mu_{sbp} = \\beta_0 + \\beta_1 \\times gestage + \\beta_2 \\times apgar\\]\n\n\nInterprete \\(\\hat \\beta_1\\), ¿qué significa en palabras?, realice lo mismo para \\(\\hat \\beta_2\\)\n\n\nCual es la media estimada de la presión arterial para la población de recien nacidos con bajo peso en quienes la edad gestacional es 31 semanas y apgar a los 5 minutos sea de 7, Interprete.\nConstruya un intervalo de confianza para la media cuando la edad gestacional es 31 semanas y el apgar es de 7. Interpretelo.\nA un nivel de 0.05 de error alfa, contraste \\(H_0: \\beta_2 = 0\\)?, ¿Qué concluye?\n¿El modelo ajustado parece ajustar a los datos observados?.Revise el \\(R^2\\) ajustado comente e interprete. estime la tasa de error de las predicciones.\nla inclusión del apgar aporta significativamente al modelo como para dejarlo en el modelo?.\nConstruya los graficos de diagnostico, hay cumplimiento de los supuestos de validez del modelo?",
-    "crumbs": [
-      "Regresion Lineal Multiple"
-    ]
-  },
-  {
-    "objectID": "index.html#objetivos-de-aprendizaje",
-    "href": "index.html#objetivos-de-aprendizaje",
-    "title": "Modelos de Regresion para Epidemiologos",
-    "section": "Objetivos de Aprendizaje",
-    "text": "Objetivos de Aprendizaje\n\nAprender el modelo multivariado adecuado para el control de la interacción y confusión de variables\nImplementar los modelos multivariados en los análisis de factores de riesgo frente a la enfermedad\nIdentificar los métodos adecuados para evaluar relaciones entre dos variables\nDeterminar cuál es el mejor método de análisis cuando la variable principal de resultado es de tipo cuantitativo o categórico\nAnalizar e interpretar las principales metodologías estadísticas en el análisis de datos.",
-    "crumbs": [
-      "Inicio"
-    ]
-  },
-  {
-    "objectID": "rls.html#actividad",
-    "href": "rls.html#actividad",
-    "title": "Regresion Lineal Simple",
-    "section": "Actividad",
-    "text": "Actividad\nEn grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento 👉 Documento de Trabajo, copiando y pegando pantallazos de los resultados y sus interpretaciones.\nEl dataset lowbwt que se puede descargar aca 👉 Descargar lowbwt.rds contiene información para una muestra de 100 recién nacidos con bajo peso al nacer. Mediciones de presión arterial sistolica son guardadas bajo el nombre de sbp y valores de edad gestacional bajo el nombre de gestage.\nDescargue el siguiente archivo denominado Codigo_taller1.R 👉 Descargar Codigo_taller1.R, donde encontrara los códigos necesarios para obtener los resultados solicitados en el taller.",
-    "crumbs": [
-      "Regresion Lineal Simple"
-    ]
-  },
-  {
-    "objectID": "rls.html#taller-1-regresion-lineal-simple",
-    "href": "rls.html#taller-1-regresion-lineal-simple",
-    "title": "Regresion Lineal Simple",
-    "section": "Taller 1: Regresion Lineal Simple",
-    "text": "Taller 1: Regresion Lineal Simple\n\nCon covariable continua\n\nConstruya un grafico de dispersión de presion artetial sistolica y edad gestacional. Sugiere el grafico acerca de la naturaleza de la relación entre las variables (haga una breve interpretacion del grafico).\nUsando la la presion arterial sistolica como variable dependiente (respuesta) y la edad gestacional como la variable explicatoria. Estime una regresion lineal e interprete los coeficientes. ¿Que significan en palabras?.\nA un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a edad gestacional es igual a cero. ¿Qué concluye?\nCual es la media estimada de la presión arterial para la población de recien nacidos con bajo peso en quienes la edad gestacional es 31 semanas.\nConstruya un intervalo de confianza para la media cuando la edad gestacional es 31 semanas.\n¿El modelo ajustado parece ajustar a los datos observados?. comente e interprete el coeficiente de determinación, la tasa de error de las predicciones y los gráficos de diagnostico. Interprete cada uno de ellos.\n\n\n\nCon covariable categorica\nLos niveles de glucosa por encima de 125 mg/dL son diagnósticos de diabetes, mientras que niveles en el rango de 100 a 125 mg/dL indican un mayor riesgo de progresar hacia esta condición seria y cada vez más frecuente. Por ello, resulta de interés determinar si el ejercicio, un factor de estilo de vida modificable, podría ayudar a las personas sin diabetes a reducir sus niveles de glucosa y, de esta manera, evitar la diabetes.\nResponder de manera definitiva a esta pregunta requeriría un ensayo clínico aleatorizado, lo cual constituye una tarea difícil y costosa. Como resultado, preguntas de investigación como esta suelen abordarse inicialmente con datos observacionales. Sin embargo, esto se complica por el hecho de que las personas que hacen ejercicio difieren en muchos aspectos de aquellas que no lo hacen, y algunas de esas diferencias podrían explicar cualquier asociación no ajustada entre el ejercicio y el nivel de glucosa.\nPara los siguientes puntos se usara los datos del estudio HERS que se puede descargar directamente desde R copian y pegando directamente en la consola el siguinete codigo hers &lt;- rio::import(\"https://regression.ucsf.edu/sites/g/files/tkssra16191/files/wysiwyg/home/data/hersdata.dta\") %&gt;% filter(diabetes == 0). (Debes tener conexión a internet)\nEn el archivo denominado Codigo_taller1.R 👉 Descargar Codigo_taller1.R se encuentran los códigos para reproducir los resultados necesarios para contestar las siguientes preguntas:\n\nUsando la glucosa como variable dependiente (respuesta) y la actividad física como la variable explicatoria. Estime una regresión lineal e interprete el coeficiente. ¿Que significan en palabras?. Escriba la ecuación de regresión con los coeficientes estimados.\nA un nivel de 0.05 de error alfa, contraste la hipótesis nula que el coeficiente asociado a actividad física al menos 3 veces por semana es igual a cero. ¿Qué concluye?\nCual es la media estimada de la glucosa para la población que no realiza actividad fisica.\nConstruya un intervalo de confianza al 95% para la media en la glucosa de quienes realizan actividad física.\n¿El modelo ajustado parece ajustar a los datos observados?. comente e interprete el coeficiente de determinación, la tasa de error de las predicciones y los gráficos de diagnostico. Interprete cada uno de ellos.",
-    "crumbs": [
-      "Regresion Lineal Simple"
-    ]
-  },
-  {
-    "objectID": "diapositivas/RLSM_2.html#objetivos-de-aprendizaje",
-    "href": "diapositivas/RLSM_2.html#objetivos-de-aprendizaje",
-    "title": "Regresion Lineal Multiple",
-    "section": "Objetivos de aprendizaje",
-    "text": "Objetivos de aprendizaje\nDespués de este modulo, se espera que los estudiantes sean capaces de:\n\nEntender el concepto de regresión lineal simple y regresión lineal múltiple\nRealizar un análisis de regresión lineal simple (ajustar el modelo)\nRealizar regresión lineal múltiple (ajuste con más de un predictor)\nEvaluar el ajuste del modelo de regresión lineal (diagnósticos, \\(R^2\\), residuos, supuestos)\nPresentar e interpretar los resultados del análisis de regresión lineal (coeficientes, intervalos, significado)"
-  },
-  {
-    "objectID": "diapositivas/RLSM_2.html#conjunto-de-datos-coronary.rds",
-    "href": "diapositivas/RLSM_2.html#conjunto-de-datos-coronary.rds",
-    "title": "Regresion Lineal Multiple",
-    "section": "Conjunto de datos: coronary.rds",
-    "text": "Conjunto de datos: coronary.rds\n\nUsaremos el dataset coronary.rds en formato R. 👉 Descargar coronary.rds\n\nCorresponde a un ensayo clínico hipotético con información de características individuales, niveles de colesterol total y grupos de intervención.\n\nContiene 200 observaciones y 9 variables:\n\n\n\n\n\n\n\n\nVariable\nDescripción\n\n\n\n\nid\nIdentificación del sujeto\n\n\ncad\nEstado de enfermedad coronaria (categórica: sin CAD, con CAD)\n\n\nsbp\nPresión arterial sistólica (mmHg, numérica)\n\n\ndbp\nPresión arterial diastólica (mmHg, numérica)\n\n\nchol\nColesterol total (mmol/L, numérica)\n\n\nage\nEdad en años (numérica)\n\n\nbmi\nÍndice de masa corporal (numérica)\n\n\nrace\nRaza (categórica: malayo, chino, indio)\n\n\ngender\nSexo (categórica: mujer, hombre)"
-  },
-  {
-    "objectID": "diapositivas/RLSM_2.html#regresión-lineal-multiple",
-    "href": "diapositivas/RLSM_2.html#regresión-lineal-multiple",
-    "title": "Regresion Lineal Multiple",
-    "section": "Regresión Lineal Multiple",
-    "text": "Regresión Lineal Multiple\n\nLa Regresión Lineal Multiple (RLM) modela la relación lineal entre:\n\nUna variable dependiente numérica (ej. colesterol).\n\ndos o más predictores (numéricas y categóricas).\n\n\nExpresión matemática\n\\[\nE(Y \\mid X_1,X_2,X_3 \\dots X_i) = \\beta_0 + \\beta_1 X_1 + \\beta_2 X_2 + \\beta_3 X_3 + \\dots \\beta_i X_i\n\\]\nDonde:\n- \\(E(Y \\mid X_i)\\): valor esperado (predicho) (promedio) de la variable dependiente dado las \\(X_i\\).\n- \\(\\beta_0\\): intercepto.\n- \\(\\beta_i\\): coeficientes de cada predictor \\(X_i\\)."
-  },
-  {
-    "objectID": "diapositivas/RLSM_2.html#estimación-por-máxima-verosimilitud-caso-1-covariable",
-    "href": "diapositivas/RLSM_2.html#estimación-por-máxima-verosimilitud-caso-1-covariable",
-    "title": "Regresion Lineal Multiple",
-    "section": "Estimación por Máxima Verosimilitud (caso 1 covariable)",
-    "text": "Estimación por Máxima Verosimilitud (caso 1 covariable)\n\nLa idea central es elegir los parámetros \\(\\beta_i\\) que maximizan la probabilidad de observar los datos.\n\nSupuestos básicos\n\nLos errores \\(\\varepsilon_i\\) se asumen independientes y distribuidos:\n\\(\\varepsilon_i \\sim N(0, \\sigma^2)\\)\nEntonces:\n\\[\nY_i \\sim N(\\beta_0 + \\beta_1 X_i, \\, \\sigma^2)\n\\]"
-  },
-  {
-    "objectID": "diapositivas/RLSM_2.html#función-de-verosimilitud",
-    "href": "diapositivas/RLSM_2.html#función-de-verosimilitud",
-    "title": "Regresion Lineal Multiple",
-    "section": "Función de verosimilitud",
-    "text": "Función de verosimilitud\n\\[\nL(\\beta_0, \\beta_1,\\dots \\beta_p \\sigma^2 \\mid Y)\n= \\prod_{i=1}^n\n\\frac{1}{\\sqrt{2\\pi\\sigma^2}} \\exp \\left( -\\frac{(Y_i - \\beta_0 - \\beta_1 X_{i1} - \\dots \\beta_p X_{ip})^2}{2\\sigma^2} \\right)\n\\]"
-  },
-  {
-    "objectID": "diapositivas/RLSM_2.html#estimadores-mle",
-    "href": "diapositivas/RLSM_2.html#estimadores-mle",
-    "title": "Regresion Lineal Multiple",
-    "section": "Estimadores MLE",
-    "text": "Estimadores MLE\n\\[\n\\hat{\\beta}_j : \\text{ solucionan }\n\\sum_{i=1}^n X_{ik} Y_i = \\sum_{j=0}^p \\hat{\\beta}_j \\sum_{i=1}^n X_{ik}X_{ij},\n\\quad k=0,\\ldots,p.\n\\]\nVarianza del error\n\\[\n\\hat{\\sigma}^2_{ML} = \\frac{1}{n} \\sum_{i=1}^n\n\\left( Y_i - \\hat{\\beta}_0 - \\hat{\\beta}_1 X_{i1} - \\cdots - \\hat{\\beta}_p X_{ip} \\right)^2.\n\\]\nErrores estándar\n\\[\nSE(\\hat{\\beta}_j) =\n\\sqrt{\\hat{\\sigma}^2 \\cdot c_{jj}}, \\quad j=0,\\ldots,p,\n\\]"
-  },
-  {
-    "objectID": "diapositivas/RLSM_2.html#modelo-colesterol-en-funcion-de-la-presión-arterial-sistolica",
-    "href": "diapositivas/RLSM_2.html#modelo-colesterol-en-funcion-de-la-presión-arterial-sistolica",
-    "title": "Regresion Lineal Multiple",
-    "section": "Modelo: Colesterol en funcion de la Presión arterial sistolica",
-    "text": "Modelo: Colesterol en funcion de la Presión arterial sistolica\nObjetivo: Se requiere predecir los valores de colesterol de pacientes cuando se conoce su presion arterial sistolica, presencia de enfermedad cardiaca, sexo, BMI y raza\n\nAsumimos que la relación entre las variables es lineal. (deberia validarse en el bivariado)\nSegun el modelo lineal planteado seria:\n\n\\[\\mu_{chol} = \\beta_0 + \\beta_1 \\times sbp + \\beta_2 \\times gender + \\beta_3 \\times bmi + \\beta_4 \\times race\\]\nQue valores asumen \\(\\beta_i\\)"
-  },
-  {
-    "objectID": "diapositivas/RLSM_2.html#ajuste-del-modelo",
-    "href": "diapositivas/RLSM_2.html#ajuste-del-modelo",
-    "title": "Regresion Lineal Multiple",
-    "section": "Ajuste del modelo",
-    "text": "Ajuste del modelo\n\nmodelo_multiple &lt;- lm(data = coronary, formula = chol~sbp+gender+bmi+race)\nsummary(modelo_multiple)"
-  },
-  {
-    "objectID": "diapositivas/RLSM_2.html#el-modelo-es-adecuado",
-    "href": "diapositivas/RLSM_2.html#el-modelo-es-adecuado",
-    "title": "Regresion Lineal Multiple",
-    "section": "¿el modelo es adecuado?",
-    "text": "¿el modelo es adecuado?\nPrueba F\nF-statistic: 10.54 on 5 and 194 DF,  p-value: 5.728e-09: el modelo es significativo, con la las variables se permite explicar el colesterol.\nError estandar residual\nResidual standard error: 19.1 para saber que tan grande es: Tasa de error de predicción:\nsummary(modelo_multiple)$sigma/mean(coronary$chol)*100\n[1] 17.14911\nUna tasas de error de 17.1%\nCoeficiente de determinacion \\(R^2\\) y \\(R^2-ajustado\\)\nsummary(modelo_multiple)$r.squared\n[1] 0.2136579\nsummary(modelo_multiple)$adj.r.squared\n[1] 0.1933913\nEl ajuste es regular, se explica el 19.3% de la variabilidad del Colesterol"
-  },
-  {
-    "objectID": "diapositivas/RLSM_2.html#estimación-de-coeficientes",
-    "href": "diapositivas/RLSM_2.html#estimación-de-coeficientes",
-    "title": "Regresion Lineal Multiple",
-    "section": "Estimación de coeficientes",
-    "text": "Estimación de coeficientes\nsummary(modelo_multiple)$coefficients %&gt;% \n  kable()\n\n\n\n\nEstimate\nStd. Error\nt value\nPr(&gt;|t|)\n\n\n\n\n(Intercept)\n97.6645899\n22.9492296\n4.2556806\n0.0000324\n\n\nsbp\n0.2951363\n0.0772263\n3.8217067\n0.0001784\n\n\ngenderHombre\n1.4950868\n2.7281238\n0.5480275\n0.5843031\n\n\nbmi\n-0.8339743\n0.5142786\n-1.6216390\n0.1065047\n\n\nraceChino\n6.5975186\n3.3579541\n1.9647436\n0.0508717\n\n\nraceHindu\n12.2553353\n3.6901195\n3.3211215\n0.0010712\n\n\n\nModelo completo: \\[\\mu_{chol} = 97.66 + 0.29 \\times sbp + 1.49 \\times gender -0.83 \\times bmi + 6.59 \\times chino + 12.25 \\times hindu\\]"
-  },
-  {
-    "objectID": "diapositivas/RLSM_2.html#interpretación-de-coeficientes",
-    "href": "diapositivas/RLSM_2.html#interpretación-de-coeficientes",
-    "title": "Regresion Lineal Multiple",
-    "section": "Interpretación de Coeficientes",
-    "text": "Interpretación de Coeficientes\n\n\\(\\beta_0\\) Representa la respuesta media cuando todos los predictores valen cero. Hay que ser cautos con su interpretación, porque su valor puede no tener un significado práctico.\n\\(\\beta_1\\): las pendientes (o gradientes). Representan el cambio en la respuesta media por unidad de aumento en la variable explicativa asociada, cuando todos los otros predictores se mantienen constantes. Es decir, nos dicen en qué medida cada variable explicativa afecta a la variable respuesta si aislamos los efectos de todos los demás predictores.\n\n\\[\\mu_{chol} = 97.66 + 0.29 \\times sbp + 1.49 \\times gender -0.83 \\times bmi + 6.59 \\times chino + 12.25 \\times hindu\\]"
-  },
-  {
-    "objectID": "diapositivas/RLSM_2.html#predicciones-con-el-modelo-e-inferencia",
-    "href": "diapositivas/RLSM_2.html#predicciones-con-el-modelo-e-inferencia",
-    "title": "Regresion Lineal Multiple",
-    "section": "Predicciones con el modelo e inferencia",
-    "text": "Predicciones con el modelo e inferencia\nUn población de sujetos tiene sbp\\(= 120\\), gender \\(=\\) Mujer, bmi \\(= 23\\) race \\(=\\) hindu\npredictions(modelo_multiple, newdata = data.frame(sbp = 120, gender = \"Mujer\",bmi = 23,\n                                                 race = \"Hindu\")) %&gt;% \n  select(2:9) %&gt;% \n   kable(digits = 2,align = \"c\",\"html\")\n\n\n\nestimate\nstd.error\nstatistic\np.value\ns.value\nconf.low\nconf.high\nsbp\n\n\n\n\n126.15\n8.48\n14.88\n0\n163.88\n109.53\n142.78\n120\n\n\n\n\n\npredictions(modelo_multiple, newdata = data.frame(sbp = 180, gender = \"Mujer\",bmi = 23,\n                                                 race = \"Hindu\")) %&gt;% \n  select(2:9) %&gt;% \n   kable(digits = 2,align = \"c\",\"html\")\n\n\n\nestimate\nstd.error\nstatistic\np.value\ns.value\nconf.low\nconf.high\nsbp\n\n\n\n\n143.86\n8.17\n17.62\n0\n228.31\n127.86\n159.87\n180"
-  },
-  {
-    "objectID": "diapositivas/RLSM_2.html#inferencia-coeficientes",
-    "href": "diapositivas/RLSM_2.html#inferencia-coeficientes",
-    "title": "Regresion Lineal Multiple",
-    "section": "Inferencia: Coeficientes",
-    "text": "Inferencia: Coeficientes\nsummary(modelo_multiple)$coefficients %&gt;% \n  kable()\n\n\n\n\nEstimate\nStd. Error\nt value\nPr(&gt;|t|)\n\n\n\n\n(Intercept)\n97.6645899\n22.9492296\n4.2556806\n0.0000324\n\n\nsbp\n0.2951363\n0.0772263\n3.8217067\n0.0001784\n\n\ngenderHombre\n1.4950868\n2.7281238\n0.5480275\n0.5843031\n\n\nbmi\n-0.8339743\n0.5142786\n-1.6216390\n0.1065047\n\n\nraceChino\n6.5975186\n3.3579541\n1.9647436\n0.0508717\n\n\nraceHindu\n12.2553353\n3.6901195\n3.3211215\n0.0010712\n\n\n\nconfint(modelo_multiple) %&gt;% kable()\n\n\n\n\n2.5 %\n97.5 %\n\n\n\n\n(Intercept)\n52.4025696\n142.9266103\n\n\nsbp\n0.1428253\n0.4474472\n\n\ngenderHombre\n-3.8855032\n6.8756768\n\n\nbmi\n-1.8482694\n0.1803208\n\n\nraceChino\n-0.0252651\n13.2203024\n\n\nraceHindu\n4.9774324\n19.5332382"
-  },
-  {
-    "objectID": "diapositivas/RLSM_2.html#comparación-de-modelo-seleccion-de-variables",
-    "href": "diapositivas/RLSM_2.html#comparación-de-modelo-seleccion-de-variables",
-    "title": "Regresion Lineal Multiple",
-    "section": "Comparación de modelo: Seleccion de variables",
-    "text": "Comparación de modelo: Seleccion de variables\n\nSe hace necesario evaluar la contribucion de las variables que ingresan al modelo, ya que un modelo mas parsimonioso (menos variables) y explicando la misma variabilidad es mas deseable.\nComparar un modelo full vs modelo reducido\n\nCriterio de informacion de Akaike AIC\n\nmodelo_multiple_rdc &lt;- lm(formula = chol ~ sbp + bmi + race, data = coronary)\n\nAIC(modelo_multiple, modelo_multiple_rdc) %&gt;% kable()\n\n\n\n\ndf\nAIC\n\n\n\n\nmodelo_multiple\n7\n1756.068\n\n\nmodelo_multiple_rdc\n6\n1754.378"
-  },
-  {
-    "objectID": "diapositivas/RLSM_2.html#comparación-de-modelo-seleccion-de-variables-1",
-    "href": "diapositivas/RLSM_2.html#comparación-de-modelo-seleccion-de-variables-1",
-    "title": "Regresion Lineal Multiple",
-    "section": "Comparación de modelo: Seleccion de variables",
-    "text": "Comparación de modelo: Seleccion de variables\nPrueba F Parcial\nLa prueba F parcial evalúa si el modelo completo es significativamente mejor que el modelo reducido (Si la variable excluida contribuye significativamente)\nanova(modelo_multiple, modelo_multiple_rdc) %&gt;% kable()\n\n\n\nRes.Df\nRSS\nDf\nSum of Sq\nF\nPr(&gt;F)\n\n\n\n\n194\n71024.56\nNA\nNA\nNA\nNA\n\n\n195\n71134.51\n-1\n-109.9541\n0.3003341\n0.5843031"
-  },
-  {
-    "objectID": "diapositivas/RLSM_2.html#section",
-    "href": "diapositivas/RLSM_2.html#section",
-    "title": "Regresion Lineal Multiple",
-    "section": "",
-    "text": "summary(modelo_multiple_rdc)$coefficients%&gt;% kable()\n\n\n\n\nEstimate\nStd. Error\nt value\nPr(&gt;|t|)\n\n\n\n\n(Intercept)\n99.3172356\n22.7093829\n4.373401\n0.0000199\n\n\nsbp\n0.2933061\n0.0770155\n3.808402\n0.0001873\n\n\nbmi\n-0.8540871\n0.5120464\n-1.667988\n0.0969231\n\n\nraceChino\n6.6566350\n3.3501945\n1.986940\n0.0483291\n\n\nraceHindu\n12.4693861\n3.6628016\n3.404330\n0.0008051\n\n\n\nsummary(modelo_multiple)$coefficients%&gt;% kable()\n\n\n\n\nEstimate\nStd. Error\nt value\nPr(&gt;|t|)\n\n\n\n\n(Intercept)\n97.6645899\n22.9492296\n4.2556806\n0.0000324\n\n\nsbp\n0.2951363\n0.0772263\n3.8217067\n0.0001784\n\n\ngenderHombre\n1.4950868\n2.7281238\n0.5480275\n0.5843031\n\n\nbmi\n-0.8339743\n0.5142786\n-1.6216390\n0.1065047\n\n\nraceChino\n6.5975186\n3.3579541\n1.9647436\n0.0508717\n\n\nraceHindu\n12.2553353\n3.6901195\n3.3211215\n0.0010712"
-  },
-  {
-    "objectID": "diapositivas/RLSM_2.html#en-modelos-predictivos",
-    "href": "diapositivas/RLSM_2.html#en-modelos-predictivos",
-    "title": "Regresion Lineal Multiple",
-    "section": "En modelos predictivos",
-    "text": "En modelos predictivos\nEn comparaciones multiples se hace dificil probar todos los posible modelos, sin embargo un algortimo automatico puede ayudarnos a reducir el trabajo sin perder el criterio epidemiologico:\n\nfinal &lt;- step(modelo_multiple,direction = \"backward\")\n\nsummary(final)$coefficients %&gt;% kable()\n\n\n\n\nEstimate\nStd. Error\nt value\nPr(&gt;|t|)\n\n\n\n\n(Intercept)\n99.3172356\n22.7093829\n4.373401\n0.0000199\n\n\nsbp\n0.2933061\n0.0770155\n3.808402\n0.0001873\n\n\nbmi\n-0.8540871\n0.5120464\n-1.667988\n0.0969231\n\n\nraceChino\n6.6566350\n3.3501945\n1.986940\n0.0483291\n\n\nraceHindu\n12.4693861\n3.6628016\n3.404330\n0.0008051"
-  },
-  {
-    "objectID": "diapositivas/RLSM_2.html#diagnóstico-supuestos",
-    "href": "diapositivas/RLSM_2.html#diagnóstico-supuestos",
-    "title": "Regresion Lineal Multiple",
-    "section": "Diagnóstico: Supuestos",
-    "text": "Diagnóstico: Supuestos\nDeterminar si el modelo representa adecuadamente a los datos.\n\nSupuestos básicos (acrónimo LINE):\nL de Linealidad: Los valores de (Y) se pueden expresar como una función lineal de la variable (X).\nI de Independencia:Los valores de (Y) (o los errores/residuos) son independientes entre sí.\nN de Normalidad:Para cualquier valor fijo de (X), los valores de (Y) (o los errores/residuos) se distribuyen normalmente.\nE de Equitatividad (Homoscedasticidad): La variación de los valores de (Y) (o los errores/residuos) alrededor de la línea de regresión es constante."
-  },
-  {
-    "objectID": "diapositivas/RLSM_2.html#diagnostico-con-graficos-verificación-de-supuestos",
-    "href": "diapositivas/RLSM_2.html#diagnostico-con-graficos-verificación-de-supuestos",
-    "title": "Regresion Lineal Multiple",
-    "section": "Diagnostico con graficos (Verificación de supuestos)",
-    "text": "Diagnostico con graficos (Verificación de supuestos)\n\n\n\n\n\n\nLinealidad y homocedasticidad: sin patrones Causas: modelo no lineal, falta de variables explicativas, interacción."
-  },
-  {
-    "objectID": "diapositivas/RLSM_2.html#diagnostico-con-graficos-verificación-de-supuestos-1",
-    "href": "diapositivas/RLSM_2.html#diagnostico-con-graficos-verificación-de-supuestos-1",
-    "title": "Regresion Lineal Multiple",
-    "section": "Diagnostico con graficos (Verificación de supuestos)",
-    "text": "Diagnostico con graficos (Verificación de supuestos)\n\n\n\n\n\n\nFalta de Normalidad: Otro modelos lineales generalizados"
-  },
-  {
-    "objectID": "diapositivas/RLSM_2.html#diagnostico-con-graficos-verificación-de-supuestos-2",
-    "href": "diapositivas/RLSM_2.html#diagnostico-con-graficos-verificación-de-supuestos-2",
-    "title": "Regresion Lineal Multiple",
-    "section": "Diagnostico con graficos (Verificación de supuestos)",
-    "text": "Diagnostico con graficos (Verificación de supuestos)\n\n\n\n\n\n\nHomogeneidad de la varianza: Transformaciones"
-  },
-  {
-    "objectID": "diapositivas/RLSM_2.html#diagnostico-con-graficos-verificación-de-supuestos-3",
-    "href": "diapositivas/RLSM_2.html#diagnostico-con-graficos-verificación-de-supuestos-3",
-    "title": "Regresion Lineal Multiple",
-    "section": "Diagnostico con graficos (Verificación de supuestos)",
-    "text": "Diagnostico con graficos (Verificación de supuestos)\n\n\n\n\n\n\nIdentificar valores inusuales e influyentes: Transformaciones."
   }
 ]

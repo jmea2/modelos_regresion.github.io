@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Regresion Lineal Multiple – Modelos de Regresion para Epidemiologos</title>
+<title>Regresión Logistica Simple – Modelos de Regresion para Epidemiologos</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -63,8 +29,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./rlg_simple.html" rel="next">
-<link href="./rls.html" rel="prev">
+<link href="./rlm.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -143,7 +108,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rlm.html">Regresión Lineal Multiple</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rlg_simple.html">Regresión Logistica Simple</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -188,13 +153,13 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./rlm.html" class="sidebar-item-text sidebar-link active">
+  <a href="./rlm.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Regresión Lineal Multiple</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./rlg_simple.html" class="sidebar-item-text sidebar-link">
+  <a href="./rlg_simple.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Regresión Logistica Simple</span></a>
   </div>
 </li>
@@ -210,11 +175,10 @@ window.Quarto = {
   <ul>
   <li><a href="#diapositivas" id="toc-diapositivas" class="nav-link active" data-scroll-target="#diapositivas">Diapositivas</a></li>
   <li><a href="#actividad" id="toc-actividad" class="nav-link" data-scroll-target="#actividad">Actividad</a></li>
-  <li><a href="#taller-2-regresion-lineal-multiple" id="toc-taller-2-regresion-lineal-multiple" class="nav-link" data-scroll-target="#taller-2-regresion-lineal-multiple">Taller 2: Regresion Lineal Multiple</a></li>
-  <li><a href="#taller-3-ajuste-para-confusion-e-interacción-en-regresion-lineal-multiple" id="toc-taller-3-ajuste-para-confusion-e-interacción-en-regresion-lineal-multiple" class="nav-link" data-scroll-target="#taller-3-ajuste-para-confusion-e-interacción-en-regresion-lineal-multiple">Taller 3: Ajuste para confusion e interacción en regresion lineal multiple</a>
+  <li><a href="#taller-1-regresion-logistica-simple" id="toc-taller-1-regresion-logistica-simple" class="nav-link" data-scroll-target="#taller-1-regresion-logistica-simple">Taller 1: Regresion Logistica Simple</a>
   <ul class="collapse">
-  <li><a href="#confusión" id="toc-confusión" class="nav-link" data-scroll-target="#confusión">Confusión</a></li>
-  <li><a href="#interacción" id="toc-interacción" class="nav-link" data-scroll-target="#interacción">Interacción</a></li>
+  <li><a href="#con-covariable-categorica" id="toc-con-covariable-categorica" class="nav-link" data-scroll-target="#con-covariable-categorica">Con covariable categorica</a></li>
+  <li><a href="#con-covariable-numerica" id="toc-con-covariable-numerica" class="nav-link" data-scroll-target="#con-covariable-numerica">Con covariable numerica</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -224,7 +188,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Regresion Lineal Multiple</h1>
+<h1 class="title">Regresión Logistica Simple</h1>
 </div>
 
 
@@ -243,208 +207,33 @@ window.Quarto = {
 
 <section id="diapositivas" class="level2">
 <h2 class="anchored" data-anchor-id="diapositivas">Diapositivas</h2>
-<iframe class="slide-deck" src="./diapositivas/RLSM_2.html" height="420" width="747" style="border: 1px solid #2e3846;"></iframe>
+<iframe class="slide-deck" src="./diapositivas/rlgs.html" height="420" width="747" style="border: 1px solid #2e3846;"></iframe>
 </section>
 <section id="actividad" class="level2">
 <h2 class="anchored" data-anchor-id="actividad">Actividad</h2>
-<p>En grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento <a href="https://docs.google.com/document/d/14ND4Nwbb_JrdgKPnaqloWxHrYRLdm2f3u8pAUXdI2MU/edit?usp=sharing">Documento de trabajo</a>, copiando y pegando pantallazos de los resultados y sus interpretaciones.</p>
-<p>El dataset <code>lowbwt</code> que se puede descargar aca 👉 <a href="datasets/lowbwt.rds">Descargar lowbwt.rds</a> contiene información para una muestra de 100 recién nacidos con bajo peso al nacer. mediciones de presión arterial sistolica son guardadas bajo el nombre de <code>sbp</code> y valores de edad gestacional bajo el nombre de <code>gestage</code>.</p>
-<p>Descargue el siguiente archivo denominado <code>Codigo_taller2.R</code> 👉 <a href="codigo_taller2.R">Descargar Codigo_taller2.R</a>, donde encontrara los codigos necesarios para obtener los resultados solicitados en el taller.</p>
-<p>Recuerde que en el pasado ya habian encontrado una relación significativa entre la presion arterial sistolica de neonatos con bajo peso (<code>sbp</code>)y la edad gestacional (<code>gestage</code>). En este nuevo analisis utilizaremos la variable Apgar a los 5 minutos (<code>apgar5</code>), es una variable oridnal, pero frecuentemente es tratada como continua.</p>
+<p>En grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento 👉 <a href="https://docs.google.com/document/d/1AMAVQAqwelq2D3bkB47IvIifnSay-XuXfzeXOnWeHF8/edit?usp=sharing">Documento de Trabajo</a>.</p>
+<p>El dataset <code>coronary</code> que se puede descargar aca 👉 <a href="datasets/coronary.rds">Descargar coronary.rds</a>.</p>
+<p>Descargue el siguiente archivo denominado <code>Codigo_taller4.R</code> 👉 <a href="codigo_taller4.R">Descargar Codigo_taller4.R</a>, donde encontrara los códigos necesarios para obtener los resultados solicitados en el taller.</p>
 </section>
-<section id="taller-2-regresion-lineal-multiple" class="level2">
-<h2 class="anchored" data-anchor-id="taller-2-regresion-lineal-multiple">Taller 2: Regresion Lineal Multiple</h2>
+<section id="taller-1-regresion-logistica-simple" class="level2">
+<h2 class="anchored" data-anchor-id="taller-1-regresion-logistica-simple">Taller 1: Regresion Logistica Simple</h2>
+<section id="con-covariable-categorica" class="level3">
+<h3 class="anchored" data-anchor-id="con-covariable-categorica">Con covariable categorica</h3>
 <ol type="1">
-<li><p>Construya un grafico de dispersión de presion artetial sistolica y apgar . ¿Parece tener una relación lineal entre las dos variables?.</p></li>
-<li><p>Usando la presión arterial sistolica como variable dependiente (respuesta), la edad gestacional y el apgar como variables explicatorias. Estime los parametros del modelo <span class="math display">\[\hat \mu_{sbp} = \beta_0 + \beta_1 \times gestage + \beta_2 \times apgar\]</span></p></li>
-</ol>
-<ul>
-<li>Interprete <span class="math inline">\(\hat \beta_1\)</span>, ¿qué significa en palabras?, realice lo mismo para <span class="math inline">\(\hat \beta_2\)</span></li>
-</ul>
-<ol start="3" type="1">
-<li><p>Cual es la media estimada de la presión arterial para la población de recien nacidos con bajo peso en quienes la edad gestacional es 31 semanas y apgar a los 5 minutos sea de 7, Interprete.</p></li>
-<li><p>Construya un intervalo de confianza para la media cuando la edad gestacional es 31 semanas y el apgar es de 7. Interpretelo.</p></li>
-<li><p>A un nivel de 0.05 de error alfa, contraste <span class="math inline">\(H_0: \beta_2 = 0\)</span>?, ¿Qué concluye?</p></li>
-<li><p>¿El modelo ajustado parece ajustar a los datos observados?.Revise el <span class="math inline">\(R^2\)</span> ajustado comente e interprete. estime la tasa de error de las predicciones.</p></li>
-<li><p>la inclusión del apgar aporta significativamente al modelo como para dejarlo en el modelo?.</p></li>
-<li><p>Construya los graficos de diagnostico, hay cumplimiento de los supuestos de validez del modelo?</p></li>
+<li><p>Usando la variable <code>cad</code> como variable dependiente (respuesta) y el sexo como la variable explicatoria. Estime una regresion logistica e interprete los coeficientes. ¿Que significan en palabras?.</p></li>
+<li><p>A un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a sexo es igual a cero. ¿Qué concluye?</p></li>
+<li><p>Cual es la interpretacion para el coeficiente de sexo ? no olvide exponenciarlo <span class="math inline">\(e^{\beta_1}\)</span></p></li>
+<li><p>Realice una predicción de probabilidad de enfermedad cardiaca si se es mujer no olvide interpretar el intervalo de confianza.</p></li>
 </ol>
 </section>
-<section id="taller-3-ajuste-para-confusion-e-interacción-en-regresion-lineal-multiple" class="level2">
-<h2 class="anchored" data-anchor-id="taller-3-ajuste-para-confusion-e-interacción-en-regresion-lineal-multiple">Taller 3: Ajuste para confusion e interacción en regresion lineal multiple</h2>
-<p>En grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento <a href="https://docs.google.com/document/d/1W7oVhcObBIaiInA0TYA90LrUiH96JEdeD27UAbsnl2o/edit?usp=sharing">Documento de trabajo</a>.</p>
-<p>Si desea reproducir los resultados en su PC, los datos se pueden descargar aca 👉 <a href="diapositivas/datasets/hers.rds">Descargar hers.rds</a>.</p>
-<section id="confusión" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="confusión">Confusión</h3>
-<p>Se esta estudiando los efectos que se puedan dar sobre los niveles de glucosa sobre un grupo de pacientes, para esto se ajusto inicialmente un modelo que estimo el principal que tiene un programa donde se recibe actividad física 3 veces a la semana, los resultados fueron los siguientes:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mod_unjus <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> glucose <span class="sc">~</span> exercise, <span class="at">data =</span> hers)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_unjus)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = glucose ~ exercise, data = hers)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--85.561 -20.561 -12.561   2.672 189.672 
-
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 114.5611     0.8922 128.408  &lt; 2e-16 ***
-exerciseyes  -6.2333     1.4350  -4.344 1.45e-05 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 36.73 on 2761 degrees of freedom
-Multiple R-squared:  0.006788,  Adjusted R-squared:  0.006428 
-F-statistic: 18.87 on 1 and 2761 DF,  p-value: 1.451e-05</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(mod_unjus)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                 2.5 %     97.5 %
-(Intercept) 112.811683 116.310441
-exerciseyes  -9.047117  -3.419576</code></pre>
-</div>
-</div>
-<p>A la luz de las estimaciones:</p>
+<section id="con-covariable-numerica" class="level3">
+<h3 class="anchored" data-anchor-id="con-covariable-numerica">Con covariable numerica</h3>
 <ol type="1">
-<li>Interprete el coeficiente asociado al programa de actividad física, acompañe esta interpretación de sus respectivos intervalos de confianza al 95% y valor de p.</li>
+<li><p>Usando la variable <code>cad</code> como variable dependiente (respuesta) y el colesterol como la variable explicatoria. Estime una regresion logistica e interprete los coeficientes. ¿Que significan en palabras?.</p></li>
+<li><p>A un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a colesterol es igual a cero. ¿Qué concluye?</p></li>
+<li><p>Cual es la interpretacion para el coeficiente de colesterol ? no olvide exponenciarlo <span class="math inline">\(e^{\beta_1}\)</span></p></li>
+<li><p>Realice una predicción de probabilidad de enfermedad cardiaca si se tiene un colesterol de 248 y luego con colesterol de 140. Si hace la razon de estas dos cantidades estimadas a que medida epidemiologica corresponde ? interprete.</p></li>
 </ol>
-<p>Sin embargo es de conocimiento pleno que otras variables tambien se relacionan con los niveles de glucosa en sangre, específicamente se tiene conocimiento que el indice de masa corporal que define obesidad, podria tambine jugar un papel preponderante tanto con la glucosa como el programa de actividad fisica. Dado esto se ajusta el efecto entre el progama de actividad fisica y glucosa:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> glucose <span class="sc">~</span> exercise <span class="sc">+</span> BMI , <span class="at">data =</span> hers)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = glucose ~ exercise + BMI, data = hers)
-
-Residuals:
-   Min     1Q Median     3Q    Max 
--79.18 -18.72 -10.35   3.79 192.38 
-
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  62.4154     3.7402  16.688   &lt;2e-16 ***
-exerciseyes  -2.8932     1.4066  -2.057   0.0398 *  
-BMI           1.7794     0.1242  14.331   &lt;2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 35.46 on 2755 degrees of freedom
-  (5 observations deleted due to missingness)
-Multiple R-squared:  0.07576,   Adjusted R-squared:  0.07509 
-F-statistic: 112.9 on 2 and 2755 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-</div>
-<ul>
-<li><p>El efecto que tiene el programa de ejercicio cambio despues del ajuste?, si fue asi, qué dirección tomo?, cuantifique su cambio porcentual (<span class="math inline">\(\frac{\beta_{crudo}-\beta_{ajustado}}{\beta_{crudo}}\times100\)</span>). Se confirma que BMI sesgaba el efecto que tenia el programa de ejercicio sobre la glucosa?. Explique.</p></li>
-<li><p>Ahora interprete el coeficiente ajustado del programa de actividad fisica. acompañelos de intervalos de confianza y valor de p.</p></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                2.5 %     97.5 %
-(Intercept) 55.081469 69.7492613
-exerciseyes -5.651330 -0.1350112
-BMI          1.535926  2.0228348</code></pre>
-</div>
-</div>
-<ul>
-<li><p>por ultimo asuma que evalúa por el contrario el efecto de BMI sobre la glucosa teniendo en cuenta el ajuste por pertenecer a un programa de actividad fisica. Interprete coeficiente ajustado de BMI, no olvide en su interpretación hablar de los intervalos de confianza y valores de p.</p></li>
-<li><p>Finalmente se ajusta el siguiente modelo explicativo sobre el efecto sobre la glucosa que tienen diversas variables. Interprete cada uno de los coeficientes, como efecto principal.</p></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mod_com <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> glucose <span class="sc">~</span> exercise <span class="sc">+</span> BMI <span class="sc">+</span> age <span class="sc">+</span> drinkany <span class="sc">+</span> smoking , <span class="at">data =</span> hers)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_com)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = glucose ~ exercise + BMI + age + drinkany + smoking, 
-    data = hers)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--77.533 -18.879  -9.858   4.765 192.487 
-
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  89.7184     8.7503  10.253  &lt; 2e-16 ***
-exerciseyes  -3.5013     1.4193  -2.467  0.01369 *  
-BMI           1.6225     0.1274  12.733  &lt; 2e-16 ***
-age          -0.2843     0.1051  -2.705  0.00687 ** 
-drinkanyyes  -7.1882     1.3832  -5.197 2.17e-07 ***
-smokingyes   -6.3218     2.0852  -3.032  0.00245 ** 
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 35.24 on 2750 degrees of freedom
-  (7 observations deleted due to missingness)
-Multiple R-squared:  0.08872,   Adjusted R-squared:  0.08707 
-F-statistic: 53.55 on 5 and 2750 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(mod_com)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                 2.5 %       97.5 %
-(Intercept)  72.560556 106.87633140
-exerciseyes  -6.284288  -0.71838376
-BMI           1.372648   1.87237829
-age          -0.490288  -0.07822204
-drinkanyyes  -9.900321  -4.47606535
-smokingyes  -10.410451  -2.23321159</code></pre>
-</div>
-</div>
-</section>
-<section id="interacción" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="interacción">Interacción</h3>
-<p>Se quiere evaluar en el modelo de efectos principales del programa de actividad fisica sobre la glucosa la posibilidad de una heterogeneidad de efectos mediada por el indice de masa corporal. Para este proposito se ajusto un modelo con un termino de interacción, entre BMI y el programa de ejercicio:</p>
-<ul>
-<li><strong>Escribe la ecuación del modelo con el termino de interacción:</strong></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> glucose <span class="sc">~</span> exercise <span class="sc">+</span> BMI <span class="sc">+</span> exercise<span class="sc">:</span>BMI, <span class="at">data =</span> hers)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = glucose ~ exercise + BMI + exercise:BMI, data = hers)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--84.543 -18.890 -10.382   4.243 193.710 
-
-Coefficients:
-                Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)      67.2848     4.4908  14.983   &lt;2e-16 ***
-exerciseyes     -17.4940     7.5928  -2.304   0.0213 *  
-BMI               1.6133     0.1504  10.730   &lt;2e-16 ***
-exerciseyes:BMI   0.5211     0.2663   1.957   0.0505 .  
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 35.44 on 2754 degrees of freedom
-  (5 observations deleted due to missingness)
-Multiple R-squared:  0.07705,   Adjusted R-squared:  0.07604 
-F-statistic: 76.63 on 3 and 2754 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-</div>
-<ul>
-<li><p>Despeje de la ecuación de regresión escrita por ud, el efecto (pendiente) del programa de ejercicio para un BMI de 15.2 y para BMI 54.1, calculelo según el modelo estimado e interprételo.</p></li>
-<li><p>Despeje de la ecuación de regresión escrita por ud, el efecto (pendiente) del BMI para pertenecer y no al programa de ejercicio, calculelo según el modelo estimado e interprételo.</p></li>
-<li><p>El siguiente grafico refuerza tiene coherencia frente al resultado calculado en el punto anterior (efecto de BMI sobre glucosa según pertenezca al programa)</p></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_predictions</span>(mod2, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"BMI"</span>, <span class="st">"exercise"</span>))<span class="sc">+</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>), <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="rlm_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
 
 
 </section>
@@ -873,14 +662,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./rls.html" class="pagination-link" aria-label="Regresión Lineal Simple">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Regresión Lineal Simple</span>
+      <a href="./rlm.html" class="pagination-link" aria-label="Regresión Lineal Multiple">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Regresión Lineal Multiple</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./rlg_simple.html" class="pagination-link" aria-label="Regresión Logistica Simple">
-        <span class="nav-page-text">Regresión Logistica Simple</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

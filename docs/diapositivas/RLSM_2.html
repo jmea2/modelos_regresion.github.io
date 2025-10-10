@@ -1100,6 +1100,370 @@ SE(\hat{\beta}_j) =
 <section id="confusión-e-interacción-en-regresion-lineal-multiple" class="title-slide slide level1 center">
 <h1>Confusión e Interacción en Regresion Lineal Multiple</h1>
 
+</section>
+
+<section>
+<section id="confusión-confounding" class="title-slide slide level1 center">
+<h1>Confusión (Confounding)</h1>
+
+</section>
+<section id="confusión" class="slide level2">
+<h2>Confusión</h2>
+<ul>
+<li><p><em>Definición</em>: Es un efecto sesgado o no real entre una exposición y un desenlace, que ocurre como consecuencia de una variable o unas variables confusoras.</p></li>
+<li><p>Algunas variables pueden ser controladas al inicio del estudio (criterios de inclusión).</p></li>
+<li><p>Se presentan comúnmente en estudios observacionales.</p></li>
+<li><p>Son declarados en el diseño y medidos sin error</p></li>
+</ul>
+</section>
+<section id="confusión-1" class="slide level2 small">
+<h2>Confusión</h2>
+<p><span class="math display">\[E(Y/X) = \beta_0 + \beta_1X_1\]</span></p>
+<p>Para dos distinto valores <span class="math inline">\(X_1\)</span>, <span class="math inline">\(A\)</span> para poblaciones expuestas <span class="math inline">\(Y_1\)</span> y <span class="math inline">\(B\)</span> para no expuestos <span class="math inline">\(Y_0\)</span> la diferencia es representada por:</p>
+<p><span class="math display">\[E(Y_1)-E(Y_0)= \beta_0 + \beta_1A - \beta_0 - \beta_1B \\= \beta_1(A-B)\]</span></p>
+<p>ahora si tenemos en cuenta a <span class="math inline">\(X_2\)</span> en la relacion de <span class="math inline">\(Y\)</span> y <span class="math inline">\(X_1\)</span></p>
+<p><span class="math display">\[E(Y/X_1,X_2) = \beta_0 + \beta_1X_1 + \beta_2X_2\]</span></p>
+<p>Para valores de <span class="math inline">\(X_2\)</span> distintos <span class="math inline">\((C,D)\)</span> entre expuestos y no expuestos:</p>
+<p><span class="math display">\[E(Y_1)-E(Y_0)= \beta_0 + \beta_1A + \beta_2C - \beta_0 - \beta_1B - \beta_2D \\= \beta_1(A-B) + \beta_2(C-D)\]</span></p>
+</section>
+<section id="evidenciemos-los-efectos-del-confusor-modelo-explicativo" class="slide level2">
+<h2>Evidenciemos los efectos del confusor (modelo explicativo)</h2>
+
+<img data-src="RLSM_2_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" class="r-stretch"><table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">t value</th>
+<th style="text-align: right;">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">53.91</td>
+<td style="text-align: right;">8.86</td>
+<td style="text-align: right;">6.09</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">dbp</td>
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">6.59</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="etnia-hindu-como-posible-confusor" class="slide level2 small">
+<h2>Etnia Hindu como posible confusor</h2>
+<h3 id="relación-entre-raza-hindu-y-presion-diastolica">Relación entre raza hindu y presion diastolica</h3>
+<p><code>Welch Two Sample t-test data:  dbp by raza t = -3.96, df = 103.83, p-value = 0.0001376</code></p>
+<p><code>mean in group 0 mean in group 1</code></p>
+<p><code>79.80         87.76</code></p>
+<h3 id="relación-entre-raza-hindu-y-colesterol">Relación entre raza hindu y Colesterol</h3>
+<p><code>Welch Two Sample t-test data:  chol by raza t = -4.3482, df = 104.53, p-value = 0.000003197</code></p>
+<p><code>mean in group 0 mean in group 1</code></p>
+<p><code>107.07            121.35</code></p>
+</section>
+<section id="ajustemos-un-modelo-incluyendo-a-raza" class="slide level2">
+<h2>Ajustemos un modelo incluyendo a raza</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">t value</th>
+<th style="text-align: right;">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">53.91</td>
+<td style="text-align: right;">8.86</td>
+<td style="text-align: right;">6.09</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">dbp</td>
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">6.59</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p><br>
+</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">t value</th>
+<th style="text-align: right;">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">59.03</td>
+<td style="text-align: right;">8.81</td>
+<td style="text-align: right;">6.70</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">dbp</td>
+<td style="text-align: right;">0.60</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">5.55</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">raza</td>
+<td style="text-align: right;">9.48</td>
+<td style="text-align: right;">3.01</td>
+<td style="text-align: right;">3.15</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="section-1" class="slide level2">
+<h2></h2>
+
+<img data-src="RLSM_2_files/figure-revealjs/unnamed-chunk-21-1.png" width="960" class="r-stretch"></section></section>
+<section>
+<section id="interacción-o-modificación-de-efectos" class="title-slide slide level1 center">
+<h1>Interacción o Modificación de efectos</h1>
+
+</section>
+<section id="interacción" class="slide level2">
+<h2>Interacción</h2>
+<ul>
+<li><strong>Definición</strong>: El efecto de una exposición sobre el desenlace varia en función de otra covariable. (heterogeneidad de efectos o modificación de efectos).</li>
+</ul>
+<p>En resumen es evaluar el efecto de una exposición separadamente para los niveles (valores) de otras covariables incluidas en el modelo.</p>
+<p>Hasta ahora en <strong>Confusión</strong>:</p>
+<p>El efecto de un predictor es independiente de otros en efectos principales.</p>
+<p>En adelante en <strong>Interacción</strong>:</p>
+<p>El efecto de una exposición depende de los valores de otra covariable.</p>
+</section>
+<section id="modelo-para-evaluar-interacción-i" class="slide level2">
+<h2>Modelo para evaluar interacción I</h2>
+<p>asumiendo que <span class="math inline">\(X_1\)</span> es la exposición de interés:</p>
+<p><span class="math display">\[E(Y/X_1,X_2)=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_1X_2\]</span></p>
+<p>Se puede re-agrupar:</p>
+<p><span class="math display">\[E(Y/X_1,X_2)=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_1X_2\]</span></p>
+<p><span class="math display">\[Y=\beta_0+\beta_2X_2+\left(\beta_1+\beta_3X_2\right)X_1\]</span></p>
+<p><span class="math inline">\((\beta_1+\beta_3X_2)\)</span> es el efecto de <span class="math inline">\(X_1\)</span> en <span class="math inline">\(Y\)</span> cuando <span class="math inline">\(X_2 \neq 0\)</span></p>
+<p><span class="math inline">\(\beta_1\)</span> cuando <span class="math inline">\(X_2=0\)</span>.</p>
+</section>
+<section id="modelo-para-evaluar-interacción-ii" class="slide level2">
+<h2>Modelo para evaluar interacción II</h2>
+<p>asumiendo que <span class="math inline">\(X_2\)</span> es la exposición de interés:</p>
+<p><span class="math display">\[E(Y/X_1,X_2)=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_1X_2\]</span></p>
+<p>Se puede re-agrupar:</p>
+<p><span class="math display">\[Y=\beta_0+\beta_1X_1+\left(\beta_2+\beta_3X_1\right)X_2\]</span></p>
+<p><span class="math inline">\((\beta_2+\beta_3X_2)\)</span> es el efecto de <span class="math inline">\(X_2\)</span> en <span class="math inline">\(Y\)</span> cuando <span class="math inline">\(X_1 \neq 0\)</span></p>
+<p><span class="math inline">\(\beta_2\)</span> cuando <span class="math inline">\(X_1=0\)</span>.</p>
+</section>
+<section id="ejemplo-interacción-con-categorica" class="slide level2 small">
+<h2>ejemplo: Interacción con categorica</h2>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>modelo_inter <span class="ot">&lt;-</span> <span class="fu">glm</span>(LDL1 <span class="sc">~</span> HT <span class="sc">+</span> statins <span class="sc">+</span> HT<span class="sc">:</span>statins, <span class="at">data =</span> hers)</span>
+<span id="cb17-2"><a></a><span class="fu">summary</span>(modelo_inter)<span class="sc">$</span>coefficients <span class="sc">%&gt;%</span> <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">t value</th>
+<th style="text-align: right;">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">145.156724</td>
+<td style="text-align: right;">1.325549</td>
+<td style="text-align: right;">109.506863</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HThormone therapy</td>
+<td style="text-align: right;">-17.728360</td>
+<td style="text-align: right;">1.870629</td>
+<td style="text-align: right;">-9.477219</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">statinsyes</td>
+<td style="text-align: right;">-13.809124</td>
+<td style="text-align: right;">2.152130</td>
+<td style="text-align: right;">-6.416491</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HThormone therapy:statinsyes</td>
+<td style="text-align: right;">6.244416</td>
+<td style="text-align: right;">3.076489</td>
+<td style="text-align: right;">2.029721</td>
+<td style="text-align: right;">0.0424863</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[ LDL = 145.15 -17.72HT - 13.80statins + 6.24HTstatins\]</span></p>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">avg_comparisons</span>(modelo_inter, <span class="at">variables =</span> <span class="st">"HT"</span>, <span class="at">by =</span> <span class="st">"statins"</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb18-2"><a></a><span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 37%">
+<col style="width: 11%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: left;">contrast</th>
+<th style="text-align: left;">statins</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">HT</td>
+<td style="text-align: left;">hormone therapy - placebo</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: right;">-17.72836</td>
+<td style="text-align: right;">1.870629</td>
+<td style="text-align: right;">-9.477219</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HT</td>
+<td style="text-align: left;">hormone therapy - placebo</td>
+<td style="text-align: left;">yes</td>
+<td style="text-align: right;">-11.48394</td>
+<td style="text-align: right;">2.442444</td>
+<td style="text-align: right;">-4.701824</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="graficamente-la-interacción" class="slide level2">
+<h2>Graficamente la interacción:</h2>
+
+<img data-src="RLSM_2_files/figure-revealjs/unnamed-chunk-24-1.png" width="960" class="r-stretch"></section>
+<section id="ejemplo-interacción-continua" class="slide level2 small">
+<h2>Ejemplo: Interacción Continua</h2>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>modelo_inter2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(LDL1 <span class="sc">~</span> statins <span class="sc">+</span> BMI <span class="sc">+</span> statins<span class="sc">:</span>BMI, <span class="at">data =</span> hers)</span>
+<span id="cb19-2"><a></a><span class="fu">summary</span>(modelo_inter2)<span class="sc">$</span>coefficients <span class="sc">%&gt;%</span> <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="caption-top">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 17%">
+<col style="width: 16%">
+<col style="width: 14%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">t value</th>
+<th style="text-align: right;">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">122.1451382</td>
+<td style="text-align: right;">5.0146274</td>
+<td style="text-align: right;">24.357769</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">statinsyes</td>
+<td style="text-align: right;">10.0822853</td>
+<td style="text-align: right;">8.4339549</td>
+<td style="text-align: right;">1.195440</td>
+<td style="text-align: right;">0.2320243</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BMI</td>
+<td style="text-align: right;">0.4919387</td>
+<td style="text-align: right;">0.1719634</td>
+<td style="text-align: right;">2.860717</td>
+<td style="text-align: right;">0.0042606</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">statinsyes:BMI</td>
+<td style="text-align: right;">-0.7146756</td>
+<td style="text-align: right;">0.2903733</td>
+<td style="text-align: right;">-2.461230</td>
+<td style="text-align: right;">0.0139107</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[ LDL = 122.14 + 10.08statins + 0.49BMI - 0.71statins*BMI\]</span></p>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">comparisons</span>(modelo_inter2, <span class="at">variables =</span> <span class="st">"statins"</span>, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">BMI =</span> range)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">rowid</th>
+<th style="text-align: left;">term</th>
+<th style="text-align: left;">contrast</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">statins</td>
+<td style="text-align: left;">yes - no</td>
+<td style="text-align: right;">-0.988039</td>
+<td style="text-align: right;">4.100950</td>
+<td style="text-align: right;">-0.2409293</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">statins</td>
+<td style="text-align: left;">yes - no</td>
+<td style="text-align: right;">-28.603103</td>
+<td style="text-align: right;">7.595175</td>
+<td style="text-align: right;">-3.7659573</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="graficamente-la-interacción-1" class="slide level2">
+<h2>Graficamente la interacción:</h2>
+
+<img data-src="RLSM_2_files/figure-revealjs/unnamed-chunk-27-1.png" width="960" class="r-stretch"></section></section>
+<section id="gracias" class="title-slide slide level1 center">
+<h1>Gracias</h1>
+
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 <p>Bioestadistica III</p>
