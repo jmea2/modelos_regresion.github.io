@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Modelos de Regresion para Epidemiologos</title>
+<title>Regresión Logistica Multiple – Modelos de Regresion para Epidemiologos</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -29,7 +29,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./diapositivas/generalidades.html" rel="next">
+<link href="./rlg_simple.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -79,7 +79,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Inicio</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rlg_multiple.html">Regresión Logistica Multiple</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -106,7 +106,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Inicio</span></a>
   </div>
 </li>
@@ -136,7 +136,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./rlg_multiple.html" class="sidebar-item-text sidebar-link">
+  <a href="./rlg_multiple.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Regresión Logistica Multiple</span></a>
   </div>
 </li>
@@ -150,11 +150,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#remoto-mediado-por-tics" id="toc-remoto-mediado-por-tics" class="nav-link active" data-scroll-target="#remoto-mediado-por-tics">Remoto mediado por TICS</a>
-  <ul class="collapse">
-  <li><a href="#objetivos-de-aprendizaje" id="toc-objetivos-de-aprendizaje" class="nav-link" data-scroll-target="#objetivos-de-aprendizaje">Objetivos de Aprendizaje</a></li>
-  </ul></li>
-  <li><a href="#instructor-principal" id="toc-instructor-principal" class="nav-link" data-scroll-target="#instructor-principal">Instructor principal</a></li>
+  <li><a href="#diapositivas" id="toc-diapositivas" class="nav-link active" data-scroll-target="#diapositivas">Diapositivas</a></li>
   </ul>
 </nav>
     </div>
@@ -163,8 +159,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Modelos de Regresion para Epidemiologos</h1>
-<p class="subtitle lead">Asignatura de Bioestadistica III y IV de Maestria en Epidemiologia</p>
+<h1 class="title">Regresión Logistica Multiple</h1>
 </div>
 
 
@@ -181,83 +176,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<hr>
-<section id="remoto-mediado-por-tics" class="level1">
-<h1>Remoto mediado por TICS</h1>
-<ul>
-<li>Bioestadistica III: Octubre 3, 4, 10, 11, 17 y 18 2025</li>
-</ul>
-<hr>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Fecha</th>
-<th>Dia</th>
-<th>Hora</th>
-<th>Tema</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>03-10-2025</td>
-<td>Viernes</td>
-<td>2:00 pm a 7:00 pm</td>
-<td>Regresion lineal simple</td>
-</tr>
-<tr class="even">
-<td>04-10-2025</td>
-<td>Sabado</td>
-<td>8:00 am a 2:00 pm</td>
-<td>Regresion lineal simple (taller)</td>
-</tr>
-<tr class="odd">
-<td>10-10-2025</td>
-<td>Viernes</td>
-<td>2:00 pm a 7:00 pm</td>
-<td>Regresion logistica simple</td>
-</tr>
-<tr class="even">
-<td>11-10-2025</td>
-<td>Sabado</td>
-<td>8:00 am a 2:00 pm</td>
-<td>Regresion Logistica multiple (taller de utilidades de la regresion logistica)</td>
-</tr>
-<tr class="odd">
-<td>17-10-2025</td>
-<td>Viernes</td>
-<td>2:00 pm a 7:00 pm</td>
-<td>Interaccion y confusion en Regresion logistica multiple</td>
-</tr>
-<tr class="even">
-<td>18-10-2025</td>
-<td>Sabado</td>
-<td>8:00 am a 2:00 pm</td>
-<td>Prueba final aplicada</td>
-</tr>
-</tbody>
-</table>
-<section id="objetivos-de-aprendizaje" class="level2">
-<h2 class="anchored" data-anchor-id="objetivos-de-aprendizaje">Objetivos de Aprendizaje</h2>
-<ul>
-<li>Aprender el modelo multivariado adecuado para el control de la interacción y confusión de variables</li>
-<li>Implementar los modelos multivariados en los análisis de factores de riesgo frente a la enfermedad</li>
-<li>Identificar los métodos adecuados para evaluar relaciones entre dos variables</li>
-<li>Determinar cuál es el mejor método de análisis cuando la variable principal de resultado es de tipo cuantitativo o categórico</li>
-<li>Analizar e interpretar las principales metodologías estadísticas en el análisis de datos.</li>
-</ul>
-</section>
-</section>
-<section id="instructor-principal" class="level1">
-<h1>Instructor principal</h1>
-<p><img src="imagenes/yo1.jpeg" class="img-fluid" style="float:right;padding: 0 0 0 10px;" alt="Headshot of Daniel D. Sjoberg" width="150"></p>
-<p><a href="https://jmea2.github.io"><strong>Jorge Mario Estrada A.</strong></a> es Lic. Matemáticas y Epidemiologo de Campo (FETP), PhD. en Estadística Matemática y Aplicada en la Universidad de Granada y Maestrías en Epidemiologia y Estadistica Aplicada. Sus intereses en investigación incluyen, Implementación de métodos estadísticos para Epidemiología e investigación clinica, Epidemiologia de enfermedades infecciosas, Ciencia de datos aplicada a Salud Pública, Métodos de estimación para prevalencias bajas de enfermedades/infecciones.</p>
-<p>Apasionado por el Ciclomontañismo 🚵 (modalidad de Marathon) y tratando de incursionar en el ciclismo Gravel (Bikepacking, Carreras Gravel larga distancia).</p>
+<section id="diapositivas" class="level2">
+<h2 class="anchored" data-anchor-id="diapositivas">Diapositivas</h2>
+<iframe class="slide-deck" src="./diapositivas/rlgm.html" height="420" width="747" style="border: 1px solid #2e3846;"></iframe>
 
 
 </section>
@@ -685,11 +606,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./rlg_simple.html" class="pagination-link" aria-label="Regresión Logistica Simple">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Regresión Logistica Simple</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./diapositivas/generalidades.html" class="pagination-link" aria-label="Generalidades">
-        <span class="nav-page-text">Generalidades</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

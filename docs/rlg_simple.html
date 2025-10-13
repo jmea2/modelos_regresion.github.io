@@ -29,6 +29,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./rlg_multiple.html" rel="next">
 <link href="./rlm.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -163,6 +164,12 @@ window.Quarto = {
  <span class="menu-text">Regresión Logistica Simple</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./rlg_multiple.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regresión Logistica Multiple</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -232,7 +239,8 @@ window.Quarto = {
 <li><p>Usando la variable <code>cad</code> como variable dependiente (respuesta) y el colesterol como la variable explicatoria. Estime una regresion logistica e interprete los coeficientes. ¿Que significan en palabras?.</p></li>
 <li><p>A un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a colesterol es igual a cero. ¿Qué concluye?</p></li>
 <li><p>Cual es la interpretacion para el coeficiente de colesterol ? no olvide exponenciarlo <span class="math inline">\(e^{\beta_1}\)</span></p></li>
-<li><p>Realice una predicción de probabilidad de enfermedad cardiaca si se tiene un colesterol de 248 y luego con colesterol de 140. Si hace la razon de estas dos cantidades estimadas a que medida epidemiologica corresponde ? interprete.</p></li>
+<li><p>Realice una predicción de probabilidad de enfermedad cardiaca si se tiene un colesterol de 248 y luego con colesterol de 140. Si hace la razon de estas dos cantidades estimadas (mayor sobre la menor) a que medida epidemiologica corresponde ? interprete.</p></li>
+<li><p>Calcule el OR asociado con un cambio de incremento en el colesterol de 108 mg/dl (es decir pasar de 140 mg/dl a 248mg/dl). Compare con la medida anterior, son iguales ?. Explique sus razones por que si o porqué no?.</p></li>
 </ol>
 
 
@@ -667,6 +675,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./rlg_multiple.html" class="pagination-link" aria-label="Regresión Logistica Multiple">
+        <span class="nav-page-text">Regresión Logistica Multiple</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

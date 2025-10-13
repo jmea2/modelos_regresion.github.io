@@ -7,11 +7,12 @@
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-contrib/output-styling/output-styling-default.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.5.53">
 
   <meta name="author" content="Jorge Mario Estrada Alvarez PhD. MSc. FETP">
-  <title>Modelos de Regresion para Epidemiologos – Regresión Logistica Simple</title>
+  <title>Modelos de Regresion para Epidemiologos – Regresión Logistica Multiple</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -393,7 +394,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Regresión Logistica Simple</h1>
+  <h1 class="title">Regresión Logistica Multiple</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -433,7 +434,7 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
 </tr>
 <tr class="odd">
 <td>stroke_type</td>
-<td>Tipo de ictus (IS = isquémico; HS = hemorrágico)</td>
+<td>Tipo de ictus (0 = isquémico; 1 = hemorrágico)</td>
 </tr>
 <tr class="even">
 <td>sex</td>
@@ -454,48 +455,27 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
 </tbody>
 </table>
 </section>
-<section id="introducción-a-la-regresión-logistica" class="slide level2">
-<h2>Introducción a la Regresión Logistica</h2>
-<ul>
-<li><p>La regresión logistica es uno de los <strong>análisis estadísticos más comunes</strong> en epidemiologia.</p></li>
-<li><p>Modela la relación lineal entre una variable resultado <strong>categorica binaria</strong> (por ejemplo estado de infección, estado vital, complicaciones) y predictores que pueden ser numéricos o categóricos.</p></li>
-<li><p>La regresión logística es un caso particular del <strong>Modelo Lineal Generalizado (GLM)</strong>.</p></li>
-</ul>
-</section>
-<section id="distribución-de-la-variable-categorica" class="title-slide slide level1 center">
-<h1>Distribución de la variable categorica</h1>
+<section id="necesidad-bivariado-vs-multivariado" class="slide level2">
+<h2>Necesidad: Bivariado vs Multivariado</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(stroke, <span class="fu">aes</span>(<span class="at">x =</span> status))<span class="sc">+</span></span>
-<span id="cb1-2"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">"white"</span>)<span class="sc">+</span></span>
-<span id="cb1-3"><a></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
-<span id="cb1-4"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Estado vital"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-</div>
-<img data-src="rlgs_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"></section>
-
-<section>
-<section id="distribución-por-una-variable" class="title-slide slide level1 center">
-<h1>Distribución por una variable</h1>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>stroke <span class="sc">%&gt;%</span> <span class="fu">select</span>(status, sex) <span class="sc">%&gt;%</span> <span class="fu">tbl_cross</span>(<span class="at">percent =</span> <span class="st">"column"</span>) <span class="sc">%&gt;%</span> <span class="fu">add_p</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="lchdiywhev" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lchdiywhev table {
+<div id="leuhlosjki" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#leuhlosjki table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lchdiywhev thead, #lchdiywhev tbody, #lchdiywhev tfoot, #lchdiywhev tr, #lchdiywhev td, #lchdiywhev th {
+#leuhlosjki thead, #leuhlosjki tbody, #leuhlosjki tfoot, #leuhlosjki tr, #leuhlosjki td, #leuhlosjki th {
   border-style: none;
 }
 
-#lchdiywhev p {
+#leuhlosjki p {
   margin: 0;
   padding: 0;
 }
 
-#lchdiywhev .gt_table {
+#leuhlosjki .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -521,12 +501,12 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   border-left-color: #D3D3D3;
 }
 
-#lchdiywhev .gt_caption {
+#leuhlosjki .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lchdiywhev .gt_title {
+#leuhlosjki .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -538,7 +518,7 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   border-bottom-width: 0;
 }
 
-#lchdiywhev .gt_subtitle {
+#leuhlosjki .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -550,7 +530,7 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   border-top-width: 0;
 }
 
-#lchdiywhev .gt_heading {
+#leuhlosjki .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -562,13 +542,13 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   border-right-color: #D3D3D3;
 }
 
-#lchdiywhev .gt_bottom_border {
+#leuhlosjki .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lchdiywhev .gt_col_headings {
+#leuhlosjki .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -583,7 +563,7 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   border-right-color: #D3D3D3;
 }
 
-#lchdiywhev .gt_col_heading {
+#leuhlosjki .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -603,7 +583,7 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   overflow-x: hidden;
 }
 
-#lchdiywhev .gt_column_spanner_outer {
+#leuhlosjki .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -615,15 +595,15 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   padding-right: 4px;
 }
 
-#lchdiywhev .gt_column_spanner_outer:first-child {
+#leuhlosjki .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lchdiywhev .gt_column_spanner_outer:last-child {
+#leuhlosjki .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lchdiywhev .gt_column_spanner {
+#leuhlosjki .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -635,11 +615,11 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   width: 100%;
 }
 
-#lchdiywhev .gt_spanner_row {
+#leuhlosjki .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lchdiywhev .gt_group_heading {
+#leuhlosjki .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -665,7 +645,7 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   text-align: left;
 }
 
-#lchdiywhev .gt_empty_group_heading {
+#leuhlosjki .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -680,15 +660,15 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   vertical-align: middle;
 }
 
-#lchdiywhev .gt_from_md > :first-child {
+#leuhlosjki .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lchdiywhev .gt_from_md > :last-child {
+#leuhlosjki .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lchdiywhev .gt_row {
+#leuhlosjki .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -707,7 +687,7 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   overflow-x: hidden;
 }
 
-#lchdiywhev .gt_stub {
+#leuhlosjki .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -720,7 +700,7 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   padding-right: 5px;
 }
 
-#lchdiywhev .gt_stub_row_group {
+#leuhlosjki .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -734,15 +714,15 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   vertical-align: top;
 }
 
-#lchdiywhev .gt_row_group_first td {
+#leuhlosjki .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lchdiywhev .gt_row_group_first th {
+#leuhlosjki .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lchdiywhev .gt_summary_row {
+#leuhlosjki .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -752,16 +732,16 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   padding-right: 5px;
 }
 
-#lchdiywhev .gt_first_summary_row {
+#leuhlosjki .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lchdiywhev .gt_first_summary_row.thick {
+#leuhlosjki .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lchdiywhev .gt_last_summary_row {
+#leuhlosjki .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -771,7 +751,7 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   border-bottom-color: #D3D3D3;
 }
 
-#lchdiywhev .gt_grand_summary_row {
+#leuhlosjki .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -781,7 +761,7 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   padding-right: 5px;
 }
 
-#lchdiywhev .gt_first_grand_summary_row {
+#leuhlosjki .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -791,7 +771,7 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   border-top-color: #D3D3D3;
 }
 
-#lchdiywhev .gt_last_grand_summary_row_top {
+#leuhlosjki .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -801,11 +781,11 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   border-bottom-color: #D3D3D3;
 }
 
-#lchdiywhev .gt_striped {
+#leuhlosjki .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lchdiywhev .gt_table_body {
+#leuhlosjki .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -814,7 +794,7 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   border-bottom-color: #D3D3D3;
 }
 
-#lchdiywhev .gt_footnotes {
+#leuhlosjki .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -828,7 +808,7 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   border-right-color: #D3D3D3;
 }
 
-#lchdiywhev .gt_footnote {
+#leuhlosjki .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -837,7 +817,7 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   padding-right: 5px;
 }
 
-#lchdiywhev .gt_sourcenotes {
+#leuhlosjki .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -851,7 +831,7 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   border-right-color: #D3D3D3;
 }
 
-#lchdiywhev .gt_sourcenote {
+#leuhlosjki .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -859,136 +839,110 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
   padding-right: 5px;
 }
 
-#lchdiywhev .gt_left {
+#leuhlosjki .gt_left {
   text-align: left;
 }
 
-#lchdiywhev .gt_center {
+#leuhlosjki .gt_center {
   text-align: center;
 }
 
-#lchdiywhev .gt_right {
+#leuhlosjki .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lchdiywhev .gt_font_normal {
+#leuhlosjki .gt_font_normal {
   font-weight: normal;
 }
 
-#lchdiywhev .gt_font_bold {
+#leuhlosjki .gt_font_bold {
   font-weight: bold;
 }
 
-#lchdiywhev .gt_font_italic {
+#leuhlosjki .gt_font_italic {
   font-style: italic;
 }
 
-#lchdiywhev .gt_super {
+#leuhlosjki .gt_super {
   font-size: 65%;
 }
 
-#lchdiywhev .gt_footnote_marks {
+#leuhlosjki .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lchdiywhev .gt_asterisk {
+#leuhlosjki .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lchdiywhev .gt_indent_1 {
+#leuhlosjki .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lchdiywhev .gt_indent_2 {
+#leuhlosjki .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lchdiywhev .gt_indent_3 {
+#leuhlosjki .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lchdiywhev .gt_indent_4 {
+#leuhlosjki .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lchdiywhev .gt_indent_5 {
+#leuhlosjki .gt_indent_5 {
   text-indent: 25px;
 }
 
-#lchdiywhev .katex-display {
+#leuhlosjki .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#lchdiywhev div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#leuhlosjki div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
 
 <table class="gt_table caption-top" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <colgroup>
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
 </colgroup>
 <thead>
-<tr class="header gt_col_headings gt_spanner_row">
-<th rowspan="2" id="label" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
-<th colspan="2" id="level 1; stat_1" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
-sex
-</div></th>
-<th rowspan="2" id="stat_0" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Total</th>
-<th rowspan="2" id="p.value" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">p-value<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
-</tr>
-<tr class="odd gt_col_headings">
-<th id="stat_1" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">0</th>
-<th id="stat_2" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">1</th>
+<tr class="header gt_col_headings">
+<th id="label" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>Characteristic</strong></th>
+<th id="stat_1" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>0</strong><br> N = 171<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
+<th id="stat_2" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>1</strong><br> N = 55<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
+<th id="p.value" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>p-value</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span></th>
 </tr>
 </thead>
 <tbody class="gt_table_body">
 <tr class="odd">
-<td class="gt_row gt_left" headers="label">status</td>
-<td class="gt_row gt_center" headers="stat_1"><br>
-</td>
-<td class="gt_row gt_center" headers="stat_2"><br>
-</td>
-<td class="gt_row gt_center" headers="stat_0"><br>
-</td>
+<td class="gt_row gt_left" headers="label">sex</td>
+<td class="gt_row gt_center" headers="stat_1">81 (47%)</td>
+<td class="gt_row gt_center" headers="stat_2">16 (29%)</td>
 <td class="gt_row gt_center" headers="p.value">0.017</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;0</td>
-<td class="gt_row gt_center" headers="stat_1">90 (70%)</td>
-<td class="gt_row gt_center" headers="stat_2">81 (84%)</td>
-<td class="gt_row gt_center" headers="stat_0">171 (76%)</td>
-<td class="gt_row gt_center" headers="p.value"><br>
-</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;1</td>
-<td class="gt_row gt_center" headers="stat_1">39 (30%)</td>
-<td class="gt_row gt_center" headers="stat_2">16 (16%)</td>
-<td class="gt_row gt_center" headers="stat_0">55 (24%)</td>
-<td class="gt_row gt_center" headers="p.value"><br>
-</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="label">Total</td>
-<td class="gt_row gt_center" headers="stat_1">129 (100%)</td>
-<td class="gt_row gt_center" headers="stat_2">97 (100%)</td>
-<td class="gt_row gt_center" headers="stat_0">226 (100%)</td>
-<td class="gt_row gt_center" headers="p.value"><br>
-</td>
+<td class="gt_row gt_left" headers="label">Stroke Haemorrhagic</td>
+<td class="gt_row gt_center" headers="stat_1">39 (23%)</td>
+<td class="gt_row gt_center" headers="stat_2">38 (69%)</td>
+<td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 </tbody><tfoot class="gt_footnotes">
+<tr class="odd">
+<td colspan="4" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> n (%)</td>
+</tr>
 <tr class="even">
-<td colspan="5" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> Pearson’s Chi-squared test</td>
+<td colspan="4" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span> Pearson’s Chi-squared test</td>
 </tr>
 </tfoot>
 
@@ -997,185 +951,219 @@ sex
 </div>
 </div>
 </div>
-</section>
-<section id="regresión-logistica-simple" class="slide level2 smaller">
-<h2>Regresión Logistica Simple</h2>
+
+<img data-src="rlgm_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
+<section id="regresión-logistica-multiple" class="slide level2 smaller">
+<h2>Regresión Logistica Multiple</h2>
 <ul>
-<li>La <strong>Regresión Logistica Simple</strong> modela la relación lineal entre:
+<li>La <strong>Regresión Logistica Mutiple</strong> modela la relación lineal entre:
 <ul>
 <li>Una <strong>variable dependiente categorica</strong> (ej. Status).<br>
 </li>
-<li><strong>Un único predictor</strong> (numérico o categórico).</li>
+<li><strong>y dos o mas predictores</strong> (numéricos y categóricos).</li>
 </ul></li>
-<li>Cuando el predictor es categórico, se puede interpretar como un <strong>prueba de chi-cuadrado</strong>.</li>
 </ul>
 <h3 id="expresión-matemática">Expresión matemática</h3>
-<p><span class="math display">\[E(Y \mid X) = \beta_0 + \beta_1 X\]</span> <span class="math inline">\(E(Y) = P(Y)\)</span> Recordar que <span class="math inline">\(Y = [0,1]\)</span> si se asume asi los valores de <span class="math inline">\(Y\)</span> estimados por el modelo lineal simple siempre los valores estimados de <span class="math inline">\(Y\)</span> se salen de <span class="math inline">\(0\)</span> o de <span class="math inline">\(1\)</span>.</p>
+<p><span class="math display">\[E(Y \mid X_1,X_2,\dots X_i) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_iX_i\]</span> <span class="math inline">\(E(Y) = P(Y)\)</span> Recordar que <span class="math inline">\(Y = [0,1]\)</span> si se asume asi los valores de <span class="math inline">\(Y\)</span> estimados por el modelo lineal simple siempre los valores estimados de <span class="math inline">\(Y\)</span> se salen de <span class="math inline">\(0\)</span> o de <span class="math inline">\(1\)</span>.</p>
 </section>
 <section id="modelo-enlace-y-probabilidades" class="slide level2">
 <h2>Modelo, enlace y probabilidades</h2>
-<p><span class="math display">\[Odds = \frac{P(Y)}{1-P(Y)}\]</span> el logaritmo de Odds <span class="math inline">\(Log(odds)\)</span> si es lineal en terminos de una covariable, y se llama el logit.</p>
+<p><span class="math display">\[Odds = \frac{P(Y/X_i)}{1-P(Y/X_i)}\]</span> el logaritmo de Odds <span class="math inline">\(Log(odds)\)</span> si es lineal en terminos de una covariable, y se llama el logit.</p>
 <p><span class="math display">\[
-\log(\frac{P(Y/X)}{1-P(Y/X)}) = \beta_0 + \beta_1X
+\log(\frac{P(Y/X_i)}{1-P(Y/X_i)}) = \beta_0 + \beta_1X + \dots +\beta_iX_i
 \]</span></p>
 <p><span class="math display">\[
-P(Y/X)=\frac{1}{1+e^{-\left(\beta_0+\beta_1 X\right)}}
+P(Y/X_i)=\frac{1}{1+e^{-\left(\beta_0 + \beta_1X_1 + \dots +\beta_iX_i\right)}}
 \]</span></p>
-</section></section>
+</section>
 <section>
 <section id="estimación-de-los-parametros-del-modelo" class="title-slide slide level1 center">
 <h1>Estimación de los parametros del modelo</h1>
 
 </section>
-<section id="estimación-por-máxima-verosimilitud-caso-1-covariable" class="slide level2">
-<h2>Estimación por Máxima Verosimilitud (caso 1 covariable)</h2>
+<section id="estimación-por-máxima-verosimilitud" class="slide level2">
+<h2>Estimación por Máxima Verosimilitud</h2>
 <ul>
-<li>La idea central es elegir los parámetros <span class="math inline">\(\beta_0, \beta_1\)</span> que <strong>maximizan la probabilidad</strong> de observar los datos.</li>
+<li>La idea central es elegir los parámetros <span class="math inline">\(\beta_0, \beta_1, \dots \beta_i\)</span> que <strong>maximizan la probabilidad</strong> de observar los datos.</li>
 </ul>
 <p><span class="math display">\[
-L(P(\beta_0,\beta_1/Y,X))=\sum_{i=1}^n\Big[y_i(\beta_0+\beta_1 X_i)-\log\!\big(1+e^{\beta_0+\beta_1 X_i}\big)\Big].
+L(P(\beta_0,\beta_1,\dots,\beta_i/Y,X_i))=\sum_{i=1}^n\Big[y_i(\beta_0+\beta_1 X_1+\dots\beta_i)-\log\!\big(1+e^{\beta_0+\beta_1 X_1+\dots +\beta_iX_i}\big)\Big].
 \]</span></p>
 </section>
-<section id="modelo-probabilidad-de-muerte-en-funcion-del-sexo" class="slide level2">
-<h2>Modelo: Probabilidad de muerte en funcion del sexo</h2>
-<p><strong>Objetivo:</strong> Se requiere predecir la probabilidad de fallecer (status = 1) en pacientes cuando se conoce su sexo</p>
+<section id="modelo-probabilidad-de-muerte-en-funcion-del-sexo-y-tipo-de-stroke" class="slide level2">
+<h2>Modelo: Probabilidad de muerte en funcion del sexo y tipo de Stroke</h2>
 <ul>
-<li><p>Asumimos que la relacóon lineal en el <span class="math inline">\(logit(P)\)</span> es decir <span class="math inline">\(\log(\frac{P}{1-P})\)</span></p></li>
-<li><p>Segun el modelo lineal planteado seria:</p></li>
+<li>Asumimos que la relación lineal en el <span class="math inline">\(logit(P)\)</span> es decir <span class="math inline">\(\log(\frac{P}{1-P})\)</span></li>
 </ul>
-<p><span class="math display">\[\log(\frac{P}{1-P}) = \beta_0 + \beta_1 \times sexo\]</span></p>
-<p>Que valores asumen <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span></p>
-</section>
-<section id="ajuste-del-modelo" class="slide level2">
-<h2>Ajuste del modelo</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>modelo <span class="ot">&lt;-</span> <span class="fu">glm</span>(status <span class="sc">~</span> sex, </span>
-<span id="cb3-2"><a></a>      <span class="at">data =</span> stroke, </span>
-<span id="cb3-3"><a></a>      <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">'logit'</span>))</span>
-<span id="cb3-4"><a></a><span class="fu">summary</span>(modelo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="el-modelo-es-adecuado" class="slide level2 smaller">
-<h2>¿El modelo es adecuado?</h2>
-<h3 id="prueba-chi-cuadrado">Prueba chi-cuadrado</h3>
-<p>minimizar la perdida de informacion Deviance residual comparada con la nula.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>residuos_log_1 <span class="ot">&lt;-</span> modelo<span class="sc">$</span>null.deviance <span class="sc">-</span> modelo<span class="sc">$</span>deviance</span>
-<span id="cb4-2"><a></a><span class="co">#Grados de Libertad.</span></span>
-<span id="cb4-3"><a></a>grados_log_1 <span class="ot">&lt;-</span> modelo<span class="sc">$</span>df.null <span class="sc">-</span> modelo<span class="sc">$</span>df.residual</span>
-<span id="cb4-4"><a></a><span class="co">#p-value.</span></span>
-<span id="cb4-5"><a></a><span class="fu">pchisq</span>(residuos_log_1, grados_log_1,<span class="at">lower.tail =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.01559606</code></pre>
-</div>
-</div>
-</section>
-<section id="estimación-de-coeficientes" class="slide level2 smaller">
-<h2>Estimación de coeficientes</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>modelo_null <span class="ot">&lt;-</span> <span class="fu">glm</span>(status <span class="sc">~</span> <span class="dv">1</span>, </span>
-<span id="cb6-2"><a></a>      <span class="at">data =</span> stroke, </span>
-<span id="cb6-3"><a></a>      <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">'logit'</span>))</span>
-<span id="cb6-4"><a></a></span>
-<span id="cb6-5"><a></a><span class="fu">summary</span>(modelo_null)<span class="sc">$</span>coefficients</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>            Estimate Std. Error  z value     Pr(&gt;|z|)
-(Intercept) -1.13433  0.1550153 -7.31754 2.525578e-13</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">mean</span>(stroke<span class="sc">$</span>status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.2433628</code></pre>
-</div>
-</div>
-<p>El coeficiente <span class="math inline">\(-1.13433\)</span> segun modelo corresponde a:</p>
-<p><span class="math display">\[\log(odds) = -1.13433\]</span> <span class="math display">\[e^{\log(odds)} = e^{-1.13433}\]</span> <span class="math inline">\(odds = 0.3217\)</span> ahora devolviendonos <span class="math inline">\(P = \frac{odds}{1+odds}\)</span> entonces:</p>
-<p><span class="math display">\[ P = \frac{0.3217}{1+0.3217} = 0.2424\]</span></p>
-</section>
-<section id="con-covariable-categorica" class="slide level2">
-<h2>con covariable categorica</h2>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>modelo <span class="ot">&lt;-</span> <span class="fu">glm</span>(status <span class="sc">~</span> sex, </span>
-<span id="cb10-2"><a></a>      <span class="at">data =</span> stroke, </span>
-<span id="cb10-3"><a></a>      <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">'logit'</span>))</span>
-<span id="cb10-4"><a></a><span class="fu">summary</span>(modelo)<span class="sc">$</span>coefficients</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre><code>          Estimate Std. Error   z value     Pr(&gt;|z|)</code></pre>
-<p>(Intercept) -0.8362480 0.1917084 -4.362084 1.288295e-05 sex -0.7856124 0.3340625 -2.351693 1.868821e-02</p>
-<p>Modelo completo: <span class="math inline">\(\log(odds) = -0.835 - 0.785 \times sex\)</span></p>
-<p><br>
-</p>
-<p>Ahora vamos a la interpretación de coeficientes</p>
-</section>
-<section id="interpretación-de-coeficientes-de-variable-categorica-binaria" class="slide level2">
-<h2>Interpretación de Coeficientes de variable categorica (binaria)</h2>
-<ul>
-<li><span class="math inline">\(\beta_0\)</span> es el valor medio que asumen la variable dependiente (<span class="math inline">\(\log(odds)\)</span>) cuando la covariable toma valor cero (en nuestro caso ser hombre).</li>
-</ul>
-<p><span class="math display">\[\log(odds) = -0.835 - 0.785(0) = -0.835\]</span></p>
-<p><span class="math display">\[odds_{hombre} = e^{-0.835} = 0.43\]</span><br>
-<br>
-pasadolo a probabilidad seria <span class="math inline">\(\frac{0.43}{1-0.43} = 0.302\)</span>.</p>
-<p><br>
-Si recordamos la tabla de <span class="math inline">\(2\times 2\)</span></p>
-</section>
-<section id="interpretación-de-coeficientes-de-variable-categorica-binaria-1" class="slide level2">
-<h2>Interpretación de Coeficientes de variable categorica (binaria)</h2>
-<ul>
-<li><span class="math inline">\(\beta_1\)</span>: para obtener interpretación de este coeficiente realizamos la siguiente comparación de resultados del modelo cuando <code>sexo</code> asume ser <strong>F</strong> contra <strong>M</strong>. Es decir un cambio de 0 (Hombre) a 1(Mujer).</li>
-</ul>
-<p><span class="math display">\[e^{\log(odds_{mujer})} =odds_{mujer} = e^{\beta_0 + \beta_1(1)}\]</span> <span class="math display">\[e^{\log(odds_{hombre})} =odds_{hombre} = e^{\beta_0 + \beta_1(0)}\]</span> <span class="math display">\[\frac{odds_{mujer}}{odds_{hombre}} = \frac{e^{\beta_0 + \beta_1(1)}}{e^{\beta_0 + \beta_1(0)}} = e^{\beta_0 + \beta_1(1)}e^{-\beta_0 - \beta_1(0)} = e^{\beta_1}\]</span> ¿Se concluye entonces qué?</p>
-</section>
-<section id="predicciones-con-el-modelo" class="slide level2">
-<h2>Predicciones con el modelo</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">predict</span>(modelo,<span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">sex =</span> <span class="dv">1</span>),<span class="at">type =</span> <span class="st">"response"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>        1 
-0.1649485 </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">predict</span>(modelo,<span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">sex =</span> <span class="dv">0</span>), <span class="at">type =</span> <span class="st">"response"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>        1 
-0.3023256 </code></pre>
-</div>
-</div>
-</section>
-<section id="inferencia-coeficientes-y-predicciones" class="slide level2">
-<h2>Inferencia: Coeficientes y Predicciones</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">summary</span>(modelo)<span class="sc">$</span>coefficients</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              Estimate Std. Error   z value     Pr(&gt;|z|)
 (Intercept) -0.8362480  0.1917084 -4.362084 1.288295e-05
 sex         -0.7856124  0.3340625 -2.351693 1.868821e-02</code></pre>
 </div>
 </div>
+<p>Ahora ajustemos un nuevo modelo que incluya el efecto que pueda tener el tipo de stroke, el modelo seria:</p>
+<p><span class="math display">\[\log(odds) = \beta_0 + \beta_1sex + \beta_2strokeType\]</span></p>
+</section>
+<section id="modelo-probabilidad-de-muerte-en-funcion-del-sexo-y-tipo-de-stroke-1" class="slide level2">
+<h2>Modelo: Probabilidad de muerte en funcion del sexo y tipo de Stroke</h2>
+</section>
+<section id="el-modelo-es-adecuado" class="slide level2 small">
+<h2>¿El modelo es adecuado?</h2>
+<h3 id="prueba-chi-cuadrado">Prueba chi-cuadrado</h3>
+<p>minimizar la perdida de informacion Deviance residual comparada con la nula.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">exp</span>(<span class="fu">coefficients</span>(modelo))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>residuos_log_1 <span class="ot">&lt;-</span> modelo_mult<span class="sc">$</span>null.deviance <span class="sc">-</span> modelo_mult<span class="sc">$</span>deviance</span>
+<span id="cb2-2"><a></a><span class="co">#Grados de Libertad.</span></span>
+<span id="cb2-3"><a></a>grados_log_1 <span class="ot">&lt;-</span> modelo_mult<span class="sc">$</span>df.null <span class="sc">-</span> modelo_mult<span class="sc">$</span>df.residual</span>
+<span id="cb2-4"><a></a><span class="co">#p-value.</span></span>
+<span id="cb2-5"><a></a><span class="fu">pchisq</span>(residuos_log_1, grados_log_1,<span class="at">lower.tail =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>(Intercept)         sex 
-  0.4333333   0.4558405 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">exp</span>(<span class="fu">confint</span>(modelo))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                2.5 %    97.5 %
-(Intercept) 0.2944922 0.6258239
-sex         0.2316497 0.8640154</code></pre>
+<pre><code>[1] 4.940062e-10</code></pre>
 </div>
 </div>
 </section>
-<section id="inferencia-en-predicciones" class="slide level2">
-<h2>Inferencia en predicciones</h2>
+<section id="estimación-de-coeficientes" class="slide level2 smaller">
+<h2>Estimación de coeficientes</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">predictions</span>(modelo, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">sex =</span> <span class="fu">c</span>(<span class="dv">1</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
- Estimate Pr(&gt;|z|)    S 2.5 % 97.5 % sex
-    0.165   &lt;0.001 28.3 0.104  0.252   1
-
-Type:  invlink(link) </code></pre>
+<pre><code>              Estimate Std. Error   z value     Pr(&gt;|z|)
+(Intercept) -1.7565411  0.2837494 -6.190467 5.998629e-10
+sex         -0.7611076  0.3643847 -2.088748 3.673045e-02
+stroke_type  2.0141947  0.3483070  5.782815 7.346092e-09</code></pre>
+</div>
+</div>
+<p>Recordar la <span class="math inline">\(H_o: \beta_i = 0\)</span></p>
+</section>
+<section id="interpretación-de-coeficientes" class="slide level2 small">
+<h2>Interpretación de Coeficientes</h2>
+<ul>
+<li><span class="math inline">\(\beta_0\)</span> es el valor medio que asumen la variable dependiente (<span class="math inline">\(\log(odds)\)</span>) cuando todas las covariables toman valor cero (Cuidado No aplica siempre o se refiere a una subpoblacion que no es de interes o de proposito)</li>
+</ul>
+<p><span class="math display">\[\log(odds) = -1.75 - 0.7611sex + 2.01strokeType\]</span></p>
+<p>En nuestro caso, las covariables cero son: Hombre(0), isquemico(0), entonces</p>
+<p><span class="math display">\[\log(odds) = -1.75\]</span> <span class="math display">\[e^{\log(odds)} = e^{-1.75}\]</span> <span class="math display">\[odds = 0.173\]</span></p>
+<p><strong>Conviertanlo en Probabilidad.</strong></p>
+</section>
+<section id="interpretación-de-coeficientes-1" class="slide level2">
+<h2>Interpretación de Coeficientes</h2>
+<ul>
+<li><span class="math inline">\(\beta_1\)</span>: para obtener interpretación de este coeficiente realizamos la siguiente comparación de resultados del modelo cuando <code>sexo</code> asume ser constante y la variable <code>stroke_type</code> es hemorragico(1) e isquemico(0)</li>
+</ul>
+<div class="fragment">
+<p><span class="math display">\[e^{\log(odds_{hem})} =odds_{hem} = e^{\beta_0 + \beta_1sex + \beta_2(1)}\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+e^{\log(odds_{isq})} = odds_{isq} = e^{\beta_0+\beta_1sex+\beta_2(0)}
+\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\frac{odds_{hem}}{odds_{isq}} = \frac{e^{\beta_0 + \beta_1sex+\beta_2(1)}}{e^{\beta_0 + \beta_1sex+\beta_2(0)}} = e^{\beta_0 + \beta_1sex+\beta_2(1)}e^{-\beta_0 - \beta_1sex-\beta_2(0)} = e^{\beta_2}\]</span></p>
+</div>
+<div class="fragment">
+<p>¿Se concluye entonces qué?</p>
+</div>
+</section>
+<section id="predicciones-con-el-modelo-para-probabilidades" class="slide level2 small">
+<h2>Predicciones con el modelo para probabilidades</h2>
+<p><span class="math display">\[P(Y=1/X_i)= \frac{1}{1 + e^{-(\beta_0+\beta_1+\dots+\beta_i)}}\]</span> <span class="math display">\[P(Y=1/sex,stroketype)= \frac{1}{1 + e^{-(-1.75-0.76sex++2.01stroketype)}}\]</span></p>
+<ul>
+<li>Probabilidad de fallecer siendo mujer y stroke hemorragico</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">predict</span>(modelo_mult,<span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">sex =</span> <span class="dv">1</span>,<span class="at">stroke_type =</span> <span class="dv">1</span>),<span class="at">type =</span> <span class="st">"response"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        1 
+0.3767293 </code></pre>
+</div>
+</div>
+<ul>
+<li>Probabilidad de fallecer siendo hombre y stroke hemorragico</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">predict</span>(modelo_mult,<span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">sex =</span> <span class="dv">0</span>, <span class="at">stroke_type =</span> <span class="dv">1</span>), <span class="at">type =</span> <span class="st">"response"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        1 
+0.5640594 </code></pre>
+</div>
+</div>
+</section>
+<section id="inferencia-coeficientes-y-predicciones" class="slide level2">
+<h2>Inferencia: Coeficientes y Predicciones</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">summary</span>(modelo_mult)<span class="sc">$</span>coefficients <span class="sc">%&gt;%</span> <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">z value</th>
+<th style="text-align: right;">Pr(&gt;|z|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">-1.7565411</td>
+<td style="text-align: right;">0.2837494</td>
+<td style="text-align: right;">-6.190467</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sex</td>
+<td style="text-align: right;">-0.7611076</td>
+<td style="text-align: right;">0.3643847</td>
+<td style="text-align: right;">-2.088748</td>
+<td style="text-align: right;">0.0367305</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">stroke_type</td>
+<td style="text-align: right;">2.0141947</td>
+<td style="text-align: right;">0.3483070</td>
+<td style="text-align: right;">5.782815</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">exp</span>(<span class="fu">coefficients</span>(modelo_mult))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)         sex stroke_type 
+  0.1726410   0.4671487   7.4946893 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">exp</span>(<span class="fu">confint</span>(modelo_mult)) <span class="sc">%&gt;%</span> <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">2.5 %</th>
+<th style="text-align: right;">97.5 %</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">0.0956288</td>
+<td style="text-align: right;">0.2926718</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sex</td>
+<td style="text-align: right;">0.2238593</td>
+<td style="text-align: right;">0.9409725</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">stroke_type</td>
+<td style="text-align: right;">3.8476842</td>
+<td style="text-align: right;">15.1571568</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </section>
@@ -1190,74 +1178,82 @@ Type:  invlink(link) </code></pre>
 <section id="diagnostico-con-graficos-verificación-de-supuestos" class="slide level2">
 <h2>Diagnostico con graficos (Verificación de supuestos)</h2>
 
-<img data-src="d1rlg.png" width="500" class="r-stretch"></section>
-<section id="con-covariable-numerica" class="slide level2">
-<h2>Con covariable numerica</h2>
-<h3 id="modelo-con-glasglow-como-covariable">modelo con glasglow como covariable</h3>
+<img data-src="d2rlg.png" width="500" class="r-stretch"></section>
+<section id="incluyendo-mas-variables-ejemplo-numerica" class="slide level2">
+<h2>Incluyendo mas variables (Ejemplo: numerica)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a>modelo_num <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">formula =</span> status <span class="sc">~</span> gcs, stroke, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">'logit'</span>))</span>
-<span id="cb24-2"><a></a><span class="fu">summary</span>(modelo_num)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>modelo_new <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">formula =</span> status <span class="sc">~</span> sex <span class="sc">+</span> stroke_type <span class="sc">+</span> gcs, stroke, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">'logit'</span>))</span>
+<span id="cb13-2"><a></a><span class="fu">summary</span>(modelo_new)<span class="sc">$</span>coefficients</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Estimate Std. Error   z value     Pr(&gt;|z|)
+(Intercept)  2.3012969 0.71127424  3.235457 1.214484e-03
+sex         -0.5124684 0.42794355 -1.197514 2.311062e-01
+stroke_type  1.1189027 0.41587007  2.690510 7.134284e-03
+gcs         -0.3286912 0.05456293 -6.024076 1.700784e-09</code></pre>
+</div>
+</div>
+<p>Debemos evaluar si la inclusión de la variable glasglow aporta o no al modelo, <strong>No Olvidar</strong> principio de parsimonia en modelamiento.</p>
+</section></section>
+<section>
+<section id="pruebas-para-comparación-entre-modelos" class="title-slide slide level1 center">
+<h1>Pruebas para comparación entre modelos</h1>
+
+</section>
+<section id="prueba-chi2" class="slide level2">
+<h2>Prueba <span class="math inline">\(\chi^2\)</span></h2>
+<p>compara las diferencias entre las deviance entre los modelos, la cual tiene una distribución <span class="math inline">\(\chi^2\)</span>.</p>
+<p><span class="math inline">\(H_o: model_1 = model_2\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">anova</span>(modelo_mult, modelo_new)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Analysis of Deviance Table
+  
+  Model 1: status ~ sex + stroke_type
+  Model 2: status ~ sex + stroke_type + gcs
+    Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    
+  1       223     207.97                          
+  2       222     162.72  1   45.254 1.731e-11 ***
+  ---
+  Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+</section>
+<section id="aic" class="slide level2">
+<h2>AIC</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">AIC</span>(modelo_mult, modelo_new)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              df      AIC
+  modelo_mult  3 213.9693
+  modelo_new   4 170.7152</code></pre>
+</div>
+</div>
+</section>
+<section id="prueba-de-bondad-de-ajuste-o-test-de-hosmer-lemeshow" class="slide level2">
+<h2>Prueba de bondad de ajuste o test de Hosmer-Lemeshow</h2>
+<ul>
+<li><p>Cuando llegamos a este punto del análisis, estamos presuponiendo que el modelo contiene todas las variables importantes.</p></li>
+<li><p>Ahora el siguiente paso es saber lo eficiente que es es modelo a la hora de predecir la variable respuesta. A esto se le llama bondad de ajuste.</p></li>
+<li><p>Diremos que un modelo ajusta bien si la diferencia entre los valores observados y los ajustados, es pequeña.</p></li>
+</ul>
+</section>
+<section id="test-de-hosmer-y-lemeshow" class="slide level2">
+<h2>Test de Hosmer y Lemeshow</h2>
+<p><span class="math inline">\(H_o\)</span>: el modelo se ajusta bien a los datos.</p>
+<p><span class="math inline">\(H_1\)</span>: el modelo no se ajusta bien (mal ajuste).</p>
+<p>👉 Si <span class="math inline">\(p &gt; 0.05\)</span>, no se rechaza <span class="math inline">\(H_o\)</span>, lo que sugiere un buen ajuste.</p>
+<p>👉 Si <span class="math inline">\(p &lt; 0.05\)</span>, se rechaza <span class="math inline">\(H_o\)</span>, indicando un posible mal ajuste.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">hoslem.test</span>(stroke<span class="sc">$</span>status, <span class="fu">fitted</span>(modelo_new), <span class="at">g =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-Call:
-glm(formula = status ~ gcs, family = binomial(link = "logit"), 
-    data = stroke)
+    Hosmer and Lemeshow goodness of fit (GOF) test
 
-Coefficients:
-            Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept)  3.29479    0.60432   5.452 4.98e-08 ***
-gcs         -0.38811    0.05213  -7.446 9.64e-14 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-(Dispersion parameter for binomial family taken to be 1)
-
-    Null deviance: 250.83  on 225  degrees of freedom
-Residual deviance: 170.92  on 224  degrees of freedom
-AIC: 174.92
-
-Number of Fisher Scoring iterations: 5</code></pre>
+data:  stroke$status, fitted(modelo_new)
+X-squared = 5.911, df = 5, p-value = 0.315</code></pre>
 </div>
 </div>
-</section>
-<section id="modelo-estimado" class="slide level2 smaller">
-<h2>Modelo Estimado</h2>
-<p><span class="math display">\[\log(odds) = 3.29 - 0.38 \times gcs\]</span></p>
-<div class="fragment">
-<p><span class="math inline">\(\beta_1\)</span>: evaluemos que pasa si hacemos un cambio en una unidad de la covariable</p>
-</div>
-<div class="fragment">
-<p><span class="math display">\[\log(Odds_{gcs12})-\log(Odds_{gcs11}) = \log(\frac{Odds_{gcs12}}{Odds_{gcs11}})\]</span></p>
-</div>
-<div class="fragment">
-<p><span class="math display">\[\log(\frac{Odds_{gcs12}}{Odds_{gcs11}})=\beta_0 + \beta_1(12)-\beta_0 - \beta_1(11)= \beta_0-\beta_0+\beta_1(12)-\beta_1(11)\]</span></p>
-</div>
-<div class="fragment">
-<p><span class="math display">\[\log(\frac{Odds_{gcs12}}{Odds_{gcs11}}) = \beta_1(12-11) = \beta_1\]</span> <span class="math display">\[\log(OR) = \beta_1\]</span>, aplicamos <span class="math inline">\(e\)</span> ambos lados</p>
-</div>
-<div class="fragment">
-<p><span class="math display">\[OR = e^{\beta_1} = e^{-0.38} = 0.68\]</span></p>
-<p>por cada punto de incremento en la escala glasglow <strong>OR</strong> se <strong>multiplicaría</strong> por <span class="math inline">\(0.68\)</span>.</p>
-</div>
-</section>
-<section id="cuidado-con-la-interepretación-de-or-en-variable-numericas" class="slide level2">
-<h2>CUIDADO CON LA INTEREPRETACIÓN DE OR EN VARIABLE NUMERICAS</h2>
-<ul>
-<li><p>El cambio es en escala multiplicativa no ADITIVA como en regresión lineal.</p></li>
-<li><p>En el ejemplo: La frecuencia de muerte cambia multiplicando por el valor del coeficiente exponenciado.</p></li>
-</ul>
-<p>Para 1 punto de cambio en glasglow <span class="math inline">\(OR = 0.68\)</span></p>
-<p>Para 2 puntos de cambio acumulados seria <span class="math inline">\(OR = 0.68\times0.68 = 0.46\)</span></p>
-<p>De otra manera <span class="math display">\[OR = e^{-0.38\times2}= 0.46\]</span></p>
-</section>
-<section id="diagnostico-del-modelo" class="slide level2">
-<h2>Diagnostico del modelo</h2>
-
-<img data-src="rlog3.png" width="450" class="r-stretch"></section>
-<section id="revisemos-linealidad-entre-odds-de-fallecer-y-glasglow" class="slide level2">
-<h2>Revisemos linealidad entre Odds de fallecer y Glasglow</h2>
-
-<img data-src="rlgs_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"></section></section>
+</section></section>
 <section id="gracias" class="title-slide slide level1 center">
 <h1>Gracias</h1>
 
