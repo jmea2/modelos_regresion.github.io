@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -67,6 +101,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -151,6 +214,13 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#diapositivas" id="toc-diapositivas" class="nav-link active" data-scroll-target="#diapositivas">Diapositivas</a></li>
+  <li><a href="#taller-5-regresion-logistica-multiple-confusion-e-interacción" id="toc-taller-5-regresion-logistica-multiple-confusion-e-interacción" class="nav-link" data-scroll-target="#taller-5-regresion-logistica-multiple-confusion-e-interacción">Taller 5: Regresion logistica multiple, confusion e interacción</a>
+  <ul class="collapse">
+  <li><a href="#modelo-propuesto-para-el-estudio-de-enfermedad-coronaria" id="toc-modelo-propuesto-para-el-estudio-de-enfermedad-coronaria" class="nav-link" data-scroll-target="#modelo-propuesto-para-el-estudio-de-enfermedad-coronaria">Modelo propuesto para el estudio de enfermedad coronaria</a></li>
+  <li><a href="#evaluación-de-interacción" id="toc-evaluación-de-interacción" class="nav-link" data-scroll-target="#evaluación-de-interacción">Evaluación de interacción</a></li>
+  <li><a href="#pendientes-interpretables-heterogeneidad-de-efectos" id="toc-pendientes-interpretables-heterogeneidad-de-efectos" class="nav-link" data-scroll-target="#pendientes-interpretables-heterogeneidad-de-efectos">Pendientes interpretables (Heterogeneidad de efectos)</a></li>
+  <li><a href="#predicciones" id="toc-predicciones" class="nav-link" data-scroll-target="#predicciones">Predicciones</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -179,8 +249,731 @@ ul.task-list li input[type="checkbox"] {
 <section id="diapositivas" class="level2">
 <h2 class="anchored" data-anchor-id="diapositivas">Diapositivas</h2>
 <iframe class="slide-deck" src="./diapositivas/rlgm.html" height="420" width="747" style="border: 1px solid #2e3846;"></iframe>
+</section>
+<section id="taller-5-regresion-logistica-multiple-confusion-e-interacción" class="level2">
+<h2 class="anchored" data-anchor-id="taller-5-regresion-logistica-multiple-confusion-e-interacción">Taller 5: Regresion logistica multiple, confusion e interacción</h2>
+<p>Datos utilizados en el presente taller corresponde a seguimiento de 3154 sujetos para evaluar la incidencia (probabilidad) de enfermedad coronaria. contiene 22 variables, sin embargo no todas seran usadas para este ejercicio pedagodico.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(wcgs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 3,154
+Columns: 22
+$ age      &lt;dbl&gt; 50, 51, 59, 51, 44, 47, 40, 41, 50, 43, 59, 54, 48, 39, 49, 5…
+$ arcus    &lt;dbl&gt; 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1…
+$ behpat   &lt;chr&gt; "A1", "A1", "A1", "A1", "A1", "A1", "A1", "A1", "A1", "A1", "…
+$ bmi      &lt;dbl&gt; 31.32101, 25.32858, 28.69388, 22.14871, 22.31303, 27.11768, 2…
+$ chd69    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0…
+$ chol     &lt;dbl&gt; 249, 194, 258, 173, 214, 206, 190, 212, 130, 233, 181, 214, 2…
+$ dbp      &lt;dbl&gt; 90, 74, 94, 80, 80, 76, 78, 84, 70, 80, 86, 76, 78, 74, 80, 7…
+$ dibpat   &lt;chr&gt; "Type A", "Type A", "Type A", "Type A", "Type A", "Type A", "…
+$ height   &lt;dbl&gt; 67, 73, 70, 69, 71, 64, 70, 70, 71, 68, 72, 67, 71, 70, 73, 7…
+$ id       &lt;dbl&gt; 2343, 3656, 3526, 22057, 12927, 16029, 3894, 11389, 12681, 10…
+$ lnsbp    &lt;dbl&gt; 4.882802, 4.787492, 5.062595, 4.836282, 4.836282, 4.753590, 4…
+$ lnwght   &lt;dbl&gt; 5.298317, 5.257495, 5.298317, 5.010635, 5.075174, 5.062595, 5…
+$ ncigs    &lt;dbl&gt; 25, 25, 0, 0, 0, 80, 0, 25, 0, 25, 10, 0, 20, 0, 4, 0, 0, 20,…
+$ sbp      &lt;dbl&gt; 132, 120, 158, 126, 126, 116, 122, 130, 112, 120, 130, 118, 1…
+$ smoke    &lt;fct&gt; Yes, Yes, No, No, No, Yes, No, Yes, No, Yes, Yes, No, Yes, No…
+$ t1       &lt;dbl&gt; -1.6333529, -4.0633659, 0.6397287, 1.1217681, 2.4250107, -0.7…
+$ time169  &lt;dbl&gt; 1367, 2991, 2960, 3069, 3081, 2114, 2929, 3010, 3104, 2861, 2…
+$ typchd69 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0…
+$ uni      &lt;dbl&gt; 0.48607379, 0.18595429, 0.72779906, 0.62446356, 0.37897763, 0…
+$ weight   &lt;dbl&gt; 200, 192, 200, 150, 160, 158, 162, 160, 195, 187, 206, 152, 1…
+$ wghtcat  &lt;chr&gt; "170-200", "170-200", "170-200", "140-170", "140-170", "140-1…
+$ agec     &lt;chr&gt; "46-50", "51-55", "56-60", "51-55", "41-45", "46-50", "35-40"…</code></pre>
+</div>
+</div>
+<section id="modelo-propuesto-para-el-estudio-de-enfermedad-coronaria" class="level3">
+<h3 class="anchored" data-anchor-id="modelo-propuesto-para-el-estudio-de-enfermedad-coronaria">Modelo propuesto para el estudio de enfermedad coronaria</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mod_base <span class="ot">&lt;-</span> <span class="fu">glm</span>(chd69 <span class="sc">~</span> age <span class="sc">+</span> chol <span class="sc">+</span> sbp <span class="sc">+</span> bmi <span class="sc">+</span> smoke,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">data =</span> wcgs, <span class="at">family =</span> binomial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_eq</span>(mod_base)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><span class="math display">\[
+\log\left[ \frac { P( \operatorname{chd69} = \operatorname{1} ) }{ 1 - P( \operatorname{chd69} = \operatorname{1} ) } \right] = \alpha + \beta_{1}(\operatorname{age}) + \beta_{2}(\operatorname{chol}) + \beta_{3}(\operatorname{sbp}) + \beta_{4}(\operatorname{bmi}) + \beta_{5}(\operatorname{smoke}_{\operatorname{Yes}})
+\]</span></p>
+</div>
+</div>
+<p>El modelo estimado es el siguiente, asuma que el cumplimiento de criterios de validez como linealidad e independencia se cumplen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_base)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = chd69 ~ age + chol + sbp + bmi + smoke, family = binomial, 
+    data = wcgs)
+
+Coefficients:
+              Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -12.336305   0.975011 -12.652  &lt; 2e-16 ***
+age           0.064356   0.011905   5.406 6.45e-08 ***
+chol          0.010839   0.001491   7.267 3.67e-13 ***
+sbp           0.019305   0.004091   4.719 2.37e-06 ***
+bmi           0.057671   0.026350   2.189   0.0286 *  
+smokeYes      0.632693   0.140079   4.517 6.28e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1779.2  on 3141  degrees of freedom
+Residual deviance: 1614.6  on 3136  degrees of freedom
+  (12 observations deleted due to missingness)
+AIC: 1626.6
+
+Number of Fisher Scoring iterations: 6</code></pre>
+</div>
+</div>
+<ol type="1">
+<li><p>Reescriba la ecuación del modelo ahora que ya se estimaron los coeficientes correspondientes:</p></li>
+<li><p>Interprete cada coeficiente de las variables <code>smoke</code>, <code>age</code> y <code>chol</code> como fue estimado sin transformaciones. Para cada uno realice contrate de hipotesis y concluya.</p></li>
+<li><p>Construya una tabla de resultados con 2 columnas, en una nombre de la variable y la otra el OR, este ultimo se obtiene aplicando la función exponencial sobre los coeficiente estimados del modelo. Interprete cada uno.</p></li>
+<li><p>En un modelo previo en el que no incluía edad (<code>age</code>), los OR fueron:</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_regression</span>(<span class="fu">glm</span>(chd69 <span class="sc">~</span> chol <span class="sc">+</span> sbp <span class="sc">+</span> bmi <span class="sc">+</span> smoke, <span class="at">data =</span> wcgs, <span class="at">family =</span> binomial),<span class="at">exponentiate =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="uhrjzufzco" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#uhrjzufzco table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#uhrjzufzco thead, #uhrjzufzco tbody, #uhrjzufzco tfoot, #uhrjzufzco tr, #uhrjzufzco td, #uhrjzufzco th {
+  border-style: none;
+}
+
+#uhrjzufzco p {
+  margin: 0;
+  padding: 0;
+}
+
+#uhrjzufzco .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#uhrjzufzco .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#uhrjzufzco .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#uhrjzufzco .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#uhrjzufzco .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#uhrjzufzco .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#uhrjzufzco .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#uhrjzufzco .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#uhrjzufzco .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#uhrjzufzco .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#uhrjzufzco .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#uhrjzufzco .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#uhrjzufzco .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#uhrjzufzco .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#uhrjzufzco .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#uhrjzufzco .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#uhrjzufzco .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#uhrjzufzco .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#uhrjzufzco .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#uhrjzufzco .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#uhrjzufzco .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#uhrjzufzco .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#uhrjzufzco .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#uhrjzufzco .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#uhrjzufzco .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#uhrjzufzco .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#uhrjzufzco .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#uhrjzufzco .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#uhrjzufzco .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#uhrjzufzco .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#uhrjzufzco .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#uhrjzufzco .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#uhrjzufzco .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#uhrjzufzco .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#uhrjzufzco .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#uhrjzufzco .gt_left {
+  text-align: left;
+}
+
+#uhrjzufzco .gt_center {
+  text-align: center;
+}
+
+#uhrjzufzco .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#uhrjzufzco .gt_font_normal {
+  font-weight: normal;
+}
+
+#uhrjzufzco .gt_font_bold {
+  font-weight: bold;
+}
+
+#uhrjzufzco .gt_font_italic {
+  font-style: italic;
+}
+
+#uhrjzufzco .gt_super {
+  font-size: 65%;
+}
+
+#uhrjzufzco .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#uhrjzufzco .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#uhrjzufzco .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#uhrjzufzco .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#uhrjzufzco .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#uhrjzufzco .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#uhrjzufzco .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#uhrjzufzco .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#uhrjzufzco div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header gt_col_headings">
+<th id="label" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>Characteristic</strong></th>
+<th id="estimate" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>OR</strong></th>
+<th id="conf.low" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>95% CI</strong></th>
+<th id="p.value" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>p-value</strong></th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">chol</td>
+<td class="gt_row gt_center" headers="estimate">1.01</td>
+<td class="gt_row gt_center" headers="conf.low">1.01, 1.01</td>
+<td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">sbp</td>
+<td class="gt_row gt_center" headers="estimate">1.02</td>
+<td class="gt_row gt_center" headers="conf.low">1.02, 1.03</td>
+<td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">bmi</td>
+<td class="gt_row gt_center" headers="estimate">1.05</td>
+<td class="gt_row gt_center" headers="conf.low">1.00, 1.11</td>
+<td class="gt_row gt_center" headers="p.value">0.057</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">smoke</td>
+<td class="gt_row gt_center" headers="estimate"><br>
+</td>
+<td class="gt_row gt_center" headers="conf.low"><br>
+</td>
+<td class="gt_row gt_center" headers="p.value"><br>
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;No</td>
+<td class="gt_row gt_center" headers="estimate">—</td>
+<td class="gt_row gt_center" headers="conf.low">—</td>
+<td class="gt_row gt_center" headers="p.value"><br>
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
+<td class="gt_row gt_center" headers="estimate">1.82</td>
+<td class="gt_row gt_center" headers="conf.low">1.39, 2.39</td>
+<td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
+</tr>
+</tbody><tfoot class="gt_sourcenotes">
+<tr class="odd">
+<td colspan="4" class="gt_sourcenote">Abbreviations: CI = Confidence Interval, OR = Odds Ratio</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+<p>Agregue estos resultados a la tabla que construyo en el <strong>punto 3</strong>. evalue si edad era un probable confusor para las demas efectos estimados.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ayuda
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>calcula el porcentaje de cambio de cada uno y comenta.</p>
+</div>
+</div>
+</section>
+<section id="evaluación-de-interacción" class="level3">
+<h3 class="anchored" data-anchor-id="evaluación-de-interacción">Evaluación de interacción</h3>
+<p>Probaremos interacciones candidatas y seleccionaremos la más prometedora (por ejemplo, <code>chol * bmi</code>). Se ilustran dos vías: prueba de Wald (coeficiente) y LRT (comparación de modelos).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Candidata: interacción entre el colesterol y el IMC</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>mod_int <span class="ot">&lt;-</span> <span class="fu">glm</span>(chd69 <span class="sc">~</span> age <span class="sc">+</span> chol <span class="sc">+</span> sbp <span class="sc">+</span> bmi <span class="sc">+</span> smoke <span class="sc">+</span> chol<span class="sc">:</span>bmi,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="at">data =</span> wcgs, <span class="at">family =</span> binomial)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_int)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = chd69 ~ age + chol + sbp + bmi + smoke + chol:bmi, 
+    family = binomial, data = wcgs)
+
+Coefficients:
+              Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -18.907862   3.030107  -6.240 4.38e-10 ***
+age           0.063522   0.011919   5.330 9.84e-08 ***
+chol          0.038311   0.012053   3.179  0.00148 ** 
+sbp           0.019644   0.004094   4.798 1.60e-06 ***
+bmi           0.317604   0.115552   2.749  0.00599 ** 
+smokeYes      0.623352   0.139956   4.454 8.43e-06 ***
+chol:bmi     -0.001087   0.000471  -2.308  0.02100 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1779.2  on 3141  degrees of freedom
+Residual deviance: 1609.5  on 3135  degrees of freedom
+  (12 observations deleted due to missingness)
+AIC: 1623.5
+
+Number of Fisher Scoring iterations: 6</code></pre>
+</div>
+</div>
+<ol type="1">
+<li><p>Realice un contraste bajo el test de wald asumiendo que el coeficiente asociado al termino de interacción <code>chol*bmi</code> se plantea la <span class="math inline">\(H_o: \beta_6=0\)</span>. Interprete el resultado.</p></li>
+<li><p>Ahora vamos a comparar el modelo base (sin interacción) y el modelo con interacción, para definir que este termino contribuye al modelo final. Pra esto realizamos el test de verosimilitud (LTR).</p></li>
+</ol>
+<p>Compara mod_base vs mod_int (<code>chol:bmi</code>) con LRT y con la p de Wald del término de interacción. ¿Mantienes la interacción?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prueba LRT vs. modelo base</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod_base, mod_int, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+
+Model 1: chd69 ~ age + chol + sbp + bmi + smoke
+Model 2: chd69 ~ age + chol + sbp + bmi + smoke + chol:bmi
+  Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)  
+1      3136     1614.6                       
+2      3135     1609.5  1    5.071  0.02433 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+</section>
+<section id="pendientes-interpretables-heterogeneidad-de-efectos" class="level3">
+<h3 class="anchored" data-anchor-id="pendientes-interpretables-heterogeneidad-de-efectos">Pendientes interpretables (Heterogeneidad de efectos)</h3>
+<ol type="1">
+<li><p>Si mantienes la interacción segun tu interpretación y conclusión del punto anterior, interpreta cómo varía el efecto de colesterol según el IMC (usa cambio de +20 mg/dL de chol en bmi = 22, 26, 30). (deje como evidencia sus calculos o despejes realizados para llegar a las respuestas)</p></li>
+<li><p>Con el R software con el modelo ajustado se lograron estimar los mismos efectos de interacción mostrados acontinuación:</p></li>
+</ol>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ bmi Estimate Std. Error    z Pr(&gt;|z|)    S 2.5 % 97.5 %
+  22     1.32     0.0545 5.80   &lt;0.001 27.2  1.21   1.42
+  26     1.21     0.0338 6.18   &lt;0.001 30.5  1.14   1.27
+  30     1.11     0.0538 2.07   0.0382  4.7  1.01   1.22
+
+Term: chol
+Type:  response 
+Comparison: +20</code></pre>
+</div>
+</div>
+<p>Comparelos a los encontrados por usted de manera manual. Son iguales? si fue asi, interpretelos como un reporte en magnitudes de asociación (cuantitativamente y acompañe de intervalos y valores p) y que concluye de la interacción <code>bmi</code> y <code>chol</code>.</p>
+<p>No fueron iguales?, revise su calculo y trate de encontrar su error. e interprete de nuevo.</p>
+</section>
+<section id="predicciones" class="level3">
+<h3 class="anchored" data-anchor-id="predicciones">Predicciones</h3>
+<ol type="1">
+<li>basados en el modelo ajustado con interaccion, para <code>age=55</code>, <code>sbp=130</code>, <code>smoke=Fuma</code>, la siguiente tabla muestra la diferencia de probabilidad (diferencia absoluta de riesgo) cuando cambia la probabilidad al subir <code>chol</code> de 180 a 260 (cambio en 80 mg/dl) para <code>bmi</code> de 22, 28 y 32.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">comparisons</span>(mod_int,</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">variable =</span> <span class="fu">list</span>(<span class="st">"chol"</span> <span class="ot">=</span> <span class="dv">80</span>),<span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">bmi =</span> <span class="fu">c</span>(<span class="dv">22</span>,<span class="dv">28</span>,<span class="dv">32</span>)),<span class="at">comparison =</span> <span class="st">"difference"</span>,<span class="at">hypothesis =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ bmi Estimate Std. Error     z Pr(&gt;|z|)    S   2.5 % 97.5 %
+  22   0.0753     0.0178 4.218  &lt; 0.001 15.3  0.0403 0.1102
+  28   0.0464     0.0144 3.228  0.00125  9.6  0.0182 0.0745
+  32   0.0226     0.0242 0.934  0.35017  1.5 -0.0248 0.0701
+
+Term: chol
+Type:  response 
+Comparison: +80</code></pre>
+</div>
+</div>
+<p>Interprete cuantitaviamente esas diferencias de riesgo para los cambios de colesterol a distintos valores de <code>bmi</code>.</p>
+<p>Con relación al punto 2 de la sección de interacción, aunque los cambios evalauados en <code>chol</code> fueron mayores y otros valores similares de <code>bmi</code> alos evaluados en este punto, ¿Cual cree usted que es mejor para comunicar el riesgo asociado a enfermedad cardiovascular a un publico cientifico? Explique su respuesta.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
