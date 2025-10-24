@@ -413,83 +413,13 @@
     "text": "modelo con variable categorica politomica\n\nmodelo_cat2 &lt;- lm(formula = chol ~ race, coronary)\nsummary(modelo_cat2)"
   },
   {
-    "objectID": "rlm.html#actividad",
-    "href": "rlm.html#actividad",
-    "title": "Regresion Lineal Multiple",
-    "section": "Actividad",
-    "text": "Actividad\nEn grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento Documento de trabajo, copiando y pegando pantallazos de los resultados y sus interpretaciones.\nEl dataset lowbwt que se puede descargar aca 👉 Descargar lowbwt.rds contiene información para una muestra de 100 recién nacidos con bajo peso al nacer. mediciones de presión arterial sistolica son guardadas bajo el nombre de sbp y valores de edad gestacional bajo el nombre de gestage.\nDescargue el siguiente archivo denominado Codigo_taller2.R 👉 Descargar Codigo_taller2.R, donde encontrara los codigos necesarios para obtener los resultados solicitados en el taller.\nRecuerde que en el pasado ya habian encontrado una relación significativa entre la presion arterial sistolica de neonatos con bajo peso (sbp)y la edad gestacional (gestage). En este nuevo analisis utilizaremos la variable Apgar a los 5 minutos (apgar5), es una variable oridnal, pero frecuentemente es tratada como continua.",
+    "objectID": "rlg_multiple.html#taller-5-regresion-logistica-multiple-confusion-e-interacción",
+    "href": "rlg_multiple.html#taller-5-regresion-logistica-multiple-confusion-e-interacción",
+    "title": "Regresión Logistica Multiple",
+    "section": "Taller 5: Regresion logistica multiple, confusion e interacción",
+    "text": "Taller 5: Regresion logistica multiple, confusion e interacción\nDatos utilizados en el presente taller corresponde a seguimiento de 3154 sujetos para evaluar la incidencia (probabilidad) de enfermedad coronaria. contiene 22 variables, sin embargo no todas seran usadas para este ejercicio pedagodico.\n\nglimpse(wcgs)\n\nRows: 3,154\nColumns: 22\n$ age      &lt;dbl&gt; 50, 51, 59, 51, 44, 47, 40, 41, 50, 43, 59, 54, 48, 39, 49, 5…\n$ arcus    &lt;dbl&gt; 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1…\n$ behpat   &lt;chr&gt; \"A1\", \"A1\", \"A1\", \"A1\", \"A1\", \"A1\", \"A1\", \"A1\", \"A1\", \"A1\", \"…\n$ bmi      &lt;dbl&gt; 31.32101, 25.32858, 28.69388, 22.14871, 22.31303, 27.11768, 2…\n$ chd69    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0…\n$ chol     &lt;dbl&gt; 249, 194, 258, 173, 214, 206, 190, 212, 130, 233, 181, 214, 2…\n$ dbp      &lt;dbl&gt; 90, 74, 94, 80, 80, 76, 78, 84, 70, 80, 86, 76, 78, 74, 80, 7…\n$ dibpat   &lt;chr&gt; \"Type A\", \"Type A\", \"Type A\", \"Type A\", \"Type A\", \"Type A\", \"…\n$ height   &lt;dbl&gt; 67, 73, 70, 69, 71, 64, 70, 70, 71, 68, 72, 67, 71, 70, 73, 7…\n$ id       &lt;dbl&gt; 2343, 3656, 3526, 22057, 12927, 16029, 3894, 11389, 12681, 10…\n$ lnsbp    &lt;dbl&gt; 4.882802, 4.787492, 5.062595, 4.836282, 4.836282, 4.753590, 4…\n$ lnwght   &lt;dbl&gt; 5.298317, 5.257495, 5.298317, 5.010635, 5.075174, 5.062595, 5…\n$ ncigs    &lt;dbl&gt; 25, 25, 0, 0, 0, 80, 0, 25, 0, 25, 10, 0, 20, 0, 4, 0, 0, 20,…\n$ sbp      &lt;dbl&gt; 132, 120, 158, 126, 126, 116, 122, 130, 112, 120, 130, 118, 1…\n$ smoke    &lt;fct&gt; Yes, Yes, No, No, No, Yes, No, Yes, No, Yes, Yes, No, Yes, No…\n$ t1       &lt;dbl&gt; -1.6333529, -4.0633659, 0.6397287, 1.1217681, 2.4250107, -0.7…\n$ time169  &lt;dbl&gt; 1367, 2991, 2960, 3069, 3081, 2114, 2929, 3010, 3104, 2861, 2…\n$ typchd69 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0…\n$ uni      &lt;dbl&gt; 0.48607379, 0.18595429, 0.72779906, 0.62446356, 0.37897763, 0…\n$ weight   &lt;dbl&gt; 200, 192, 200, 150, 160, 158, 162, 160, 195, 187, 206, 152, 1…\n$ wghtcat  &lt;chr&gt; \"170-200\", \"170-200\", \"170-200\", \"140-170\", \"140-170\", \"140-1…\n$ agec     &lt;chr&gt; \"46-50\", \"51-55\", \"56-60\", \"51-55\", \"41-45\", \"46-50\", \"35-40\"…\n\n\n\nModelo propuesto para el estudio de enfermedad coronaria\n\nmod_base &lt;- glm(chd69 ~ age + chol + sbp + bmi + smoke,\ndata = wcgs, family = binomial)\n\n\nextract_eq(mod_base)\n\n\\[\n\\log\\left[ \\frac { P( \\operatorname{chd69} = \\operatorname{1} ) }{ 1 - P( \\operatorname{chd69} = \\operatorname{1} ) } \\right] = \\alpha + \\beta_{1}(\\operatorname{age}) + \\beta_{2}(\\operatorname{chol}) + \\beta_{3}(\\operatorname{sbp}) + \\beta_{4}(\\operatorname{bmi}) + \\beta_{5}(\\operatorname{smoke}_{\\operatorname{Yes}})\n\\]\n\n\nEl modelo estimado es el siguiente, asuma que el cumplimiento de criterios de validez como linealidad e independencia se cumplen.\n\nsummary(mod_base)\n\n\nCall:\nglm(formula = chd69 ~ age + chol + sbp + bmi + smoke, family = binomial, \n    data = wcgs)\n\nCoefficients:\n              Estimate Std. Error z value Pr(&gt;|z|)    \n(Intercept) -12.336305   0.975011 -12.652  &lt; 2e-16 ***\nage           0.064356   0.011905   5.406 6.45e-08 ***\nchol          0.010839   0.001491   7.267 3.67e-13 ***\nsbp           0.019305   0.004091   4.719 2.37e-06 ***\nbmi           0.057671   0.026350   2.189   0.0286 *  \nsmokeYes      0.632693   0.140079   4.517 6.28e-06 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n(Dispersion parameter for binomial family taken to be 1)\n\n    Null deviance: 1779.2  on 3141  degrees of freedom\nResidual deviance: 1614.6  on 3136  degrees of freedom\n  (12 observations deleted due to missingness)\nAIC: 1626.6\n\nNumber of Fisher Scoring iterations: 6\n\n\n\nReescriba la ecuación del modelo ahora que ya se estimaron los coeficientes correspondientes:\nInterprete cada coeficiente de las variables smoke, age y chol como fue estimado sin transformaciones. Para cada uno realice contrate de hipotesis y concluya.\nConstruya una tabla de resultados con 2 columnas, en una nombre de la variable y la otra el OR, este ultimo se obtiene aplicando la función exponencial sobre los coeficiente estimados del modelo. Interprete cada uno.\nEn un modelo previo en el que no incluía edad (age), los OR fueron:\n\n\ntbl_regression(glm(chd69 ~ chol + sbp + bmi + smoke, data = wcgs, family = binomial),exponentiate = TRUE)\n\n\n\n\n\n\n\n\n\n\n\n\n\nCharacteristic\nOR\n95% CI\np-value\n\n\n\n\nchol\n1.01\n1.01, 1.01\n&lt;0.001\n\n\nsbp\n1.02\n1.02, 1.03\n&lt;0.001\n\n\nbmi\n1.05\n1.00, 1.11\n0.057\n\n\nsmoke\n\n\n\n\n\n\n\n\n    No\n—\n—\n\n\n\n\n    Yes\n1.82\n1.39, 2.39\n&lt;0.001\n\n\n\nAbbreviations: CI = Confidence Interval, OR = Odds Ratio\n\n\n\n\n\n\n\n\nAgregue estos resultados a la tabla que construyo en el punto 3. evalue si edad era un probable confusor para las demas efectos estimados.\n\n\n\n\n\n\nAyuda\n\n\n\ncalcula el porcentaje de cambio de cada uno y comenta.\n\n\n\n\nEvaluación de interacción\nProbaremos interacciones candidatas y seleccionaremos la más prometedora (por ejemplo, chol * bmi). Se ilustran dos vías: prueba de Wald (coeficiente) y LRT (comparación de modelos).\n\n# Candidata: interacción entre el colesterol y el IMC\n\nmod_int &lt;- glm(chd69 ~ age + chol + sbp + bmi + smoke + chol:bmi,\ndata = wcgs, family = binomial)\n\nsummary(mod_int)\n\n\nCall:\nglm(formula = chd69 ~ age + chol + sbp + bmi + smoke + chol:bmi, \n    family = binomial, data = wcgs)\n\nCoefficients:\n              Estimate Std. Error z value Pr(&gt;|z|)    \n(Intercept) -18.907862   3.030107  -6.240 4.38e-10 ***\nage           0.063522   0.011919   5.330 9.84e-08 ***\nchol          0.038311   0.012053   3.179  0.00148 ** \nsbp           0.019644   0.004094   4.798 1.60e-06 ***\nbmi           0.317604   0.115552   2.749  0.00599 ** \nsmokeYes      0.623352   0.139956   4.454 8.43e-06 ***\nchol:bmi     -0.001087   0.000471  -2.308  0.02100 *  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n(Dispersion parameter for binomial family taken to be 1)\n\n    Null deviance: 1779.2  on 3141  degrees of freedom\nResidual deviance: 1609.5  on 3135  degrees of freedom\n  (12 observations deleted due to missingness)\nAIC: 1623.5\n\nNumber of Fisher Scoring iterations: 6\n\n\n\nRealice un contraste bajo el test de wald asumiendo que el coeficiente asociado al termino de interacción chol*bmi se plantea la \\(H_o: \\beta_6=0\\). Interprete el resultado.\nAhora vamos a comparar el modelo base (sin interacción) y el modelo con interacción, para definir que este termino contribuye al modelo final. Pra esto realizamos el test de verosimilitud (LTR).\n\nCompara mod_base vs mod_int (chol:bmi) con LRT y con la p de Wald del término de interacción. ¿Mantienes la interacción?\n\n# Prueba LRT vs. modelo base\n\nanova(mod_base, mod_int, test = \"Chisq\")\n\nAnalysis of Deviance Table\n\nModel 1: chd69 ~ age + chol + sbp + bmi + smoke\nModel 2: chd69 ~ age + chol + sbp + bmi + smoke + chol:bmi\n  Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)  \n1      3136     1614.6                       \n2      3135     1609.5  1    5.071  0.02433 *\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\n\nPendientes interpretables (Heterogeneidad de efectos)\n\nSi mantienes la interacción segun tu interpretación y conclusión del punto anterior, interpreta cómo varía el efecto de colesterol según el IMC (usa cambio de +20 mg/dL de chol en bmi = 22, 26, 30). (deje como evidencia sus calculos o despejes realizados para llegar a las respuestas)\nCon el R software con el modelo ajustado se lograron estimar los mismos efectos de interacción mostrados acontinuación:\n\n\n\n\n bmi Estimate Std. Error    z Pr(&gt;|z|)    S 2.5 % 97.5 %\n  22     1.32     0.0545 5.80   &lt;0.001 27.2  1.21   1.42\n  26     1.21     0.0338 6.18   &lt;0.001 30.5  1.14   1.27\n  30     1.11     0.0538 2.07   0.0382  4.7  1.01   1.22\n\nTerm: chol\nType:  response \nComparison: +20\n\n\nComparelos a los encontrados por usted de manera manual. Son iguales? si fue asi, interpretelos como un reporte en magnitudes de asociación (cuantitativamente y acompañe de intervalos y valores p) y que concluye de la interacción bmi y chol.\nNo fueron iguales?, revise su calculo y trate de encontrar su error. e interprete de nuevo.\n\n\nPredicciones\n\nbasados en el modelo ajustado con interaccion, para age=55, sbp=130, smoke=Fuma, la siguiente tabla muestra la diferencia de probabilidad (diferencia absoluta de riesgo) cuando cambia la probabilidad al subir chol de 180 a 260 (cambio en 80 mg/dl) para bmi de 22, 28 y 32.\n\n\ncomparisons(mod_int,\n  variable = list(\"chol\" = 80),newdata = datagrid(bmi = c(22,28,32)),comparison = \"difference\",hypothesis = 0)\n\n\n bmi Estimate Std. Error     z Pr(&gt;|z|)    S   2.5 % 97.5 %\n  22   0.0753     0.0178 4.218  &lt; 0.001 15.3  0.0403 0.1102\n  28   0.0464     0.0144 3.228  0.00125  9.6  0.0182 0.0745\n  32   0.0226     0.0242 0.934  0.35017  1.5 -0.0248 0.0701\n\nTerm: chol\nType:  response \nComparison: +80\n\n\nInterprete cuantitaviamente esas diferencias de riesgo para los cambios de colesterol a distintos valores de bmi.\nCon relación al punto 2 de la sección de interacción, aunque los cambios evalauados en chol fueron mayores y otros valores similares de bmi alos evaluados en este punto, ¿Cual cree usted que es mejor para comunicar el riesgo asociado a enfermedad cardiovascular a un publico cientifico? Explique su respuesta.",
     "crumbs": [
-      "Regresión Lineal Multiple"
-    ]
-  },
-  {
-    "objectID": "rlm.html#taller-2-regresion-lineal-multiple",
-    "href": "rlm.html#taller-2-regresion-lineal-multiple",
-    "title": "Regresion Lineal Multiple",
-    "section": "Taller 2: Regresion Lineal Multiple",
-    "text": "Taller 2: Regresion Lineal Multiple\n\nConstruya un grafico de dispersión de presion artetial sistolica y apgar . ¿Parece tener una relación lineal entre las dos variables?.\nUsando la presión arterial sistolica como variable dependiente (respuesta), la edad gestacional y el apgar como variables explicatorias. Estime los parametros del modelo \\[\\hat \\mu_{sbp} = \\beta_0 + \\beta_1 \\times gestage + \\beta_2 \\times apgar\\]\n\n\nInterprete \\(\\hat \\beta_1\\), ¿qué significa en palabras?, realice lo mismo para \\(\\hat \\beta_2\\)\n\n\nCual es la media estimada de la presión arterial para la población de recien nacidos con bajo peso en quienes la edad gestacional es 31 semanas y apgar a los 5 minutos sea de 7, Interprete.\nConstruya un intervalo de confianza para la media cuando la edad gestacional es 31 semanas y el apgar es de 7. Interpretelo.\nA un nivel de 0.05 de error alfa, contraste \\(H_0: \\beta_2 = 0\\)?, ¿Qué concluye?\n¿El modelo ajustado parece ajustar a los datos observados?.Revise el \\(R^2\\) ajustado comente e interprete. estime la tasa de error de las predicciones.\nla inclusión del apgar aporta significativamente al modelo como para dejarlo en el modelo?.\nConstruya los graficos de diagnostico, hay cumplimiento de los supuestos de validez del modelo?",
-    "crumbs": [
-      "Regresión Lineal Multiple"
-    ]
-  },
-  {
-    "objectID": "rlm.html#taller-3-ajuste-para-confusion-e-interacción-en-regresion-lineal-multiple",
-    "href": "rlm.html#taller-3-ajuste-para-confusion-e-interacción-en-regresion-lineal-multiple",
-    "title": "Regresion Lineal Multiple",
-    "section": "Taller 3: Ajuste para confusion e interacción en regresion lineal multiple",
-    "text": "Taller 3: Ajuste para confusion e interacción en regresion lineal multiple\nEn grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento Documento de trabajo.\nSi desea reproducir los resultados en su PC, los datos se pueden descargar aca 👉 Descargar hers.rds.\n\nConfusión\nSe esta estudiando los efectos que se puedan dar sobre los niveles de glucosa sobre un grupo de pacientes, para esto se ajusto inicialmente un modelo que estimo el principal que tiene un programa donde se recibe actividad física 3 veces a la semana, los resultados fueron los siguientes:\n\nmod_unjus &lt;- lm(formula = glucose ~ exercise, data = hers)\nsummary(mod_unjus)\n\n\nCall:\nlm(formula = glucose ~ exercise, data = hers)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-85.561 -20.561 -12.561   2.672 189.672 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) 114.5611     0.8922 128.408  &lt; 2e-16 ***\nexerciseyes  -6.2333     1.4350  -4.344 1.45e-05 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 36.73 on 2761 degrees of freedom\nMultiple R-squared:  0.006788,  Adjusted R-squared:  0.006428 \nF-statistic: 18.87 on 1 and 2761 DF,  p-value: 1.451e-05\n\nconfint(mod_unjus)\n\n                 2.5 %     97.5 %\n(Intercept) 112.811683 116.310441\nexerciseyes  -9.047117  -3.419576\n\n\nA la luz de las estimaciones:\n\nInterprete el coeficiente asociado al programa de actividad física, acompañe esta interpretación de sus respectivos intervalos de confianza al 95% y valor de p.\n\nSin embargo es de conocimiento pleno que otras variables tambien se relacionan con los niveles de glucosa en sangre, específicamente se tiene conocimiento que el indice de masa corporal que define obesidad, podria tambine jugar un papel preponderante tanto con la glucosa como el programa de actividad fisica. Dado esto se ajusta el efecto entre el progama de actividad fisica y glucosa:\n\nmod &lt;- lm(formula = glucose ~ exercise + BMI , data = hers)\nsummary(mod)\n\n\nCall:\nlm(formula = glucose ~ exercise + BMI, data = hers)\n\nResiduals:\n   Min     1Q Median     3Q    Max \n-79.18 -18.72 -10.35   3.79 192.38 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  62.4154     3.7402  16.688   &lt;2e-16 ***\nexerciseyes  -2.8932     1.4066  -2.057   0.0398 *  \nBMI           1.7794     0.1242  14.331   &lt;2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 35.46 on 2755 degrees of freedom\n  (5 observations deleted due to missingness)\nMultiple R-squared:  0.07576,   Adjusted R-squared:  0.07509 \nF-statistic: 112.9 on 2 and 2755 DF,  p-value: &lt; 2.2e-16\n\n\n\nEl efecto que tiene el programa de ejercicio cambio despues del ajuste?, si fue asi, qué dirección tomo?, cuantifique su cambio porcentual (\\(\\frac{\\beta_{crudo}-\\beta_{ajustado}}{\\beta_{crudo}}\\times100\\)). Se confirma que BMI sesgaba el efecto que tenia el programa de ejercicio sobre la glucosa?. Explique.\nAhora interprete el coeficiente ajustado del programa de actividad fisica. acompañelos de intervalos de confianza y valor de p.\n\n\nconfint(mod)\n\n                2.5 %     97.5 %\n(Intercept) 55.081469 69.7492613\nexerciseyes -5.651330 -0.1350112\nBMI          1.535926  2.0228348\n\n\n\npor ultimo asuma que evalúa por el contrario el efecto de BMI sobre la glucosa teniendo en cuenta el ajuste por pertenecer a un programa de actividad fisica. Interprete coeficiente ajustado de BMI, no olvide en su interpretación hablar de los intervalos de confianza y valores de p.\nFinalmente se ajusta el siguiente modelo explicativo sobre el efecto sobre la glucosa que tienen diversas variables. Interprete cada uno de los coeficientes, como efecto principal.\n\n\nmod_com &lt;- lm(formula = glucose ~ exercise + BMI + age + drinkany + smoking , data = hers)\nsummary(mod_com)\n\n\nCall:\nlm(formula = glucose ~ exercise + BMI + age + drinkany + smoking, \n    data = hers)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-77.533 -18.879  -9.858   4.765 192.487 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  89.7184     8.7503  10.253  &lt; 2e-16 ***\nexerciseyes  -3.5013     1.4193  -2.467  0.01369 *  \nBMI           1.6225     0.1274  12.733  &lt; 2e-16 ***\nage          -0.2843     0.1051  -2.705  0.00687 ** \ndrinkanyyes  -7.1882     1.3832  -5.197 2.17e-07 ***\nsmokingyes   -6.3218     2.0852  -3.032  0.00245 ** \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 35.24 on 2750 degrees of freedom\n  (7 observations deleted due to missingness)\nMultiple R-squared:  0.08872,   Adjusted R-squared:  0.08707 \nF-statistic: 53.55 on 5 and 2750 DF,  p-value: &lt; 2.2e-16\n\nconfint(mod_com)\n\n                 2.5 %       97.5 %\n(Intercept)  72.560556 106.87633140\nexerciseyes  -6.284288  -0.71838376\nBMI           1.372648   1.87237829\nage          -0.490288  -0.07822204\ndrinkanyyes  -9.900321  -4.47606535\nsmokingyes  -10.410451  -2.23321159\n\n\n\n\nInteracción\nSe quiere evaluar en el modelo de efectos principales del programa de actividad fisica sobre la glucosa la posibilidad de una heterogeneidad de efectos mediada por el indice de masa corporal. Para este proposito se ajusto un modelo con un termino de interacción, entre BMI y el programa de ejercicio:\n\nEscribe la ecuación del modelo con el termino de interacción:\n\n\nmod2 &lt;- lm(formula = glucose ~ exercise + BMI + exercise:BMI, data = hers)\nsummary(mod2)\n\n\nCall:\nlm(formula = glucose ~ exercise + BMI + exercise:BMI, data = hers)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-84.543 -18.890 -10.382   4.243 193.710 \n\nCoefficients:\n                Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)      67.2848     4.4908  14.983   &lt;2e-16 ***\nexerciseyes     -17.4940     7.5928  -2.304   0.0213 *  \nBMI               1.6133     0.1504  10.730   &lt;2e-16 ***\nexerciseyes:BMI   0.5211     0.2663   1.957   0.0505 .  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 35.44 on 2754 degrees of freedom\n  (5 observations deleted due to missingness)\nMultiple R-squared:  0.07705,   Adjusted R-squared:  0.07604 \nF-statistic: 76.63 on 3 and 2754 DF,  p-value: &lt; 2.2e-16\n\n\n\nDespeje de la ecuación de regresión escrita por ud, el efecto (pendiente) del programa de ejercicio para un BMI de 15.2 y para BMI 54.1, calculelo según el modelo estimado e interprételo.\nDespeje de la ecuación de regresión escrita por ud, el efecto (pendiente) del BMI para pertenecer y no al programa de ejercicio, calculelo según el modelo estimado e interprételo.\nEl siguiente grafico refuerza tiene coherencia frente al resultado calculado en el punto anterior (efecto de BMI sobre glucosa según pertenezca al programa)\n\n\nplot_predictions(mod2, by = c(\"BMI\", \"exercise\"))+\n  theme(axis.text = element_text(size = 20), axis.title = element_text(size = 20))",
-    "crumbs": [
-      "Regresión Lineal Multiple"
-    ]
-  },
-  {
-    "objectID": "rls.html#actividad",
-    "href": "rls.html#actividad",
-    "title": "Regresion Lineal Simple",
-    "section": "Actividad",
-    "text": "Actividad\nEn grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento 👉 Documento de Trabajo, copiando y pegando pantallazos de los resultados y sus interpretaciones.\nEl dataset lowbwt que se puede descargar aca 👉 Descargar lowbwt.rds contiene información para una muestra de 100 recién nacidos con bajo peso al nacer. Mediciones de presión arterial sistolica son guardadas bajo el nombre de sbp y valores de edad gestacional bajo el nombre de gestage.\nDescargue el siguiente archivo denominado Codigo_taller1.R 👉 Descargar Codigo_taller1.R, donde encontrara los códigos necesarios para obtener los resultados solicitados en el taller.",
-    "crumbs": [
-      "Regresión Lineal Simple"
-    ]
-  },
-  {
-    "objectID": "rls.html#taller-1-regresion-lineal-simple",
-    "href": "rls.html#taller-1-regresion-lineal-simple",
-    "title": "Regresion Lineal Simple",
-    "section": "Taller 1: Regresion Lineal Simple",
-    "text": "Taller 1: Regresion Lineal Simple\n\nCon covariable continua\n\nConstruya un grafico de dispersión de presion artetial sistolica y edad gestacional. Sugiere el grafico acerca de la naturaleza de la relación entre las variables (haga una breve interpretacion del grafico).\nUsando la la presion arterial sistolica como variable dependiente (respuesta) y la edad gestacional como la variable explicatoria. Estime una regresion lineal e interprete los coeficientes. ¿Que significan en palabras?.\nA un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a edad gestacional es igual a cero. ¿Qué concluye?\nCual es la media estimada de la presión arterial para la población de recien nacidos con bajo peso en quienes la edad gestacional es 31 semanas.\nConstruya un intervalo de confianza para la media cuando la edad gestacional es 31 semanas.\n¿El modelo ajustado parece ajustar a los datos observados?. comente e interprete el coeficiente de determinación, la tasa de error de las predicciones y los gráficos de diagnostico. Interprete cada uno de ellos.\n\n\n\nCon covariable categorica\nLos niveles de glucosa por encima de 125 mg/dL son diagnósticos de diabetes, mientras que niveles en el rango de 100 a 125 mg/dL indican un mayor riesgo de progresar hacia esta condición seria y cada vez más frecuente. Por ello, resulta de interés determinar si el ejercicio, un factor de estilo de vida modificable, podría ayudar a las personas sin diabetes a reducir sus niveles de glucosa y, de esta manera, evitar la diabetes.\nResponder de manera definitiva a esta pregunta requeriría un ensayo clínico aleatorizado, lo cual constituye una tarea difícil y costosa. Como resultado, preguntas de investigación como esta suelen abordarse inicialmente con datos observacionales. Sin embargo, esto se complica por el hecho de que las personas que hacen ejercicio difieren en muchos aspectos de aquellas que no lo hacen, y algunas de esas diferencias podrían explicar cualquier asociación no ajustada entre el ejercicio y el nivel de glucosa.\nPara los siguientes puntos se usara los datos del estudio HERS que se puede descargar directamente desde R copian y pegando directamente en la consola el siguinete codigo hers &lt;- rio::import(\"https://regression.ucsf.edu/sites/g/files/tkssra16191/files/wysiwyg/home/data/hersdata.dta\") %&gt;% filter(diabetes == 0). (Debes tener conexión a internet)\nEn el archivo denominado Codigo_taller1.R 👉 Descargar Codigo_taller1.R se encuentran los códigos para reproducir los resultados necesarios para contestar las siguientes preguntas:\n\nUsando la glucosa como variable dependiente (respuesta) y la actividad física como la variable explicatoria. Estime una regresión lineal e interprete el coeficiente. ¿Que significan en palabras?. Escriba la ecuación de regresión con los coeficientes estimados.\nA un nivel de 0.05 de error alfa, contraste la hipótesis nula que el coeficiente asociado a actividad física al menos 3 veces por semana es igual a cero. ¿Qué concluye?\nCual es la media estimada de la glucosa para la población que no realiza actividad fisica.\nConstruya un intervalo de confianza al 95% para la media en la glucosa de quienes realizan actividad física.\n¿El modelo ajustado parece ajustar a los datos observados?. comente e interprete el coeficiente de determinación, la tasa de error de las predicciones y los gráficos de diagnostico. Interprete cada uno de ellos.",
-    "crumbs": [
-      "Regresión Lineal Simple"
-    ]
-  },
-  {
-    "objectID": "index.html#objetivos-de-aprendizaje",
-    "href": "index.html#objetivos-de-aprendizaje",
-    "title": "Modelos de Regresion para Epidemiologos",
-    "section": "Objetivos de Aprendizaje",
-    "text": "Objetivos de Aprendizaje\n\nAprender el modelo multivariado adecuado para el control de la interacción y confusión de variables\nImplementar los modelos multivariados en los análisis de factores de riesgo frente a la enfermedad\nIdentificar los métodos adecuados para evaluar relaciones entre dos variables\nDeterminar cuál es el mejor método de análisis cuando la variable principal de resultado es de tipo cuantitativo o categórico\nAnalizar e interpretar las principales metodologías estadísticas en el análisis de datos.",
-    "crumbs": [
-      "Inicio"
-    ]
-  },
-  {
-    "objectID": "rlg_simple.html#actividad",
-    "href": "rlg_simple.html#actividad",
-    "title": "Regresión Logistica Simple",
-    "section": "Actividad",
-    "text": "Actividad\nEn grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento 👉 Documento de Trabajo.\nEl dataset coronary que se puede descargar aca 👉 Descargar coronary.rds.\nDescargue el siguiente archivo denominado Codigo_taller4.R 👉 Descargar Codigo_taller4.R, donde encontrara los códigos necesarios para obtener los resultados solicitados en el taller.",
-    "crumbs": [
-      "Regresión Logistica Simple"
-    ]
-  },
-  {
-    "objectID": "rlg_simple.html#taller-1-regresion-logistica-simple",
-    "href": "rlg_simple.html#taller-1-regresion-logistica-simple",
-    "title": "Regresión Logistica Simple",
-    "section": "Taller 1: Regresion Logistica Simple",
-    "text": "Taller 1: Regresion Logistica Simple\n\nCon covariable categorica\n\nUsando la variable cad como variable dependiente (respuesta) y el sexo como la variable explicatoria. Estime una regresion logistica e interprete los coeficientes. ¿Que significan en palabras?.\nA un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a sexo es igual a cero. ¿Qué concluye?\nCual es la interpretacion para el coeficiente de sexo ? no olvide exponenciarlo \\(e^{\\beta_1}\\)\nRealice una predicción de probabilidad de enfermedad cardiaca si se es mujer no olvide interpretar el intervalo de confianza.\n\n\n\nCon covariable numerica\n\nUsando la variable cad como variable dependiente (respuesta) y el colesterol como la variable explicatoria. Estime una regresion logistica e interprete los coeficientes. ¿Que significan en palabras?.\nA un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a colesterol es igual a cero. ¿Qué concluye?\nCual es la interpretacion para el coeficiente de colesterol ? no olvide exponenciarlo \\(e^{\\beta_1}\\)\nRealice una predicción de probabilidad de enfermedad cardiaca si se tiene un colesterol de 248 y luego con colesterol de 140. Si hace la razon de estas dos cantidades estimadas (mayor sobre la menor) a que medida epidemiologica corresponde ? interprete.\nCalcule el OR asociado con un cambio de incremento en el colesterol de 108 mg/dl (es decir pasar de 140 mg/dl a 248mg/dl). Compare con la medida anterior, son iguales ?. Explique sus razones por que si o porqué no?.",
-    "crumbs": [
-      "Regresión Logistica Simple"
+      "Regresión Logistica Multiple"
     ]
   },
   {
@@ -507,7 +437,27 @@
     "href": "diapositivas/generalidades.html#modelos-de-predicción",
     "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
     "section": "Modelos de Predicción",
-    "text": "Modelos de Predicción\n\nLos modelos de predicción se emplean para estimar el riesgo o efecto (o alguna otra medida epidemiológica).\nEsta estimación se basa en la información proporcionada por los predictores o covariables.\n\nEjemplo: Una ecuación puede estimar el riesgo de un ataque cardíaco durante un período de 10 años, basándose en la combinación de predictores como edad, sexo, historial familiar, presión arterial, historial de tabaquismo, peso, altura, hábitos de ejercicio e historial médico.",
+    "text": "Modelos de Predicción\n\nLos modelos de predicción se emplean para estimar el riesgo o efecto (o alguna otra medida epidemiológica).\nEsta estimación se basa en la información proporcionada por los predictores o covariables.",
+    "crumbs": [
+      "Generalidades"
+    ]
+  },
+  {
+    "objectID": "diapositivas/generalidades.html#ejemplos-de-modelamiento-predictivo",
+    "href": "diapositivas/generalidades.html#ejemplos-de-modelamiento-predictivo",
+    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
+    "section": "Ejemplos de modelamiento predictivo:",
+    "text": "Ejemplos de modelamiento predictivo:\n\nEn el ámbito empresarial para pronosticar el desempeño financiero y para modelar el comportamiento de compra del consumidor y de pago de préstamos.\nEn ingeniería: los modelos de supervivencia se emplean para predecir la vida útil de productos.\nEn la ecología, los modelos de regresión predicen la probabilidad de que una especie de pez desaparezca de un lago.\nEn el ámbito legal, los modelos son comunes en litigios por discriminación para intentar determinar si la raza o el sexo se utilizaron como base para la contratación o promoción, después de tener en cuenta otras características del personal.",
+    "crumbs": [
+      "Generalidades"
+    ]
+  },
+  {
+    "objectID": "diapositivas/generalidades.html#ejemplos-en-ciencias-de-la-salud-y-epidemiologia",
+    "href": "diapositivas/generalidades.html#ejemplos-en-ciencias-de-la-salud-y-epidemiologia",
+    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
+    "section": "Ejemplos en Ciencias de la salud y epidemiologia:",
+    "text": "Ejemplos en Ciencias de la salud y epidemiologia:\n\nDiagnóstico: Predecir la probabilidad de que un paciente tenga una enfermedad específica.\nPronóstico: Predecir el curso temporal de una enfermedad ya diagnosticada.\nEstimación de efectos absolutos en ensayos clínicos aleatorios: Incluso en experimentos aleatorios bien diseñados, el modelado es necesario para estimar los efectos absolutos.",
     "crumbs": [
       "Generalidades"
     ]
@@ -517,17 +467,37 @@
     "href": "diapositivas/generalidades.html#modelos-de-explicación",
     "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
     "section": "Modelos de Explicación",
-    "text": "Modelos de Explicación\n\nEstimar efecto (fuerza de asociación) de consumo cigarrillo con el cáncer gástrico bajo diferentes niveles de exposición al consumo de embutidos. En esta relación podría el consumo de embutidos actuar como confusor o modificador de efecto (Interacción).\n\nDiagramas DAG\nEstimaciones (Descriptivas) en sub-poblaciones (Mas eficientemente)\n\nAplicación de Estimación de prevalencias ajustadas en subpoblaciones (VIH)",
+    "text": "Modelos de Explicación\n\nAjuste de sesgos en estudios observacionales: Son muy importantes para controlar los sesgos causados por la asignación no aleatoria de tratamientos. (Estimar el efecto del factor de interés de forma más pura).\nCálculo de la Puntuación de Propensión (Propensity Score): permite un ajuste más agresivo de la asignación no aleatoria de tratamientos.\nInferencia Causal: Escenario counterfactual",
     "crumbs": [
       "Generalidades"
     ]
   },
   {
-    "objectID": "diapositivas/generalidades.html#modelos-de-regresión-clasicos",
-    "href": "diapositivas/generalidades.html#modelos-de-regresión-clasicos",
+    "objectID": "diapositivas/generalidades.html#planeación-de-modelo",
+    "href": "diapositivas/generalidades.html#planeación-de-modelo",
     "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
-    "section": "Modelos de Regresión clasicos",
-    "text": "Modelos de Regresión clasicos\n\nUna variable dependiente (Nivel de medición)\nUna o más variables independientes (Continua, categorica dicotomica, cateogica politomica)",
+    "section": "Planeación de modelo",
+    "text": "Planeación de modelo\nPuntos Clave para la Planificación del Modelado\n\nEvaluación Inicial y Propósito\n\n\nAsegurar la Relevancia: La pregunta fundamental es si el modelo será utilizado realmente.\nLos modelos a menudo fallan porque:\n\nNo se consideran relevantes para el entorno previsto.\nLos usuarios potenciales no confían en las relaciones o variables empleadas.\nLas variables necesarias para las predicciones no están disponibles rutinariamente.",
+    "crumbs": [
+      "Generalidades"
+    ]
+  },
+  {
+    "objectID": "diapositivas/generalidades.html#planeación-del-modelo",
+    "href": "diapositivas/generalidades.html#planeación-del-modelo",
+    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
+    "section": "Planeación del modelo",
+    "text": "Planeación del modelo\n\nCalidad de los Datos y Diseño del Estudio\n\n\nEvitar Muestras de Conveniencia: Estas muestras suelen estar plagadas de dificultades, ya que no fueron recolectadas pensando en el modelo predictivo.\nUn modelo será más preciso y útil si la recolección de datos se planea prospectivamente, estableciendo definiciones estándar y minimizando los datos faltantes.\nEvitar el Sobreajuste (Overfitting): El sobreajuste ocurre con frecuencia, lo que lleva a predicciones demasiado extremas o asociaciones falsas. (n = 50 y 30 variables).",
+    "crumbs": [
+      "Generalidades"
+    ]
+  },
+  {
+    "objectID": "diapositivas/generalidades.html#planeación-del-modelo-1",
+    "href": "diapositivas/generalidades.html#planeación-del-modelo-1",
+    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
+    "section": "Planeación del modelo",
+    "text": "Planeación del modelo\n\nEvitar Extrapolaciones: No se debe hacer predicciones al extrapolar combinaciones de valores de predictores que están fuera del rango utilizado para desarrollar el modelo.\nProhibición de Categorizar Variables Continuas: Es imprudente categorizar variables naturalmente continuas durante la recolección de datos",
     "crumbs": [
       "Generalidades"
     ]
@@ -567,7 +537,7 @@
     "href": "diapositivas/generalidades.html#expresión-matemática",
     "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
     "section": "Expresión matemática",
-    "text": "Expresión matemática\nModelo Lineal generalizado simple\n\\[ E(Y \\mid X_1, X_2, \\ldots, X_i) = \\beta_0 + \\beta_1 X_1\\]\nDonde:\n- \\(E(Y \\mid X)\\): valor esperado de \\(Y\\) dado los predictores.\n- \\(\\beta_0\\): intercepto. (donde la linea atraviesa el Eje Y)\n- \\(\\beta_1\\): coeficiente que representan el efecto de cada variable \\(X_1\\).",
+    "text": "Expresión matemática\nModelo Lineal generalizado simple\n\\[ E(Y \\mid X_1, X_2, \\ldots, X_i) = \\beta_0 + \\beta_1 X_1 + \\beta_2 X_2 + \\cdots + \\beta_i X_i\\]\nEl modelo busca describir una relación entre una respuesta \\(Y\\) y un conjunto de predictores \\(X = (X_1, X_2, ..., X_p)\\).\nLos parámetros \\(\\beta = (\\beta_0, \\beta_1, ..., \\beta_p)\\) representan:\n\n\\(\\beta_0\\): intercepto\n\\(\\beta_j\\): peso o coeficiente correspondiente al predictor \\(X_j\\)",
     "crumbs": [
       "Generalidades"
     ]
@@ -577,9 +547,179 @@
     "href": "diapositivas/generalidades.html#modelo-lineal-generalizado",
     "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
     "section": "Modelo Lineal generalizado",
-    "text": "Modelo Lineal generalizado\n\\[ E(Y \\mid X_1, X_2, \\ldots, X_i) = \\beta_0 + \\beta_1 X_1 + \\beta_2 X_2 + \\cdots + \\beta_i X_i\\]\nDonde:\n- \\(E(Y \\mid X)\\): valor esperado de \\(Y\\) dado los predictores.\n- \\(\\beta_0\\): intercepto.\n- \\(\\beta_j\\): coeficientes que representan el efecto de cada variable \\(X_j\\).",
+    "text": "Modelo Lineal generalizado\nDonde:\n- \\(E(Y \\mid X)\\): valor esperado de \\(Y\\) dado los predictores.\n- \\(\\beta_0\\): intercepto.\n- \\(\\beta_j\\): coeficientes que representan el efecto de cada variable \\(X_j\\).",
     "crumbs": [
       "Generalidades"
+    ]
+  },
+  {
+    "objectID": "diapositivas/generalidades.html#propiedad-de-la-distribución-de-y-dado-x",
+    "href": "diapositivas/generalidades.html#propiedad-de-la-distribución-de-y-dado-x",
+    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
+    "section": "Propiedad de la distribución de Y dado X",
+    "text": "Propiedad de la distribución de Y dado X\n\nDenotamos una propiedad de la distribución condicional como:\n\n\\[C(Y | X)\\]\n\nEjemplos:\n\n\\(C(Y | X) = E(Y | X)\\): valor esperado de Y dado X (la media)\n\\(C(Y | X) = P(Y = 1 | X)\\): probabilidad de “éxito”.",
+    "crumbs": [
+      "Generalidades"
+    ]
+  },
+  {
+    "objectID": "diapositivas/generalidades.html#formulaciones-del-modelo",
+    "href": "diapositivas/generalidades.html#formulaciones-del-modelo",
+    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
+    "section": "Formulaciones del Modelo",
+    "text": "Formulaciones del Modelo\n\nEl modelo de regresión describe cómo una propiedad de \\(Y\\) depende de \\(X\\):\nEn modelos lineales generalizados, se restringe a modelos lineales en los parámetros:\n\n\\[C(Y|X) = g(X\\beta)\\]\nEjemplos de formulaciones\n\n\n\n\n\n\n\n\nModelo\nExpresión\nInterpretación\n\n\n\n\nLineal\n\\(E(Y|X) = X\\beta\\)\nRelación lineal, errores normales\n\n\nLogístico\n\\(P(Y=1|X) = (1 + e^{-X\\beta})^{-1}\\)\nProbabilidad binaria\n\n\nPoisson\n\\(E(Y|X) = e^{X\\beta}\\)\nConteos o tasas\n\n\nGeneral\n\\(C(Y|X) = g(X\\beta)\\)\ng puede ser no lineal",
+    "crumbs": [
+      "Generalidades"
+    ]
+  },
+  {
+    "objectID": "diapositivas/generalidades.html#linealización-mediante-transformación",
+    "href": "diapositivas/generalidades.html#linealización-mediante-transformación",
+    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
+    "section": "Linealización mediante transformación",
+    "text": "Linealización mediante transformación\n\nSi el modelo no es lineal, se aplica una transformación:\n\n\\[h(C(Y|X)) = X\\beta\\]\n\nEjemplo: para regresión logística, aunque pretende estimar la probabilidad de un evento se trabaja con:\n\\[\\text{logit}(P) = \\log\\left(\\frac{P}{1-P}\\right)\\]\nde modo que: \\(h(\\dots)\\) es logit\n\n\\[\\text{logit}(P(Y=1|X)) = X\\beta\\]",
+    "crumbs": [
+      "Generalidades"
+    ]
+  },
+  {
+    "objectID": "diapositivas/generalidades.html#interpretacion-de-parametros-del-modelo",
+    "href": "diapositivas/generalidades.html#interpretacion-de-parametros-del-modelo",
+    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
+    "section": "Interpretacion de parametros del modelo",
+    "text": "Interpretacion de parametros del modelo\n\nLa transformación \\(h()\\) se conoce como la función de enlace (link function).\nEl modelo general linealizado se expresa como:\n\nComponentes del modelo\n\nParte de respuesta transformada: \\(C'(Y|X)\\)\n→ propiedad de \\(Y\\) o transformación de la misma\n\nParte lineal o predictor: \\(X\\beta\\)\n→ combinación lineal ponderada de los predictores",
+    "crumbs": [
+      "Generalidades"
+    ]
+  },
+  {
+    "objectID": "diapositivas/generalidades.html#interpretación-de-los-coeficientes",
+    "href": "diapositivas/generalidades.html#interpretación-de-los-coeficientes",
+    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
+    "section": "Interpretación de los coeficientes",
+    "text": "Interpretación de los coeficientes\n\nCada \\(\\beta_j\\) representa el cambio en la propiedad \\(C'(Y|X)\\) asociado a un incremento unitario en \\(X_j\\), manteniendo constantes los demás predictores:\n\n\\[\\beta_j = C'(Y|X_1,...,X_j+1,...) - C'(Y|X_1,...,X_j,...)\\]\n\nEjemplos:\n\nRegresión lineal: cambio en el valor esperado de Y\n\nRegresión logística: cambio en el logaritmo de los odds\n\nModelos Poisson: cambio en el logaritmo de la tasa esperada.",
+    "crumbs": [
+      "Generalidades"
+    ]
+  },
+  {
+    "objectID": "diapositivas/generalidades.html#relación-lineal",
+    "href": "diapositivas/generalidades.html#relación-lineal",
+    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
+    "section": "Relación lineal",
+    "text": "Relación lineal\n\n\n\n\nDatos muéstrales: La variable de respuesta \\(Y\\) para diferentes predictores \\(X\\)\nParámetros desconocidos: Los coeficientes \\(\\beta_j\\) de las variables.\n\n\n\n\n\n\n\n\nImportant\n\n\nEstimación por Máxima Verosimilitud",
+    "crumbs": [
+      "Generalidades"
+    ]
+  },
+  {
+    "objectID": "diapositivas/generalidades.html#estimación-por-maxima-verosimilitud-mle",
+    "href": "diapositivas/generalidades.html#estimación-por-maxima-verosimilitud-mle",
+    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
+    "section": "Estimación por maxima verosimilitud (MLE)",
+    "text": "Estimación por maxima verosimilitud (MLE)",
+    "crumbs": [
+      "Generalidades"
+    ]
+  },
+  {
+    "objectID": "diapositivas/generalidades.html#intuición-del-método-de-máxima-verosimilitud",
+    "href": "diapositivas/generalidades.html#intuición-del-método-de-máxima-verosimilitud",
+    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
+    "section": "Intuición del método de máxima verosimilitud",
+    "text": "Intuición del método de máxima verosimilitud\nCuando el parámetro es conocido \\(\\dots\\)\nSabemos el valor del parámetro (por ejemplo, la media o la probabilidad).\nEntonces podemos calcular la probabilidad de observar ciertos datos:\n\\[P(\\text{Datos} \\mid \\theta)\\]\n. . .\n\n\n\n\n\n\nEjemplo:\n\n\nsi sé que la probabilidad de enfermar es 0.3, puedo calcular la probabilidad de ver 3 casos en 10 personas.\n\n\n\n\\(P(k=3) = \\binom{10}{k}0.3^k(1-0.3)^{10-k} = \\binom{10}{3}0.3^3(1-0.3)^{10-3}\\) = 0.2668279",
+    "crumbs": [
+      "Generalidades"
+    ]
+  },
+  {
+    "objectID": "diapositivas/generalidades.html#pero-en-la-práctica-ocurre-al-revés-dots",
+    "href": "diapositivas/generalidades.html#pero-en-la-práctica-ocurre-al-revés-dots",
+    "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
+    "section": "Pero en la práctica ocurre al revés \\(\\dots\\)",
+    "text": "Pero en la práctica ocurre al revés \\(\\dots\\)\nTenemos los datos observados: seleccione 10 personas y observe tres enfermos, ¿Cual es la probabilidad de enfermar?\n\n\n\n\n\n\nTip\n\n\n“¿Qué valor de \\(P\\) hace más probable haber visto estos datos?”.\n\n\n\n\nAsumiendo que cada observación (dato) es una realización independiente procedente de actuar el parametro. la probabilidad que los datos ocurran conjuntamente es el producto de sus probabilidades.\n\n\\[P(\\text{Datos},\\theta) =\\binom{10}{3}P^3(1-P)^{10-3}\\]\ndamos valores a \\(P\\) entre \\(0\\) y \\(1\\) y graficamos.",
+    "crumbs": [
+      "Generalidades"
+    ]
+  },
+  {
+    "objectID": "rlg_simple.html#actividad",
+    "href": "rlg_simple.html#actividad",
+    "title": "Regresión Logistica Simple",
+    "section": "Actividad",
+    "text": "Actividad\nEn grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento 👉 Documento de Trabajo.\nEl dataset coronary que se puede descargar aca 👉 Descargar coronary.rds.\nDescargue el siguiente archivo denominado Codigo_taller4.R 👉 Descargar Codigo_taller4.R, donde encontrara los códigos necesarios para obtener los resultados solicitados en el taller.",
+    "crumbs": [
+      "Regresión Logistica Simple"
+    ]
+  },
+  {
+    "objectID": "rlg_simple.html#taller-1-regresion-logistica-simple",
+    "href": "rlg_simple.html#taller-1-regresion-logistica-simple",
+    "title": "Regresión Logistica Simple",
+    "section": "Taller 1: Regresion Logistica Simple",
+    "text": "Taller 1: Regresion Logistica Simple\n\nCon covariable categorica\n\nUsando la variable cad como variable dependiente (respuesta) y el sexo como la variable explicatoria. Estime una regresion logistica e interprete los coeficientes. ¿Que significan en palabras?.\nA un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a sexo es igual a cero. ¿Qué concluye?\nCual es la interpretacion para el coeficiente de sexo ? no olvide exponenciarlo \\(e^{\\beta_1}\\)\nRealice una predicción de probabilidad de enfermedad cardiaca si se es mujer no olvide interpretar el intervalo de confianza.\n\n\n\nCon covariable numerica\n\nUsando la variable cad como variable dependiente (respuesta) y el colesterol como la variable explicatoria. Estime una regresion logistica e interprete los coeficientes. ¿Que significan en palabras?.\nA un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a colesterol es igual a cero. ¿Qué concluye?\nCual es la interpretacion para el coeficiente de colesterol ? no olvide exponenciarlo \\(e^{\\beta_1}\\)\nRealice una predicción de probabilidad de enfermedad cardiaca si se tiene un colesterol de 248 y luego con colesterol de 140. Si hace la razon de estas dos cantidades estimadas (mayor sobre la menor) a que medida epidemiologica corresponde ? interprete.\nCalcule el OR asociado con un cambio de incremento en el colesterol de 108 mg/dl (es decir pasar de 140 mg/dl a 248mg/dl). Compare con la medida anterior, son iguales ?. Explique sus razones por que si o porqué no?.",
+    "crumbs": [
+      "Regresión Logistica Simple"
+    ]
+  },
+  {
+    "objectID": "index.html#objetivos-de-aprendizaje",
+    "href": "index.html#objetivos-de-aprendizaje",
+    "title": "Modelos de Regresion para Epidemiologos",
+    "section": "Objetivos de Aprendizaje",
+    "text": "Objetivos de Aprendizaje\n\nAprender el modelo multivariado adecuado para el control de la interacción y confusión de variables\nImplementar los modelos multivariados en los análisis de factores de riesgo frente a la enfermedad\nIdentificar los métodos adecuados para evaluar relaciones entre dos variables\nDeterminar cuál es el mejor método de análisis cuando la variable principal de resultado es de tipo cuantitativo o categórico\nAnalizar e interpretar las principales metodologías estadísticas en el análisis de datos.",
+    "crumbs": [
+      "Inicio"
+    ]
+  },
+  {
+    "objectID": "rls.html#actividad",
+    "href": "rls.html#actividad",
+    "title": "Regresion Lineal Simple",
+    "section": "Actividad",
+    "text": "Actividad\nEn grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento 👉 Documento de Trabajo, copiando y pegando pantallazos de los resultados y sus interpretaciones.\nEl dataset lowbwt que se puede descargar aca 👉 Descargar lowbwt.rds contiene información para una muestra de 100 recién nacidos con bajo peso al nacer. Mediciones de presión arterial sistolica son guardadas bajo el nombre de sbp y valores de edad gestacional bajo el nombre de gestage.\nDescargue el siguiente archivo denominado Codigo_taller1.R 👉 Descargar Codigo_taller1.R, donde encontrara los códigos necesarios para obtener los resultados solicitados en el taller.",
+    "crumbs": [
+      "Regresión Lineal Simple"
+    ]
+  },
+  {
+    "objectID": "rls.html#taller-1-regresion-lineal-simple",
+    "href": "rls.html#taller-1-regresion-lineal-simple",
+    "title": "Regresion Lineal Simple",
+    "section": "Taller 1: Regresion Lineal Simple",
+    "text": "Taller 1: Regresion Lineal Simple\n\nCon covariable continua\n\nConstruya un grafico de dispersión de presion artetial sistolica y edad gestacional. Sugiere el grafico acerca de la naturaleza de la relación entre las variables (haga una breve interpretacion del grafico).\nUsando la la presion arterial sistolica como variable dependiente (respuesta) y la edad gestacional como la variable explicatoria. Estime una regresion lineal e interprete los coeficientes. ¿Que significan en palabras?.\nA un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a edad gestacional es igual a cero. ¿Qué concluye?\nCual es la media estimada de la presión arterial para la población de recien nacidos con bajo peso en quienes la edad gestacional es 31 semanas.\nConstruya un intervalo de confianza para la media cuando la edad gestacional es 31 semanas.\n¿El modelo ajustado parece ajustar a los datos observados?. comente e interprete el coeficiente de determinación, la tasa de error de las predicciones y los gráficos de diagnostico. Interprete cada uno de ellos.\n\n\n\nCon covariable categorica\nLos niveles de glucosa por encima de 125 mg/dL son diagnósticos de diabetes, mientras que niveles en el rango de 100 a 125 mg/dL indican un mayor riesgo de progresar hacia esta condición seria y cada vez más frecuente. Por ello, resulta de interés determinar si el ejercicio, un factor de estilo de vida modificable, podría ayudar a las personas sin diabetes a reducir sus niveles de glucosa y, de esta manera, evitar la diabetes.\nResponder de manera definitiva a esta pregunta requeriría un ensayo clínico aleatorizado, lo cual constituye una tarea difícil y costosa. Como resultado, preguntas de investigación como esta suelen abordarse inicialmente con datos observacionales. Sin embargo, esto se complica por el hecho de que las personas que hacen ejercicio difieren en muchos aspectos de aquellas que no lo hacen, y algunas de esas diferencias podrían explicar cualquier asociación no ajustada entre el ejercicio y el nivel de glucosa.\nPara los siguientes puntos se usara los datos del estudio HERS que se puede descargar directamente desde R copian y pegando directamente en la consola el siguinete codigo hers &lt;- rio::import(\"https://regression.ucsf.edu/sites/g/files/tkssra16191/files/wysiwyg/home/data/hersdata.dta\") %&gt;% filter(diabetes == 0). (Debes tener conexión a internet)\nEn el archivo denominado Codigo_taller1.R 👉 Descargar Codigo_taller1.R se encuentran los códigos para reproducir los resultados necesarios para contestar las siguientes preguntas:\n\nUsando la glucosa como variable dependiente (respuesta) y la actividad física como la variable explicatoria. Estime una regresión lineal e interprete el coeficiente. ¿Que significan en palabras?. Escriba la ecuación de regresión con los coeficientes estimados.\nA un nivel de 0.05 de error alfa, contraste la hipótesis nula que el coeficiente asociado a actividad física al menos 3 veces por semana es igual a cero. ¿Qué concluye?\nCual es la media estimada de la glucosa para la población que no realiza actividad fisica.\nConstruya un intervalo de confianza al 95% para la media en la glucosa de quienes realizan actividad física.\n¿El modelo ajustado parece ajustar a los datos observados?. comente e interprete el coeficiente de determinación, la tasa de error de las predicciones y los gráficos de diagnostico. Interprete cada uno de ellos.",
+    "crumbs": [
+      "Regresión Lineal Simple"
+    ]
+  },
+  {
+    "objectID": "rlm.html#actividad",
+    "href": "rlm.html#actividad",
+    "title": "Regresion Lineal Multiple",
+    "section": "Actividad",
+    "text": "Actividad\nEn grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento Documento de trabajo, copiando y pegando pantallazos de los resultados y sus interpretaciones.\nEl dataset lowbwt que se puede descargar aca 👉 Descargar lowbwt.rds contiene información para una muestra de 100 recién nacidos con bajo peso al nacer. mediciones de presión arterial sistolica son guardadas bajo el nombre de sbp y valores de edad gestacional bajo el nombre de gestage.\nDescargue el siguiente archivo denominado Codigo_taller2.R 👉 Descargar Codigo_taller2.R, donde encontrara los codigos necesarios para obtener los resultados solicitados en el taller.\nRecuerde que en el pasado ya habian encontrado una relación significativa entre la presion arterial sistolica de neonatos con bajo peso (sbp)y la edad gestacional (gestage). En este nuevo analisis utilizaremos la variable Apgar a los 5 minutos (apgar5), es una variable oridnal, pero frecuentemente es tratada como continua.",
+    "crumbs": [
+      "Regresión Lineal Multiple"
+    ]
+  },
+  {
+    "objectID": "rlm.html#taller-2-regresion-lineal-multiple",
+    "href": "rlm.html#taller-2-regresion-lineal-multiple",
+    "title": "Regresion Lineal Multiple",
+    "section": "Taller 2: Regresion Lineal Multiple",
+    "text": "Taller 2: Regresion Lineal Multiple\n\nConstruya un grafico de dispersión de presion artetial sistolica y apgar . ¿Parece tener una relación lineal entre las dos variables?.\nUsando la presión arterial sistolica como variable dependiente (respuesta), la edad gestacional y el apgar como variables explicatorias. Estime los parametros del modelo \\[\\hat \\mu_{sbp} = \\beta_0 + \\beta_1 \\times gestage + \\beta_2 \\times apgar\\]\n\n\nInterprete \\(\\hat \\beta_1\\), ¿qué significa en palabras?, realice lo mismo para \\(\\hat \\beta_2\\)\n\n\nCual es la media estimada de la presión arterial para la población de recien nacidos con bajo peso en quienes la edad gestacional es 31 semanas y apgar a los 5 minutos sea de 7, Interprete.\nConstruya un intervalo de confianza para la media cuando la edad gestacional es 31 semanas y el apgar es de 7. Interpretelo.\nA un nivel de 0.05 de error alfa, contraste \\(H_0: \\beta_2 = 0\\)?, ¿Qué concluye?\n¿El modelo ajustado parece ajustar a los datos observados?.Revise el \\(R^2\\) ajustado comente e interprete. estime la tasa de error de las predicciones.\nla inclusión del apgar aporta significativamente al modelo como para dejarlo en el modelo?.\nConstruya los graficos de diagnostico, hay cumplimiento de los supuestos de validez del modelo?",
+    "crumbs": [
+      "Regresión Lineal Multiple"
+    ]
+  },
+  {
+    "objectID": "rlm.html#taller-3-ajuste-para-confusion-e-interacción-en-regresion-lineal-multiple",
+    "href": "rlm.html#taller-3-ajuste-para-confusion-e-interacción-en-regresion-lineal-multiple",
+    "title": "Regresion Lineal Multiple",
+    "section": "Taller 3: Ajuste para confusion e interacción en regresion lineal multiple",
+    "text": "Taller 3: Ajuste para confusion e interacción en regresion lineal multiple\nEn grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento Documento de trabajo.\nSi desea reproducir los resultados en su PC, los datos se pueden descargar aca 👉 Descargar hers.rds.\n\nConfusión\nSe esta estudiando los efectos que se puedan dar sobre los niveles de glucosa sobre un grupo de pacientes, para esto se ajusto inicialmente un modelo que estimo el principal que tiene un programa donde se recibe actividad física 3 veces a la semana, los resultados fueron los siguientes:\n\nmod_unjus &lt;- lm(formula = glucose ~ exercise, data = hers)\nsummary(mod_unjus)\n\n\nCall:\nlm(formula = glucose ~ exercise, data = hers)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-85.561 -20.561 -12.561   2.672 189.672 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) 114.5611     0.8922 128.408  &lt; 2e-16 ***\nexerciseyes  -6.2333     1.4350  -4.344 1.45e-05 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 36.73 on 2761 degrees of freedom\nMultiple R-squared:  0.006788,  Adjusted R-squared:  0.006428 \nF-statistic: 18.87 on 1 and 2761 DF,  p-value: 1.451e-05\n\nconfint(mod_unjus)\n\n                 2.5 %     97.5 %\n(Intercept) 112.811683 116.310441\nexerciseyes  -9.047117  -3.419576\n\n\nA la luz de las estimaciones:\n\nInterprete el coeficiente asociado al programa de actividad física, acompañe esta interpretación de sus respectivos intervalos de confianza al 95% y valor de p.\n\nSin embargo es de conocimiento pleno que otras variables tambien se relacionan con los niveles de glucosa en sangre, específicamente se tiene conocimiento que el indice de masa corporal que define obesidad, podria tambine jugar un papel preponderante tanto con la glucosa como el programa de actividad fisica. Dado esto se ajusta el efecto entre el progama de actividad fisica y glucosa:\n\nmod &lt;- lm(formula = glucose ~ exercise + BMI , data = hers)\nsummary(mod)\n\n\nCall:\nlm(formula = glucose ~ exercise + BMI, data = hers)\n\nResiduals:\n   Min     1Q Median     3Q    Max \n-79.18 -18.72 -10.35   3.79 192.38 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  62.4154     3.7402  16.688   &lt;2e-16 ***\nexerciseyes  -2.8932     1.4066  -2.057   0.0398 *  \nBMI           1.7794     0.1242  14.331   &lt;2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 35.46 on 2755 degrees of freedom\n  (5 observations deleted due to missingness)\nMultiple R-squared:  0.07576,   Adjusted R-squared:  0.07509 \nF-statistic: 112.9 on 2 and 2755 DF,  p-value: &lt; 2.2e-16\n\n\n\nEl efecto que tiene el programa de ejercicio cambio despues del ajuste?, si fue asi, qué dirección tomo?, cuantifique su cambio porcentual (\\(\\frac{\\beta_{crudo}-\\beta_{ajustado}}{\\beta_{crudo}}\\times100\\)). Se confirma que BMI sesgaba el efecto que tenia el programa de ejercicio sobre la glucosa?. Explique.\nAhora interprete el coeficiente ajustado del programa de actividad fisica. acompañelos de intervalos de confianza y valor de p.\n\n\nconfint(mod)\n\n                2.5 %     97.5 %\n(Intercept) 55.081469 69.7492613\nexerciseyes -5.651330 -0.1350112\nBMI          1.535926  2.0228348\n\n\n\npor ultimo asuma que evalúa por el contrario el efecto de BMI sobre la glucosa teniendo en cuenta el ajuste por pertenecer a un programa de actividad fisica. Interprete coeficiente ajustado de BMI, no olvide en su interpretación hablar de los intervalos de confianza y valores de p.\nFinalmente se ajusta el siguiente modelo explicativo sobre el efecto sobre la glucosa que tienen diversas variables. Interprete cada uno de los coeficientes, como efecto principal.\n\n\nmod_com &lt;- lm(formula = glucose ~ exercise + BMI + age + drinkany + smoking , data = hers)\nsummary(mod_com)\n\n\nCall:\nlm(formula = glucose ~ exercise + BMI + age + drinkany + smoking, \n    data = hers)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-77.533 -18.879  -9.858   4.765 192.487 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  89.7184     8.7503  10.253  &lt; 2e-16 ***\nexerciseyes  -3.5013     1.4193  -2.467  0.01369 *  \nBMI           1.6225     0.1274  12.733  &lt; 2e-16 ***\nage          -0.2843     0.1051  -2.705  0.00687 ** \ndrinkanyyes  -7.1882     1.3832  -5.197 2.17e-07 ***\nsmokingyes   -6.3218     2.0852  -3.032  0.00245 ** \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 35.24 on 2750 degrees of freedom\n  (7 observations deleted due to missingness)\nMultiple R-squared:  0.08872,   Adjusted R-squared:  0.08707 \nF-statistic: 53.55 on 5 and 2750 DF,  p-value: &lt; 2.2e-16\n\nconfint(mod_com)\n\n                 2.5 %       97.5 %\n(Intercept)  72.560556 106.87633140\nexerciseyes  -6.284288  -0.71838376\nBMI           1.372648   1.87237829\nage          -0.490288  -0.07822204\ndrinkanyyes  -9.900321  -4.47606535\nsmokingyes  -10.410451  -2.23321159\n\n\n\n\nInteracción\nSe quiere evaluar en el modelo de efectos principales del programa de actividad fisica sobre la glucosa la posibilidad de una heterogeneidad de efectos mediada por el indice de masa corporal. Para este proposito se ajusto un modelo con un termino de interacción, entre BMI y el programa de ejercicio:\n\nEscribe la ecuación del modelo con el termino de interacción:\n\n\nmod2 &lt;- lm(formula = glucose ~ exercise + BMI + exercise:BMI, data = hers)\nsummary(mod2)\n\n\nCall:\nlm(formula = glucose ~ exercise + BMI + exercise:BMI, data = hers)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-84.543 -18.890 -10.382   4.243 193.710 \n\nCoefficients:\n                Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)      67.2848     4.4908  14.983   &lt;2e-16 ***\nexerciseyes     -17.4940     7.5928  -2.304   0.0213 *  \nBMI               1.6133     0.1504  10.730   &lt;2e-16 ***\nexerciseyes:BMI   0.5211     0.2663   1.957   0.0505 .  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 35.44 on 2754 degrees of freedom\n  (5 observations deleted due to missingness)\nMultiple R-squared:  0.07705,   Adjusted R-squared:  0.07604 \nF-statistic: 76.63 on 3 and 2754 DF,  p-value: &lt; 2.2e-16\n\n\n\nDespeje de la ecuación de regresión escrita por ud, el efecto (pendiente) del programa de ejercicio para un BMI de 15.2 y para BMI 54.1, calculelo según el modelo estimado e interprételo.\nDespeje de la ecuación de regresión escrita por ud, el efecto (pendiente) del BMI para pertenecer y no al programa de ejercicio, calculelo según el modelo estimado e interprételo.\nEl siguiente grafico refuerza tiene coherencia frente al resultado calculado en el punto anterior (efecto de BMI sobre glucosa según pertenezca al programa)\n\n\nplot_predictions(mod2, by = c(\"BMI\", \"exercise\"))+\n  theme(axis.text = element_text(size = 20), axis.title = element_text(size = 20))",
+    "crumbs": [
+      "Regresión Lineal Multiple"
     ]
   },
   {
@@ -912,27 +1052,10 @@
     "text": "Graficamente: Para un valor medio de GCS"
   },
   {
-    "objectID": "diapositivas/rlgm.html#otras-estimaciones-desde-la-regresion-logistica",
-    "href": "diapositivas/rlgm.html#otras-estimaciones-desde-la-regresion-logistica",
-    "title": "Regresión Logistica Multiple",
-    "section": "Otras estimaciones desde la regresion logistica",
-    "text": "Otras estimaciones desde la regresion logistica\n\n\n\n Estimate Std. Error     z Pr(&gt;|z|)    S   2.5 % 97.5 %\n     0.25      0.175 -4.28   &lt;0.001 15.7 -0.0931  0.593\n\nTerm: sex\nType:  response \nComparison: 1 / 0\n\n\n\n Estimate Std. Error     z Pr(&gt;|z|)   S 2.5 % 97.5 %\n     1.17      0.224 0.756     0.45 1.2 0.731   1.61\n\nTerm: sex\nType:  response \nComparison: 1 / 0"
-  },
-  {
     "objectID": "diapositivas/rlgm.html#estimando-rr-or-dr-desde-la-regresión-logistica",
     "href": "diapositivas/rlgm.html#estimando-rr-or-dr-desde-la-regresión-logistica",
     "title": "Regresión Logistica Multiple",
     "section": "Estimando RR, OR, DR desde la regresión logistica",
     "text": "Estimando RR, OR, DR desde la regresión logistica\n\\[P(status=1/sex,stroke_type,gcs)=\\frac{1}{1+e^{-\\left(\\beta_0+\\beta_1sex+\\beta_2stroke_type+\\beta_3gcs+\\beta_4sexstroke\\right)}}\n\\]"
-  },
-  {
-    "objectID": "rlg_multiple.html#taller-5-regresion-logistica-multiple-confusion-e-interacción",
-    "href": "rlg_multiple.html#taller-5-regresion-logistica-multiple-confusion-e-interacción",
-    "title": "Regresión Logistica Multiple",
-    "section": "Taller 5: Regresion logistica multiple, confusion e interacción",
-    "text": "Taller 5: Regresion logistica multiple, confusion e interacción\nDatos utilizados en el presente taller corresponde a seguimiento de 3154 sujetos para evaluar la incidencia (probabilidad) de enfermedad coronaria. contiene 22 variables, sin embargo no todas seran usadas para este ejercicio pedagodico.\n\nglimpse(wcgs)\n\nRows: 3,154\nColumns: 22\n$ age      &lt;dbl&gt; 50, 51, 59, 51, 44, 47, 40, 41, 50, 43, 59, 54, 48, 39, 49, 5…\n$ arcus    &lt;dbl&gt; 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1…\n$ behpat   &lt;chr&gt; \"A1\", \"A1\", \"A1\", \"A1\", \"A1\", \"A1\", \"A1\", \"A1\", \"A1\", \"A1\", \"…\n$ bmi      &lt;dbl&gt; 31.32101, 25.32858, 28.69388, 22.14871, 22.31303, 27.11768, 2…\n$ chd69    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0…\n$ chol     &lt;dbl&gt; 249, 194, 258, 173, 214, 206, 190, 212, 130, 233, 181, 214, 2…\n$ dbp      &lt;dbl&gt; 90, 74, 94, 80, 80, 76, 78, 84, 70, 80, 86, 76, 78, 74, 80, 7…\n$ dibpat   &lt;chr&gt; \"Type A\", \"Type A\", \"Type A\", \"Type A\", \"Type A\", \"Type A\", \"…\n$ height   &lt;dbl&gt; 67, 73, 70, 69, 71, 64, 70, 70, 71, 68, 72, 67, 71, 70, 73, 7…\n$ id       &lt;dbl&gt; 2343, 3656, 3526, 22057, 12927, 16029, 3894, 11389, 12681, 10…\n$ lnsbp    &lt;dbl&gt; 4.882802, 4.787492, 5.062595, 4.836282, 4.836282, 4.753590, 4…\n$ lnwght   &lt;dbl&gt; 5.298317, 5.257495, 5.298317, 5.010635, 5.075174, 5.062595, 5…\n$ ncigs    &lt;dbl&gt; 25, 25, 0, 0, 0, 80, 0, 25, 0, 25, 10, 0, 20, 0, 4, 0, 0, 20,…\n$ sbp      &lt;dbl&gt; 132, 120, 158, 126, 126, 116, 122, 130, 112, 120, 130, 118, 1…\n$ smoke    &lt;fct&gt; Yes, Yes, No, No, No, Yes, No, Yes, No, Yes, Yes, No, Yes, No…\n$ t1       &lt;dbl&gt; -1.6333529, -4.0633659, 0.6397287, 1.1217681, 2.4250107, -0.7…\n$ time169  &lt;dbl&gt; 1367, 2991, 2960, 3069, 3081, 2114, 2929, 3010, 3104, 2861, 2…\n$ typchd69 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0…\n$ uni      &lt;dbl&gt; 0.48607379, 0.18595429, 0.72779906, 0.62446356, 0.37897763, 0…\n$ weight   &lt;dbl&gt; 200, 192, 200, 150, 160, 158, 162, 160, 195, 187, 206, 152, 1…\n$ wghtcat  &lt;chr&gt; \"170-200\", \"170-200\", \"170-200\", \"140-170\", \"140-170\", \"140-1…\n$ agec     &lt;chr&gt; \"46-50\", \"51-55\", \"56-60\", \"51-55\", \"41-45\", \"46-50\", \"35-40\"…\n\n\n\nModelo propuesto para el estudio de enfermedad coronaria\n\nmod_base &lt;- glm(chd69 ~ age + chol + sbp + bmi + smoke,\ndata = wcgs, family = binomial)\n\n\nextract_eq(mod_base)\n\n\\[\n\\log\\left[ \\frac { P( \\operatorname{chd69} = \\operatorname{1} ) }{ 1 - P( \\operatorname{chd69} = \\operatorname{1} ) } \\right] = \\alpha + \\beta_{1}(\\operatorname{age}) + \\beta_{2}(\\operatorname{chol}) + \\beta_{3}(\\operatorname{sbp}) + \\beta_{4}(\\operatorname{bmi}) + \\beta_{5}(\\operatorname{smoke}_{\\operatorname{Yes}})\n\\]\n\n\nEl modelo estimado es el siguiente, asuma que el cumplimiento de criterios de validez como linealidad e independencia se cumplen.\n\nsummary(mod_base)\n\n\nCall:\nglm(formula = chd69 ~ age + chol + sbp + bmi + smoke, family = binomial, \n    data = wcgs)\n\nCoefficients:\n              Estimate Std. Error z value Pr(&gt;|z|)    \n(Intercept) -12.336305   0.975011 -12.652  &lt; 2e-16 ***\nage           0.064356   0.011905   5.406 6.45e-08 ***\nchol          0.010839   0.001491   7.267 3.67e-13 ***\nsbp           0.019305   0.004091   4.719 2.37e-06 ***\nbmi           0.057671   0.026350   2.189   0.0286 *  \nsmokeYes      0.632693   0.140079   4.517 6.28e-06 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n(Dispersion parameter for binomial family taken to be 1)\n\n    Null deviance: 1779.2  on 3141  degrees of freedom\nResidual deviance: 1614.6  on 3136  degrees of freedom\n  (12 observations deleted due to missingness)\nAIC: 1626.6\n\nNumber of Fisher Scoring iterations: 6\n\n\n\nReescriba la ecuación del modelo ahora que ya se estimaron los coeficientes correspondientes:\nInterprete cada coeficiente de las variables smoke, age y chol como fue estimado sin transformaciones. Para cada uno realice contrate de hipotesis y concluya.\nConstruya una tabla de resultados con 2 columnas, en una nombre de la variable y la otra el OR, este ultimo se obtiene aplicando la función exponencial sobre los coeficiente estimados del modelo. Interprete cada uno.\nEn un modelo previo en el que no incluía edad (age), los OR fueron:\n\n\ntbl_regression(glm(chd69 ~ chol + sbp + bmi + smoke, data = wcgs, family = binomial),exponentiate = TRUE)\n\n\n\n\n\n\n\n\n\n\n\n\n\nCharacteristic\nOR\n95% CI\np-value\n\n\n\n\nchol\n1.01\n1.01, 1.01\n&lt;0.001\n\n\nsbp\n1.02\n1.02, 1.03\n&lt;0.001\n\n\nbmi\n1.05\n1.00, 1.11\n0.057\n\n\nsmoke\n\n\n\n\n\n\n\n\n    No\n—\n—\n\n\n\n\n    Yes\n1.82\n1.39, 2.39\n&lt;0.001\n\n\n\nAbbreviations: CI = Confidence Interval, OR = Odds Ratio\n\n\n\n\n\n\n\n\nAgregue estos resultados a la tabla que construyo en el punto 3. evalue si edad era un probable confusor para las demas efectos estimados.\n\n\n\n\n\n\nAyuda\n\n\n\ncalcula el porcentaje de cambio de cada uno y comenta.\n\n\n\n\nEvaluación de interacción\nProbaremos interacciones candidatas y seleccionaremos la más prometedora (por ejemplo, chol * bmi). Se ilustran dos vías: prueba de Wald (coeficiente) y LRT (comparación de modelos).\n\n# Candidata: interacción entre el colesterol y el IMC\n\nmod_int &lt;- glm(chd69 ~ age + chol + sbp + bmi + smoke + chol:bmi,\ndata = wcgs, family = binomial)\n\nsummary(mod_int)\n\n\nCall:\nglm(formula = chd69 ~ age + chol + sbp + bmi + smoke + chol:bmi, \n    family = binomial, data = wcgs)\n\nCoefficients:\n              Estimate Std. Error z value Pr(&gt;|z|)    \n(Intercept) -18.907862   3.030107  -6.240 4.38e-10 ***\nage           0.063522   0.011919   5.330 9.84e-08 ***\nchol          0.038311   0.012053   3.179  0.00148 ** \nsbp           0.019644   0.004094   4.798 1.60e-06 ***\nbmi           0.317604   0.115552   2.749  0.00599 ** \nsmokeYes      0.623352   0.139956   4.454 8.43e-06 ***\nchol:bmi     -0.001087   0.000471  -2.308  0.02100 *  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n(Dispersion parameter for binomial family taken to be 1)\n\n    Null deviance: 1779.2  on 3141  degrees of freedom\nResidual deviance: 1609.5  on 3135  degrees of freedom\n  (12 observations deleted due to missingness)\nAIC: 1623.5\n\nNumber of Fisher Scoring iterations: 6\n\n\n\nRealice un contraste bajo el test de wald asumiendo que el coeficiente asociado al termino de interacción chol*bmi se plantea la \\(H_o: \\beta_6=0\\). Interprete el resultado.\nAhora vamos a comparar el modelo base (sin interacción) y el modelo con interacción, para definir que este termino contribuye al modelo final. Pra esto realizamos el test de verosimilitud (LTR).\n\nCompara mod_base vs mod_int (chol:bmi) con LRT y con la p de Wald del término de interacción. ¿Mantienes la interacción?\n\n# Prueba LRT vs. modelo base\n\nanova(mod_base, mod_int, test = \"Chisq\")\n\nAnalysis of Deviance Table\n\nModel 1: chd69 ~ age + chol + sbp + bmi + smoke\nModel 2: chd69 ~ age + chol + sbp + bmi + smoke + chol:bmi\n  Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)  \n1      3136     1614.6                       \n2      3135     1609.5  1    5.071  0.02433 *\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\n\nPendientes interpretables (Heterogeneidad de efectos)\n\nSi mantienes la interacción segun tu interpretación y conclusión del punto anterior, interpreta cómo varía el efecto de colesterol según el IMC (usa cambio de +20 mg/dL de chol en bmi = 22, 26, 30). (deje como evidencia sus calculos o despejes realizados para llegar a las respuestas)\nCon el R software con el modelo ajustado se lograron estimar los mismos efectos de interacción mostrados acontinuación:\n\n\n\n\n bmi Estimate Std. Error    z Pr(&gt;|z|)    S 2.5 % 97.5 %\n  22     1.32     0.0545 5.80   &lt;0.001 27.2  1.21   1.42\n  26     1.21     0.0338 6.18   &lt;0.001 30.5  1.14   1.27\n  30     1.11     0.0538 2.07   0.0382  4.7  1.01   1.22\n\nTerm: chol\nType:  response \nComparison: +20\n\n\nComparelos a los encontrados por usted de manera manual. Son iguales? si fue asi, interpretelos como un reporte en magnitudes de asociación (cuantitativamente y acompañe de intervalos y valores p) y que concluye de la interacción bmi y chol.\nNo fueron iguales?, revise su calculo y trate de encontrar su error. e interprete de nuevo.\n\n\nPredicciones\n\nbasados en el modelo ajustado con interaccion, para age=55, sbp=130, smoke=Fuma, la siguiente tabla muestra la diferencia de probabilidad (diferencia absoluta de riesgo) cuando cambia la probabilidad al subir chol de 180 a 260 (cambio en 80 mg/dl) para bmi de 22, 28 y 32.\n\n\ncomparisons(mod_int,\n  variable = list(\"chol\" = 80),newdata = datagrid(bmi = c(22,28,32)),comparison = \"difference\",hypothesis = 0)\n\n\n bmi Estimate Std. Error     z Pr(&gt;|z|)    S   2.5 % 97.5 %\n  22   0.0753     0.0178 4.218  &lt; 0.001 15.3  0.0403 0.1102\n  28   0.0464     0.0144 3.228  0.00125  9.6  0.0182 0.0745\n  32   0.0226     0.0242 0.934  0.35017  1.5 -0.0248 0.0701\n\nTerm: chol\nType:  response \nComparison: +80\n\n\nInterprete cuantitaviamente esas diferencias de riesgo para los cambios de colesterol a distintos valores de bmi.\nCon relación al punto 2 de la sección de interacción, aunque los cambios evalauados en chol fueron mayores y otros valores similares de bmi alos evaluados en este punto, ¿Cual cree usted que es mejor para comunicar el riesgo asociado a enfermedad cardiovascular a un publico cientifico? Explique su respuesta.",
-    "crumbs": [
-      "Regresión Logistica Multiple"
-    ]
   }
 ]

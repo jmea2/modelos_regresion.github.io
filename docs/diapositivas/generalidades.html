@@ -368,24 +368,64 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
 <li><p>Los modelos de predicción se emplean para estimar el riesgo o efecto (o alguna otra medida epidemiológica).</p></li>
 <li><p>Esta estimación se basa en la información proporcionada por los predictores o covariables.</p></li>
 </ul>
-<p><strong>Ejemplo:</strong> Una ecuación puede estimar el riesgo de un ataque cardíaco durante un período de 10 años, basándose en la combinación de predictores como edad, sexo, historial familiar, presión arterial, historial de tabaquismo, peso, altura, hábitos de ejercicio e historial médico.</p>
+</section>
+<section id="ejemplos-de-modelamiento-predictivo" class="slide level2">
+<h2>Ejemplos de modelamiento predictivo:</h2>
+<ul>
+<li><p>En el ámbito empresarial para pronosticar el desempeño financiero y para modelar el comportamiento de compra del consumidor y de pago de préstamos.</p></li>
+<li><p>En ingeniería: los modelos de supervivencia se emplean para predecir la vida útil de productos.</p></li>
+<li><p>En la ecología, los modelos de regresión predicen la probabilidad de que una especie de pez desaparezca de un lago.</p></li>
+<li><p>En el ámbito legal, los modelos son comunes en litigios por discriminación para intentar determinar si la raza o el sexo se utilizaron como base para la contratación o promoción, después de tener en cuenta otras características del personal.</p></li>
+</ul>
+</section>
+<section id="ejemplos-en-ciencias-de-la-salud-y-epidemiologia" class="slide level2">
+<h2>Ejemplos en Ciencias de la salud y epidemiologia:</h2>
+<ul>
+<li><p>Diagnóstico: Predecir la probabilidad de que un paciente tenga una enfermedad específica.</p></li>
+<li><p>Pronóstico: Predecir el curso temporal de una enfermedad ya diagnosticada.</p></li>
+<li><p>Estimación de efectos absolutos en ensayos clínicos aleatorios: Incluso en experimentos aleatorios bien diseñados, el modelado es necesario para estimar los efectos absolutos.</p></li>
+</ul>
 </section>
 <section id="modelos-de-explicación" class="slide level2">
 <h2>Modelos de Explicación</h2>
 <ul>
-<li>Estimar efecto (fuerza de asociación) de consumo cigarrillo con el cáncer gástrico bajo diferentes niveles de exposición al consumo de embutidos. En esta relación podría el consumo de embutidos actuar como confusor o modificador de efecto (Interacción).</li>
-</ul>
-<p><strong>Diagramas DAG</strong></p>
-<h3 id="estimaciones-descriptivas-en-sub-poblaciones-mas-eficientemente">Estimaciones (Descriptivas) en sub-poblaciones (Mas eficientemente)</h3>
-<ul>
-<li>Aplicación de Estimación de prevalencias ajustadas en subpoblaciones (VIH)</li>
+<li><p>Ajuste de sesgos en estudios observacionales: Son muy importantes para controlar los sesgos causados por la asignación no aleatoria de tratamientos. (Estimar el efecto del factor de interés de forma más pura).</p></li>
+<li><p>Cálculo de la Puntuación de Propensión (Propensity Score): permite un ajuste más agresivo de la asignación no aleatoria de tratamientos.</p></li>
+<li><p>Inferencia Causal: Escenario counterfactual</p></li>
 </ul>
 </section>
-<section id="modelos-de-regresión-clasicos" class="slide level2">
-<h2>Modelos de Regresión clasicos</h2>
+<section id="planeación-de-modelo" class="slide level2">
+<h2>Planeación de modelo</h2>
+<p>Puntos Clave para la Planificación del Modelado</p>
+<ol type="1">
+<li>Evaluación Inicial y Propósito</li>
+</ol>
 <ul>
-<li><p>Una variable dependiente (Nivel de medición)</p></li>
-<li><p>Una o más variables independientes (Continua, categorica dicotomica, cateogica politomica)</p></li>
+<li>Asegurar la Relevancia: La pregunta fundamental es si el modelo será utilizado realmente.</li>
+<li><strong>Los modelos a menudo fallan porque:</strong>
+<ul>
+<li><em>No se consideran relevantes para el entorno previsto.</em></li>
+<li><em>Los usuarios potenciales no confían en las relaciones o variables empleadas.</em></li>
+<li><em>Las variables necesarias para las predicciones no están disponibles rutinariamente.</em></li>
+</ul></li>
+</ul>
+</section>
+<section id="planeación-del-modelo" class="slide level2">
+<h2>Planeación del modelo</h2>
+<ol start="2" type="1">
+<li>Calidad de los Datos y Diseño del Estudio</li>
+</ol>
+<ul>
+<li><p>Evitar Muestras de Conveniencia: Estas muestras suelen estar plagadas de dificultades, ya que no fueron recolectadas pensando en el modelo predictivo.</p></li>
+<li><p>Un modelo será más preciso y útil si la recolección de datos se planea prospectivamente, estableciendo definiciones estándar y minimizando los datos faltantes.</p></li>
+<li><p>Evitar el Sobreajuste (Overfitting): El sobreajuste ocurre con frecuencia, lo que lleva a predicciones demasiado extremas o asociaciones falsas. (n = 50 y 30 variables).</p></li>
+</ul>
+</section>
+<section id="planeación-del-modelo-1" class="slide level2">
+<h2>Planeación del modelo</h2>
+<ul>
+<li><p>Evitar Extrapolaciones: No se debe hacer predicciones al extrapolar combinaciones de valores de predictores que están fuera del rango utilizado para desarrollar el modelo.</p></li>
+<li><p>Prohibición de Categorizar Variables Continuas: Es imprudente categorizar variables naturalmente continuas durante la recolección de datos</p></li>
 </ul>
 </section>
 <section id="modelos-según-la-variable-dependiente" class="slide level2">
@@ -493,25 +533,206 @@ Jorge Mario Estrada Alvarez PhD. MSc. FETP
 <section id="expresión-matemática" class="slide level2">
 <h2>Expresión matemática</h2>
 <p>Modelo Lineal generalizado simple</p>
-<p><span class="math display">\[ E(Y \mid X_1, X_2, \ldots, X_i) = \beta_0 + \beta_1 X_1\]</span></p>
-<p>Donde:<br>
-- <span class="math inline">\(E(Y \mid X)\)</span>: valor esperado de <span class="math inline">\(Y\)</span> dado los predictores.<br>
-- <span class="math inline">\(\beta_0\)</span>: intercepto. (donde la linea atraviesa el Eje Y)<br>
-- <span class="math inline">\(\beta_1\)</span>: coeficiente que representan el efecto de cada variable <span class="math inline">\(X_1\)</span>.</p>
+<p><span class="math display">\[ E(Y \mid X_1, X_2, \ldots, X_i) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_i X_i\]</span></p>
+<p>El modelo busca describir una relación entre una <strong>respuesta</strong> <span class="math inline">\(Y\)</span> y un conjunto de <strong>predictores</strong> <span class="math inline">\(X = (X_1, X_2, ..., X_p)\)</span>.</p>
+<p>Los parámetros <span class="math inline">\(\beta = (\beta_0, \beta_1, ..., \beta_p)\)</span> representan:</p>
+<ul>
+<li><span class="math inline">\(\beta_0\)</span>: intercepto</li>
+<li><span class="math inline">\(\beta_j\)</span>: peso o coeficiente correspondiente al predictor <span class="math inline">\(X_j\)</span></li>
+</ul>
 </section>
 <section id="modelo-lineal-generalizado" class="slide level2">
 <h2>Modelo Lineal generalizado</h2>
-<p><span class="math display">\[ E(Y \mid X_1, X_2, \ldots, X_i) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_i X_i\]</span></p>
 <p>Donde:<br>
 - <span class="math inline">\(E(Y \mid X)\)</span>: valor esperado de <span class="math inline">\(Y\)</span> dado los predictores.<br>
 - <span class="math inline">\(\beta_0\)</span>: intercepto.<br>
 - <span class="math inline">\(\beta_j\)</span>: coeficientes que representan el efecto de cada variable <span class="math inline">\(X_j\)</span>.</p>
-</section></section>
-<section id="relación-lineal" class="title-slide slide level1 center">
-<h1>Relación lineal</h1>
+</section>
+<section id="propiedad-de-la-distribución-de-y-dado-x" class="slide level2">
+<h2>Propiedad de la distribución de Y dado X</h2>
+<ul>
+<li>Denotamos una <strong>propiedad de la distribución condicional</strong> como:</li>
+</ul>
+<p><span class="math display">\[C(Y | X)\]</span></p>
+<ul>
+<li>Ejemplos:
+<ul>
+<li><span class="math inline">\(C(Y | X) = E(Y | X)\)</span>: valor esperado de Y dado X (la media)</li>
+<li><span class="math inline">\(C(Y | X) = P(Y = 1 | X)\)</span>: probabilidad de “éxito”.</li>
+</ul></li>
+</ul>
+</section>
+<section id="formulaciones-del-modelo" class="slide level2 smaller">
+<h2>Formulaciones del Modelo</h2>
+<ul>
+<li><p>El <strong>modelo de regresión</strong> describe cómo una propiedad de <span class="math inline">\(Y\)</span> depende de <span class="math inline">\(X\)</span>:</p></li>
+<li><p>En modelos lineales generalizados, se restringe a modelos <strong>lineales en los parámetros</strong>:</p></li>
+</ul>
+<p><span class="math display">\[C(Y|X) = g(X\beta)\]</span></p>
+<h3 id="ejemplos-de-formulaciones">Ejemplos de formulaciones</h3>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Modelo</th>
+<th>Expresión</th>
+<th>Interpretación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Lineal</td>
+<td><span class="math inline">\(E(Y|X) = X\beta\)</span></td>
+<td>Relación lineal, errores normales</td>
+</tr>
+<tr class="even">
+<td>Logístico</td>
+<td><span class="math inline">\(P(Y=1|X) = (1 + e^{-X\beta})^{-1}\)</span></td>
+<td>Probabilidad binaria</td>
+</tr>
+<tr class="odd">
+<td>Poisson</td>
+<td><span class="math inline">\(E(Y|X) = e^{X\beta}\)</span></td>
+<td>Conteos o tasas</td>
+</tr>
+<tr class="even">
+<td>General</td>
+<td><span class="math inline">\(C(Y|X) = g(X\beta)\)</span></td>
+<td>g puede ser no lineal</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="linealización-mediante-transformación" class="slide level2">
+<h2>Linealización mediante transformación</h2>
+<ul>
+<li>Si el modelo no es lineal, se aplica una <strong>transformación</strong>:</li>
+</ul>
+<p><span class="math display">\[h(C(Y|X)) = X\beta\]</span></p>
+<ul>
+<li><p>Ejemplo: para regresión logística, aunque pretende estimar la probabilidad de un evento se trabaja con:</p>
+<p><span class="math display">\[\text{logit}(P) = \log\left(\frac{P}{1-P}\right)\]</span></p>
+<p>de modo que: <span class="math inline">\(h(\dots)\)</span> es logit</p></li>
+</ul>
+<p><span class="math display">\[\text{logit}(P(Y=1|X)) = X\beta\]</span></p>
+</section>
+<section id="interpretacion-de-parametros-del-modelo" class="slide level2">
+<h2>Interpretacion de parametros del modelo</h2>
+<ul>
+<li>La transformación <span class="math inline">\(h()\)</span> se conoce como la <strong>función de enlace (link function)</strong>.</li>
+<li>El modelo general linealizado se expresa como:</li>
+</ul>
+<h3 id="componentes-del-modelo">Componentes del modelo</h3>
+<ol type="1">
+<li><strong>Parte de respuesta transformada:</strong> <span class="math inline">\(C'(Y|X)\)</span><br>
+→ propiedad de <span class="math inline">\(Y\)</span> o transformación de la misma<br>
+</li>
+<li><strong>Parte lineal o predictor:</strong> <span class="math inline">\(X\beta\)</span><br>
+→ combinación lineal ponderada de los predictores</li>
+</ol>
+</section>
+<section id="interpretación-de-los-coeficientes" class="slide level2">
+<h2>Interpretación de los coeficientes</h2>
+<ul>
+<li>Cada <span class="math inline">\(\beta_j\)</span> representa el cambio en la propiedad <span class="math inline">\(C'(Y|X)\)</span> asociado a un incremento unitario en <span class="math inline">\(X_j\)</span>, manteniendo constantes los demás predictores:</li>
+</ul>
+<p><span class="math display">\[\beta_j = C'(Y|X_1,...,X_j+1,...) - C'(Y|X_1,...,X_j,...)\]</span></p>
+<ul>
+<li>Ejemplos:
+<ul>
+<li><strong>Regresión lineal:</strong> cambio en el valor esperado de Y<br>
+</li>
+<li><strong>Regresión logística:</strong> cambio en el logaritmo de los odds<br>
+</li>
+<li><strong>Modelos Poisson:</strong> cambio en el logaritmo de la tasa esperada.</li>
+</ul></li>
+</ul>
+</section>
+<section id="relación-lineal" class="slide level2">
+<h2>Relación lineal</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="generalidades_files/figure-revealjs/unnamed-chunk-2-1.png" width="960"></p>
+</div><div class="column" style="width:50%;">
+<p><strong>Datos muéstrales</strong>: La variable de respuesta <span class="math inline">\(Y\)</span> para diferentes predictores <span class="math inline">\(X\)</span></p>
+<p><strong>Parámetros desconocidos</strong>: Los coeficientes <span class="math inline">\(\beta_j\)</span> de las variables.</p>
+</div></div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Estimación por Máxima Verosimilitud</strong></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="estimación-por-maxima-verosimilitud-mle" class="slide level2">
+<h2>Estimación por maxima verosimilitud (MLE)</h2>
 
+<img data-src="ml.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="intuición-del-método-de-máxima-verosimilitud" class="slide level2 small">
+<h2>Intuición del método de máxima verosimilitud</h2>
+<h3 id="cuando-el-parámetro-es-conocido-dots">Cuando el parámetro es conocido <span class="math inline">\(\dots\)</span></h3>
+<p>Sabemos el valor del parámetro (por ejemplo, la media o la probabilidad).<br>
+Entonces podemos <strong>calcular la probabilidad de observar ciertos datos</strong>:</p>
+<p><span class="math display">\[P(\text{Datos} \mid \theta)\]</span></p>
+<p>. . .</p>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Ejemplo:</strong></p>
+</div>
+<div class="callout-content">
+<p>si sé que la probabilidad de enfermar es 0.3, puedo calcular la probabilidad de ver 3 casos en 10 personas.</p>
+</div>
+</div>
+</div>
+<p><span class="math inline">\(P(k=3) = \binom{10}{k}0.3^k(1-0.3)^{10-k} = \binom{10}{3}0.3^3(1-0.3)^{10-3}\)</span> = 0.2668279</p>
+</section>
+<section id="pero-en-la-práctica-ocurre-al-revés-dots" class="slide level2 small">
+<h2>Pero en la práctica ocurre al revés <span class="math inline">\(\dots\)</span></h2>
+<p>Tenemos <strong>los datos observados</strong>: seleccione 10 personas y observe tres enfermos, ¿Cual es la probabilidad de enfermar?</p>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>“¿Qué valor de <span class="math inline">\(P\)</span> hace más probable haber visto estos datos?”.</p>
+</div>
+</div>
+</div>
+<blockquote>
+<p>Asumiendo que cada observación (dato) es una realización independiente procedente de actuar el parametro. la probabilidad que los datos ocurran conjuntamente es el producto de sus probabilidades.</p>
+</blockquote>
+<p><span class="math display">\[P(\text{Datos},\theta) =\binom{10}{3}P^3(1-P)^{10-3}\]</span></p>
+<p>damos valores a <span class="math inline">\(P\)</span> entre <span class="math inline">\(0\)</span> y <span class="math inline">\(1\)</span> y graficamos.</p>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
 
-<img data-src="generalidades_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"><div class="quarto-auto-generated-content">
+<img data-src="generalidades_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section></section>
+<section id="gracias" class="title-slide slide level1 center">
+<h1>Gracias</h1>
+
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 <p>[Bioestadistica III]</p>
 </div>
