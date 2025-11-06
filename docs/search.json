@@ -567,6 +567,153 @@
     "text": "Revisemos linealidad entre Odds de fallecer y Glasglow"
   },
   {
+    "objectID": "diapositivas/regresion_cox.html#introducción",
+    "href": "diapositivas/regresion_cox.html#introducción",
+    "title": "Regresión de Riesgos Proporcionales de Cox",
+    "section": "Introducción",
+    "text": "Introducción\n\nEl modelo de Cox (1972) permite evaluar la relación entre múltiples predictores y la función hazard o tasa de fallo instantanea, considerando datos censurados.\nEs el modelo más utilizado en Investigacion epidemiologica, clinica y salud publica, por su flexibilidad y bajo número de supuestos paramétricos.\nSe considera semi-paramétrico, ya que no especifica la forma del riesgo basal \\(h_0(t)\\)."
+  },
+  {
+    "objectID": "diapositivas/regresion_cox.html#fundamento-del-modelo",
+    "href": "diapositivas/regresion_cox.html#fundamento-del-modelo",
+    "title": "Regresión de Riesgos Proporcionales de Cox",
+    "section": "Fundamento del modelo",
+    "text": "Fundamento del modelo\nEl modelo relaciona el riesgo instantáneo \\(h(t|x)\\) con los predictores \\(x_1, x_2, ..., x_p\\):\nD. Cox penso en como comparar las tasas de evento entre dos tratamientos (segun entrevista dada por él)\n\\[\n\\operatorname{HR}(t)=\\frac{h_1(t)}{h_0(t)},\n\\] estable en el tiempo entonces \\(\\operatorname{HR}(t) \\equiv \\mathrm{HR}\\)\nDe aqui surge el supuesto de riesgo proporcionales en el tiempo.\n\\[log(HR) = log(\\frac{h_1(t)}{h_0(t)})\\]"
+  },
+  {
+    "objectID": "diapositivas/regresion_cox.html#el-modelo-de-d.-cox-1972",
+    "href": "diapositivas/regresion_cox.html#el-modelo-de-d.-cox-1972",
+    "title": "Regresión de Riesgos Proporcionales de Cox",
+    "section": "El modelo de D. Cox (1972)",
+    "text": "El modelo de D. Cox (1972)\n\n\\[\n\\log \\frac{h(t \\mid \\mathbf{x})}{h_0(t)}=\\beta_1 x_1+\\ldots+\\beta_p x_p\n\\]\n\n\n\\[\n\\log h(t \\mid \\mathbf{x}) - \\log {h_0(t)}=\\beta_1 x_1+\\ldots+\\beta_p x_p\n\\]\n\n\n\\[\n\\log h(t \\mid \\mathbf{x}) = \\log {h_0(t)} +\\beta_1 x_1+\\ldots+\\beta_p x_p\n\\]\n\n\n\\[\nh(t|x) = h_0(t) \\cdot e^{\\beta_1 x_1 + \\cdots + \\beta_p x_p}\n\\]\n\n\\(h_0(t)\\): riesgo instantáneo del grupo de referencia (base).\n\\(e^{\\beta_i}\\): cambio relativo en el riesgo instantáneo asociado a una unidad de cambio en (x_i)."
+  },
+  {
+    "objectID": "diapositivas/regresion_cox.html#comparación-con-otros-modelos",
+    "href": "diapositivas/regresion_cox.html#comparación-con-otros-modelos",
+    "title": "Regresión de Riesgos Proporcionales de Cox",
+    "section": "Comparación con Otros Modelos",
+    "text": "Comparación con Otros Modelos\n\n\n\n\n\n\n\n\nTipo de modelo\nRelación\nVariable dependiente\n\n\n\n\nLineal\n\\(E[Y|x]\\) = \\(\\beta_0 + \\beta_1 x_1 + \\dots\\)\nValor esperado (media)\n\n\nLogístico\n\\(\\log \\frac{p(x)}{1-p(x)} = \\beta_0 + \\beta_1 x_1 + \\dots\\)\nProbabilidad (odds)\n\n\nCox (PH)\n\\(\\log h(t|x) = \\log {h_0(t)}+\\beta_1 x_1 + ... + \\beta_p x_p\\)\nRiesgo instantáneo"
+  },
+  {
+    "objectID": "diapositivas/regresion_cox.html#supuesto-de-riesgos-proporcionales",
+    "href": "diapositivas/regresion_cox.html#supuesto-de-riesgos-proporcionales",
+    "title": "Regresión de Riesgos Proporcionales de Cox",
+    "section": "Supuesto de Riesgos Proporcionales",
+    "text": "Supuesto de Riesgos Proporcionales\n\nEl hazard ratio (HR) entre dos individuos es constante en el tiempo:\n\n\\[HR(t) = \\frac{h(t|x_1)}{h(t|x_2)} = \\exp[\\beta (x_1 - x_2)] = HR\\]\n\nEsto implica que las curvas de riesgo de ambos grupos son proporcionales, y sus curvas de supervivencia no se cruzan."
+  },
+  {
+    "objectID": "diapositivas/regresion_cox.html#tipos-de-modelos-relacionados",
+    "href": "diapositivas/regresion_cox.html#tipos-de-modelos-relacionados",
+    "title": "Regresión de Riesgos Proporcionales de Cox",
+    "section": "Tipos de Modelos Relacionados",
+    "text": "Tipos de Modelos Relacionados\n\n\n\n\n\n\n\n\n\nModelo\nRiesgo basal \\(h_0(t)\\)\nTipo\nObservaciones\n\n\n\n\nExponencial\nConstante\nParamétrico\nRiesgo constante\n\n\nWeibull\nMonótono (↑ o ↓)\nParamétrico\nRequiere forma del riesgo\n\n\nCox\nNo especificado\nSemi-paramétrico\nFlexible, robusto ante mala especificación"
+  },
+  {
+    "objectID": "diapositivas/regresion_cox.html#estimación-en-el-modelo-de-cox",
+    "href": "diapositivas/regresion_cox.html#estimación-en-el-modelo-de-cox",
+    "title": "Regresión de Riesgos Proporcionales de Cox",
+    "section": "Estimación en el Modelo de Cox",
+    "text": "Estimación en el Modelo de Cox\n\nLos coeficientes \\(\\beta\\) se estiman sin necesidad de conocer \\(h_0(t)\\).\nLa estimación usa la verosimilitud parcial (partial likelihood), considerando solo los momentos donde ocurre un evento.\nLuego se puede estimar \\(H_0(t)\\) (riesgo acumulado) y \\(S_0(t)\\) (supervivencia basal) para obtener curvas ajustadas.\n\n\nVentajas del Modelo de Cox\n\nManeja censura a la derecha eficientemente.\nNo requiere suponer una forma funcional para \\(h_0(t)\\).\nPermite ajustar por múltiples covariables."
+  },
+  {
+    "objectID": "diapositivas/regresion_cox.html#trabajaremos-con-los-datos-del-ensayo-pbc",
+    "href": "diapositivas/regresion_cox.html#trabajaremos-con-los-datos-del-ensayo-pbc",
+    "title": "Regresión de Riesgos Proporcionales de Cox",
+    "section": "Trabajaremos con los datos del ensayo PBC",
+    "text": "Trabajaremos con los datos del ensayo PBC\nConsideramos una cohorte de 312 participantes en un ensayo clínico controlado con placebo de D-penicilamina (DPCA) para la cirrosis biliar primaria (CBP) (Dickson et al., 1989).\nLos investigadores recopilaron datos sobre la edad, niveles de bilirrubina sérica, presencia de hepatomegalia, edema de miembros inferiores y venas varicosas visibles en el pecho y los hombros (arañas vasculares)."
+  },
+  {
+    "objectID": "diapositivas/regresion_cox.html#algunas-descriptivas-de-sobrevida-de-los-participantes",
+    "href": "diapositivas/regresion_cox.html#algunas-descriptivas-de-sobrevida-de-los-participantes",
+    "title": "Regresión de Riesgos Proporcionales de Cox",
+    "section": "Algunas descriptivas de sobrevida de los participantes",
+    "text": "Algunas descriptivas de sobrevida de los participantes\n\nmodel &lt;- survfit(Surv(years, status) ~ 1, data = pbc)\nmodel\n\nCall: survfit(formula = Surv(years, status) ~ 1, data = pbc)\n\n       n events median 0.95LCL 0.95UCL\n[1,] 312    125    9.3    8.45    10.5\n\n\n\nsummary(model, times = c(1,3,6,9,12,15))\n\nCall: survfit(formula = Surv(years, status) ~ 1, data = pbc)\n\n time n.risk n.event survival std.err lower 95% CI upper 95% CI\n    1    290      22    0.929  0.0145        0.902        0.958\n    3    240      37    0.809  0.0224        0.766        0.854\n    6    130      33    0.677  0.0283        0.624        0.735\n    9     47      22    0.511  0.0387        0.441        0.593\n   12      8      11    0.341  0.0528        0.251        0.461"
+  },
+  {
+    "objectID": "diapositivas/regresion_cox.html#algunas-descriptivas-de-sobrevida-de-los-participantes-1",
+    "href": "diapositivas/regresion_cox.html#algunas-descriptivas-de-sobrevida-de-los-participantes-1",
+    "title": "Regresión de Riesgos Proporcionales de Cox",
+    "section": "Algunas descriptivas de sobrevida de los participantes",
+    "text": "Algunas descriptivas de sobrevida de los participantes"
+  },
+  {
+    "objectID": "diapositivas/regresion_cox.html#interpretacion-del-modelo-variable-dicotomica-10",
+    "href": "diapositivas/regresion_cox.html#interpretacion-del-modelo-variable-dicotomica-10",
+    "title": "Regresión de Riesgos Proporcionales de Cox",
+    "section": "Interpretacion del modelo: Variable dicotomica (1/0)",
+    "text": "Interpretacion del modelo: Variable dicotomica (1/0)\n\\[\\log h(t \\mid \\mathbf{x}) = \\log {h_0(t)} +\\beta_1 x_1\\]\n\\[\n\\log (\\frac{h(t|x = 1)}{h(t|x=0)}) = h_0(t) + \\beta_1(1) - h_0(t) - \\beta_1(0) \\\\ = \\beta_1 \\\\\n\\log(HR) = \\beta_1 \\\\\ne^{\\log(HR)} = e^{\\beta_1}\\\\\nHR = e^{\\beta_1}\n\\]\n\nmodel_cox &lt;- coxph(Surv(years, status) ~ rx, data = pbc)\nmodel_cox\n\nCall:\ncoxph(formula = Surv(years, status) ~ rx, data = pbc)\n\n       coef exp(coef) se(coef)      z     p\nrx -0.05722   0.94438  0.17916 -0.319 0.749\n\nLikelihood ratio test=0.1  on 1 df, p=0.7494\nn= 312, number of events= 125"
+  },
+  {
+    "objectID": "diapositivas/regresion_cox.html#interpretacion-del-modelo-variable-politomica",
+    "href": "diapositivas/regresion_cox.html#interpretacion-del-modelo-variable-politomica",
+    "title": "Regresión de Riesgos Proporcionales de Cox",
+    "section": "Interpretacion del modelo: Variable politomica",
+    "text": "Interpretacion del modelo: Variable politomica\n\n\nComo la variables asume distintos valores se debe crear dummy\n\\(X= C_1,C_2,C_3\\)\n\\(X_1: C_1 = 1,\\) resto \\(0\\)\n\\(X_2: C_2 = 1,\\) resto \\(0\\)\n\\(X_3: C_3 = 1,\\) resto \\(0\\)\n\n\\[\\log h(t \\mid \\mathbf{x}) = \\log {h_0(t)} +\\beta_2 x_2+\\beta_3 x_3\\]\n\\[\n\\log (\\frac{h(t|x = 2)}{h(t|x=1)}) = h_0(t) + \\beta_2(1) + \\beta_3(0) - h_0(t) - \\beta_2(0) - \\beta_3(0)  \\\\ = \\beta_2 \\\\\n\\log(HR) = \\beta_2 \\\\\ne^{\\log(HR)} = e^{\\beta_2}\\\\\nHR = e^{\\beta_2}\n\\]\n\n\n\nCall:\ncoxph(formula = Surv(years, status) ~ factor(histol), data = pbc)\n\n                  coef exp(coef) se(coef)     z      p\nfactor(histol)2  1.607     4.988    1.031 1.559 0.1191\nfactor(histol)3  2.150     8.581    1.012 2.124 0.0337\nfactor(histol)4  3.063    21.387    1.009 3.036 0.0024\n\nLikelihood ratio test=52.74  on 3 df, p=2.085e-11\nn= 312, number of events= 125"
+  },
+  {
+    "objectID": "diapositivas/regresion_cox.html#interpretacion-del-modelo-variable-continua",
+    "href": "diapositivas/regresion_cox.html#interpretacion-del-modelo-variable-continua",
+    "title": "Regresión de Riesgos Proporcionales de Cox",
+    "section": "Interpretacion del modelo: Variable continua",
+    "text": "Interpretacion del modelo: Variable continua\nMiremos para un cambio en un año en la edad:\n\n\\[\n\\log (\\frac{h(t|x = 36)}{h(t|x=35)}) = h_0(t) + \\beta_1(36) - h_0(t) - \\beta_1(35) \\\\ = \\beta_1(36) - \\beta_1(35) \\\\\n\\log(HR) = \\beta_1(36) - \\beta_1(35) \\\\\ne^{\\log(HR)} = e^{\\beta_1(36) - \\beta_1(35)} \\\\\nHR = e^{\\beta_1(36-35)} \\\\\nHR = e^{\\beta_1}\n\\]\n\n\n\n\nCall:\ncoxph(formula = Surv(years, status) ~ age, data = pbc)\n\n        coef exp(coef) se(coef)     z        p\nage 0.039995  1.040806 0.008811 4.539 5.65e-06\n\nLikelihood ratio test=20.51  on 1 df, p=5.947e-06\nn= 312, number of events= 125 \n\n\n\n\nPodría calcularse para un cambio mayor en la edad, ejemplo: 5 años"
+  },
+  {
+    "objectID": "diapositivas/regresion_cox.html#section",
+    "href": "diapositivas/regresion_cox.html#section",
+    "title": "Regresión de Riesgos Proporcionales de Cox",
+    "section": "",
+    "text": "\\[\n\\log (\\frac{h(t|x = 35)}{h(t|x=30)}) = h_0(t) + \\beta_1(35) - h_0(t) - \\beta_1(30) \\\\ = \\beta_1(35) - \\beta_1(30) \\\\\n\\log(HR) = \\beta_1(35) - \\beta_1(30) \\\\\ne^{\\log(HR)} = e^{\\beta_1(35) - \\beta_1(30)} \\\\\nHR = e^{\\beta_1(35-30)} \\\\\nHR = e^{\\beta_1k} = (e^{\\beta_1})^k\n\\]\n\\(HR = e^{0.039995\\times5} = 1.22\\)"
+  },
+  {
+    "objectID": "diapositivas/regresion_cox.html#modelo-multivariado",
+    "href": "diapositivas/regresion_cox.html#modelo-multivariado",
+    "title": "Regresión de Riesgos Proporcionales de Cox",
+    "section": "Modelo Multivariado",
+    "text": "Modelo Multivariado\n\n\nCall:\ncoxph(formula = Surv(years, status) ~ rx + sex + bilirubin, data = pbc)\n\n             coef exp(coef) se(coef)      z      p\nrx        -0.1914    0.8258   0.1835 -1.043 0.2971\nsex       -0.5795    0.5602   0.2397 -2.418 0.0156\nbilirubin  0.1548    1.1675   0.0135 11.470 &lt;2e-16\n\nLikelihood ratio test=91.05  on 3 df, p=&lt; 2.2e-16\nn= 312, number of events= 125 \n\n\nCall:\ncoxph(formula = Surv(years, status) ~ rx + sex + bilirubin + \n    age, data = pbc)\n\n               coef exp(coef)  se(coef)      z        p\nrx        -0.069523  0.932839  0.186771 -0.372   0.7097\nsex       -0.418928  0.657751  0.242596 -1.727   0.0842\nbilirubin  0.150663  1.162605  0.013324 11.308  &lt; 2e-16\nage        0.037108  1.037805  0.009148  4.056 4.99e-05\n\nLikelihood ratio test=107.5  on 4 df, p=&lt; 2.2e-16\nn= 312, number of events= 125"
+  },
+  {
+    "objectID": "diapositivas/regresion_cox.html#test-de-razon-de-verosimilitud-entre-modelos",
+    "href": "diapositivas/regresion_cox.html#test-de-razon-de-verosimilitud-entre-modelos",
+    "title": "Regresión de Riesgos Proporcionales de Cox",
+    "section": "Test de razon de verosimilitud entre modelos",
+    "text": "Test de razon de verosimilitud entre modelos\n\nSe requiere comparar dos modelos anidado uno en el otro\n\n\n\nAnalysis of Deviance Table\n Cox model: response is  Surv(years, status)\n Model 1: ~ rx + sex + bilirubin + age\n Model 2: ~ rx + sex + bilirubin\n   loglik  Chisq Df Pr(&gt;|Chi|)    \n1 -586.23                         \n2 -594.44 16.428  1  5.054e-05 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+  },
+  {
+    "objectID": "diapositivas/regresion_cox.html#confusión",
+    "href": "diapositivas/regresion_cox.html#confusión",
+    "title": "Regresión de Riesgos Proporcionales de Cox",
+    "section": "Confusión",
+    "text": "Confusión\nEn un modelo para efecto que tiene bilirrubina sobre el hazard de muerte seria:\n\n\nCall:\ncoxph(formula = Surv(years, status) ~ bilirubin, data = pbc)\n\n             coef exp(coef) se(coef)     z      p\nbilirubin 0.14892   1.16058  0.01301 11.44 &lt;2e-16\n\nLikelihood ratio test=84.65  on 1 df, p=&lt; 2.2e-16\nn= 312, number of events= 125 \n\n\nAlgunos sintomas estan asociados con el hazard de muerte, y se requiere evaluar el efecto de la bilirrubina controlando otras variables:\n\n\nCall:\ncoxph(formula = Surv(years, status) ~ bilirubin + edema + hepatom + \n    spiders, data = pbc)\n\n              coef exp(coef) se(coef)     z        p\nbilirubin  0.11186   1.11836  0.01487 7.524 5.31e-14\nedema      0.75581   2.12934  0.22215 3.402 0.000668\nhepatomYes 0.71818   2.05070  0.21185 3.390 0.000699\nspidersYes 0.38905   1.47558  0.19475 1.998 0.045754\n\nLikelihood ratio test=119  on 4 df, p=&lt; 2.2e-16\nn= 312, number of events= 125"
+  },
+  {
+    "objectID": "diapositivas/regresion_cox.html#interacción",
+    "href": "diapositivas/regresion_cox.html#interacción",
+    "title": "Regresión de Riesgos Proporcionales de Cox",
+    "section": "Interacción",
+    "text": "Interacción\n\nEjemplo: proponemos estimar si hay una heterogeneidad del efecto de tratamiento según la presencia de hepatomegalia\n\n\\[\\log h(t|x) = \\log {h_0(t)} - 0.178rx+1.14hepatom+0.095hepatom \\times rx\\]\n\n\nCall:\ncoxph(formula = Surv(years, status) ~ rx + hepatom + rx:hepatom, \n    data = pbc)\n\n                  coef exp(coef) se(coef)      z        p\nrx            -0.17856   0.83648  0.33216 -0.538    0.591\nhepatomYes     1.14808   3.15214  0.26591  4.318 1.58e-05\nrx:hepatomYes  0.09501   1.09968  0.39490  0.241    0.810\n\nLikelihood ratio test=40.56  on 3 df, p=8.126e-09\nn= 312, number of events= 125"
+  },
+  {
+    "objectID": "diapositivas/regresion_cox.html#calculemos-efectos-heterogeneos",
+    "href": "diapositivas/regresion_cox.html#calculemos-efectos-heterogeneos",
+    "title": "Regresión de Riesgos Proporcionales de Cox",
+    "section": "Calculemos efectos heterogeneos",
+    "text": "Calculemos efectos heterogeneos\n\\[\\log h(t|x) = \\log {h_0(t)} - 0.178rx+1.14hepatom+0.095hepatom \\times rx\\]\n\n\\(HR_0 = e^{\\beta_1} = e^{-0.178}\\) = 0.8369424\n\n\n\\(HR_1 = e^{\\beta_1+\\beta_3} = e^{-0.178+0.095}\\) = 0.9203511"
+  },
+  {
+    "objectID": "diapositivas/regresion_cox.html#predicción",
+    "href": "diapositivas/regresion_cox.html#predicción",
+    "title": "Regresión de Riesgos Proporcionales de Cox",
+    "section": "Predicción",
+    "text": "Predicción\n\nSegun el modelo de Cox, el mismo no estima \\(h_0(t)\\) que es el hazard de base, solo se estima los \\(\\beta_i\\)\nSin embargo hay una relación entre \\(S(t)\\) y \\(h_0(t)\\) que permite estimar, pero requiere integración.\nNo estima valores puntuales de sobrevida para un sujeto, sino la curva completa ajustada por una combinación de covariables."
+  },
+  {
+    "objectID": "diapositivas/regresion_cox.html#curvas-de-sobrevida-ajustadas",
+    "href": "diapositivas/regresion_cox.html#curvas-de-sobrevida-ajustadas",
+    "title": "Regresión de Riesgos Proporcionales de Cox",
+    "section": "Curvas de sobrevida ajustadas",
+    "text": "Curvas de sobrevida ajustadas\n\nggadjustedcurves(model_cox, method = \"average\", fun = \"pct\", variable = \"rx\")\n\n\n\n\n\nBioestadistica IV"
+  },
+  {
     "objectID": "diapositivas/generalidades.html#utilidad-propósitos-primarios-de-los-modelos-en-epidemiología",
     "href": "diapositivas/generalidades.html#utilidad-propósitos-primarios-de-los-modelos-en-epidemiología",
     "title": "Generalidades sobre Modelos de Regresión en Epidemiologia",
@@ -787,6 +934,36 @@
     ]
   },
   {
+    "objectID": "rls.html#actividad",
+    "href": "rls.html#actividad",
+    "title": "Regresion Lineal Simple",
+    "section": "Actividad",
+    "text": "Actividad\nEn grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento 👉 Documento de Trabajo, copiando y pegando pantallazos de los resultados y sus interpretaciones.\nEl dataset lowbwt que se puede descargar aca 👉 Descargar lowbwt.rds contiene información para una muestra de 100 recién nacidos con bajo peso al nacer. Mediciones de presión arterial sistolica son guardadas bajo el nombre de sbp y valores de edad gestacional bajo el nombre de gestage.\nDescargue el siguiente archivo denominado Codigo_taller1.R 👉 Descargar Codigo_taller1.R, donde encontrara los códigos necesarios para obtener los resultados solicitados en el taller.",
+    "crumbs": [
+      "Regresión Lineal Simple"
+    ]
+  },
+  {
+    "objectID": "rls.html#taller-1-regresion-lineal-simple",
+    "href": "rls.html#taller-1-regresion-lineal-simple",
+    "title": "Regresion Lineal Simple",
+    "section": "Taller 1: Regresion Lineal Simple",
+    "text": "Taller 1: Regresion Lineal Simple\n\nCon covariable continua\n\nConstruya un grafico de dispersión de presion artetial sistolica y edad gestacional. Sugiere el grafico acerca de la naturaleza de la relación entre las variables (haga una breve interpretacion del grafico).\nUsando la la presion arterial sistolica como variable dependiente (respuesta) y la edad gestacional como la variable explicatoria. Estime una regresion lineal e interprete los coeficientes. ¿Que significan en palabras?.\nA un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a edad gestacional es igual a cero. ¿Qué concluye?\nCual es la media estimada de la presión arterial para la población de recien nacidos con bajo peso en quienes la edad gestacional es 31 semanas.\nConstruya un intervalo de confianza para la media cuando la edad gestacional es 31 semanas.\n¿El modelo ajustado parece ajustar a los datos observados?. comente e interprete el coeficiente de determinación, la tasa de error de las predicciones y los gráficos de diagnostico. Interprete cada uno de ellos.\n\n\n\nCon covariable categorica\nLos niveles de glucosa por encima de 125 mg/dL son diagnósticos de diabetes, mientras que niveles en el rango de 100 a 125 mg/dL indican un mayor riesgo de progresar hacia esta condición seria y cada vez más frecuente. Por ello, resulta de interés determinar si el ejercicio, un factor de estilo de vida modificable, podría ayudar a las personas sin diabetes a reducir sus niveles de glucosa y, de esta manera, evitar la diabetes.\nResponder de manera definitiva a esta pregunta requeriría un ensayo clínico aleatorizado, lo cual constituye una tarea difícil y costosa. Como resultado, preguntas de investigación como esta suelen abordarse inicialmente con datos observacionales. Sin embargo, esto se complica por el hecho de que las personas que hacen ejercicio difieren en muchos aspectos de aquellas que no lo hacen, y algunas de esas diferencias podrían explicar cualquier asociación no ajustada entre el ejercicio y el nivel de glucosa.\nPara los siguientes puntos se usara los datos del estudio HERS que se puede descargar directamente desde R copian y pegando directamente en la consola el siguinete codigo hers &lt;- rio::import(\"https://regression.ucsf.edu/sites/g/files/tkssra16191/files/wysiwyg/home/data/hersdata.dta\") %&gt;% filter(diabetes == 0). (Debes tener conexión a internet)\nEn el archivo denominado Codigo_taller1.R 👉 Descargar Codigo_taller1.R se encuentran los códigos para reproducir los resultados necesarios para contestar las siguientes preguntas:\n\nUsando la glucosa como variable dependiente (respuesta) y la actividad física como la variable explicatoria. Estime una regresión lineal e interprete el coeficiente. ¿Que significan en palabras?. Escriba la ecuación de regresión con los coeficientes estimados.\nA un nivel de 0.05 de error alfa, contraste la hipótesis nula que el coeficiente asociado a actividad física al menos 3 veces por semana es igual a cero. ¿Qué concluye?\nCual es la media estimada de la glucosa para la población que no realiza actividad fisica.\nConstruya un intervalo de confianza al 95% para la media en la glucosa de quienes realizan actividad física.\n¿El modelo ajustado parece ajustar a los datos observados?. comente e interprete el coeficiente de determinación, la tasa de error de las predicciones y los gráficos de diagnostico. Interprete cada uno de ellos.",
+    "crumbs": [
+      "Regresión Lineal Simple"
+    ]
+  },
+  {
+    "objectID": "index.html#objetivos-de-aprendizaje",
+    "href": "index.html#objetivos-de-aprendizaje",
+    "title": "Modelos de Regresion para Epidemiologos",
+    "section": "Objetivos de Aprendizaje",
+    "text": "Objetivos de Aprendizaje\n\nAprender el modelo multivariado adecuado para el control de la interacción y confusión de variables\nImplementar los modelos multivariados en los análisis de factores de riesgo frente a la enfermedad\nIdentificar los métodos adecuados para evaluar relaciones entre dos variables\nDeterminar cuál es el mejor método de análisis cuando la variable principal de resultado es de tipo cuantitativo o categórico\nAnalizar e interpretar las principales metodologías estadísticas en el análisis de datos.",
+    "crumbs": [
+      "Inicio"
+    ]
+  },
+  {
     "objectID": "rlg_simple.html#actividad",
     "href": "rlg_simple.html#actividad",
     "title": "Regresión Logistica Simple",
@@ -807,33 +984,33 @@
     ]
   },
   {
-    "objectID": "index.html#objetivos-de-aprendizaje",
-    "href": "index.html#objetivos-de-aprendizaje",
-    "title": "Modelos de Regresion para Epidemiologos",
-    "section": "Objetivos de Aprendizaje",
-    "text": "Objetivos de Aprendizaje\n\nAprender el modelo multivariado adecuado para el control de la interacción y confusión de variables\nImplementar los modelos multivariados en los análisis de factores de riesgo frente a la enfermedad\nIdentificar los métodos adecuados para evaluar relaciones entre dos variables\nDeterminar cuál es el mejor método de análisis cuando la variable principal de resultado es de tipo cuantitativo o categórico\nAnalizar e interpretar las principales metodologías estadísticas en el análisis de datos.",
+    "objectID": "survival.html",
+    "href": "survival.html",
+    "title": "Analisis de sobrevida",
+    "section": "",
+    "text": "Las diapositivas se puede descargar aca 👉 Descargar Analisis de sobrevida.pdf..",
     "crumbs": [
-      "Inicio"
+      "Analisis de sobrevida"
     ]
   },
   {
-    "objectID": "rls.html#actividad",
-    "href": "rls.html#actividad",
-    "title": "Regresion Lineal Simple",
-    "section": "Actividad",
-    "text": "Actividad\nEn grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento 👉 Documento de Trabajo, copiando y pegando pantallazos de los resultados y sus interpretaciones.\nEl dataset lowbwt que se puede descargar aca 👉 Descargar lowbwt.rds contiene información para una muestra de 100 recién nacidos con bajo peso al nacer. Mediciones de presión arterial sistolica son guardadas bajo el nombre de sbp y valores de edad gestacional bajo el nombre de gestage.\nDescargue el siguiente archivo denominado Codigo_taller1.R 👉 Descargar Codigo_taller1.R, donde encontrara los códigos necesarios para obtener los resultados solicitados en el taller.",
+    "objectID": "survival.html#diapositivas",
+    "href": "survival.html#diapositivas",
+    "title": "Analisis de sobrevida",
+    "section": "",
+    "text": "Las diapositivas se puede descargar aca 👉 Descargar Analisis de sobrevida.pdf..",
     "crumbs": [
-      "Regresión Lineal Simple"
+      "Analisis de sobrevida"
     ]
   },
   {
-    "objectID": "rls.html#taller-1-regresion-lineal-simple",
-    "href": "rls.html#taller-1-regresion-lineal-simple",
-    "title": "Regresion Lineal Simple",
-    "section": "Taller 1: Regresion Lineal Simple",
-    "text": "Taller 1: Regresion Lineal Simple\n\nCon covariable continua\n\nConstruya un grafico de dispersión de presion artetial sistolica y edad gestacional. Sugiere el grafico acerca de la naturaleza de la relación entre las variables (haga una breve interpretacion del grafico).\nUsando la la presion arterial sistolica como variable dependiente (respuesta) y la edad gestacional como la variable explicatoria. Estime una regresion lineal e interprete los coeficientes. ¿Que significan en palabras?.\nA un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a edad gestacional es igual a cero. ¿Qué concluye?\nCual es la media estimada de la presión arterial para la población de recien nacidos con bajo peso en quienes la edad gestacional es 31 semanas.\nConstruya un intervalo de confianza para la media cuando la edad gestacional es 31 semanas.\n¿El modelo ajustado parece ajustar a los datos observados?. comente e interprete el coeficiente de determinación, la tasa de error de las predicciones y los gráficos de diagnostico. Interprete cada uno de ellos.\n\n\n\nCon covariable categorica\nLos niveles de glucosa por encima de 125 mg/dL son diagnósticos de diabetes, mientras que niveles en el rango de 100 a 125 mg/dL indican un mayor riesgo de progresar hacia esta condición seria y cada vez más frecuente. Por ello, resulta de interés determinar si el ejercicio, un factor de estilo de vida modificable, podría ayudar a las personas sin diabetes a reducir sus niveles de glucosa y, de esta manera, evitar la diabetes.\nResponder de manera definitiva a esta pregunta requeriría un ensayo clínico aleatorizado, lo cual constituye una tarea difícil y costosa. Como resultado, preguntas de investigación como esta suelen abordarse inicialmente con datos observacionales. Sin embargo, esto se complica por el hecho de que las personas que hacen ejercicio difieren en muchos aspectos de aquellas que no lo hacen, y algunas de esas diferencias podrían explicar cualquier asociación no ajustada entre el ejercicio y el nivel de glucosa.\nPara los siguientes puntos se usara los datos del estudio HERS que se puede descargar directamente desde R copian y pegando directamente en la consola el siguinete codigo hers &lt;- rio::import(\"https://regression.ucsf.edu/sites/g/files/tkssra16191/files/wysiwyg/home/data/hersdata.dta\") %&gt;% filter(diabetes == 0). (Debes tener conexión a internet)\nEn el archivo denominado Codigo_taller1.R 👉 Descargar Codigo_taller1.R se encuentran los códigos para reproducir los resultados necesarios para contestar las siguientes preguntas:\n\nUsando la glucosa como variable dependiente (respuesta) y la actividad física como la variable explicatoria. Estime una regresión lineal e interprete el coeficiente. ¿Que significan en palabras?. Escriba la ecuación de regresión con los coeficientes estimados.\nA un nivel de 0.05 de error alfa, contraste la hipótesis nula que el coeficiente asociado a actividad física al menos 3 veces por semana es igual a cero. ¿Qué concluye?\nCual es la media estimada de la glucosa para la población que no realiza actividad fisica.\nConstruya un intervalo de confianza al 95% para la media en la glucosa de quienes realizan actividad física.\n¿El modelo ajustado parece ajustar a los datos observados?. comente e interprete el coeficiente de determinación, la tasa de error de las predicciones y los gráficos de diagnostico. Interprete cada uno de ellos.",
+    "objectID": "survival.html#taller-analisis-de-sobrevida",
+    "href": "survival.html#taller-analisis-de-sobrevida",
+    "title": "Analisis de sobrevida",
+    "section": "Taller: Analisis de sobrevida",
+    "text": "Taller: Analisis de sobrevida",
     "crumbs": [
-      "Regresión Lineal Simple"
+      "Analisis de sobrevida"
     ]
   },
   {
@@ -861,10 +1038,199 @@
     "href": "rlm.html#taller-3-ajuste-para-confusion-e-interacción-en-regresion-lineal-multiple",
     "title": "Regresion Lineal Multiple",
     "section": "Taller 3: Ajuste para confusion e interacción en regresion lineal multiple",
-    "text": "Taller 3: Ajuste para confusion e interacción en regresion lineal multiple\nEn grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento Documento de trabajo.\nSi desea reproducir los resultados en su PC, los datos se pueden descargar aca 👉 Descargar hers.rds.\n\nConfusión\nSe esta estudiando los efectos que se puedan dar sobre los niveles de glucosa sobre un grupo de pacientes, para esto se ajusto inicialmente un modelo que estimo el principal que tiene un programa donde se recibe actividad física 3 veces a la semana, los resultados fueron los siguientes:\n\nmod_unjus &lt;- lm(formula = glucose ~ exercise, data = hers)\nsummary(mod_unjus)\n\n\nCall:\nlm(formula = glucose ~ exercise, data = hers)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-85.561 -20.561 -12.561   2.672 189.672 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) 114.5611     0.8922 128.408  &lt; 2e-16 ***\nexercise     -6.2333     1.4350  -4.344 1.45e-05 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 36.73 on 2761 degrees of freedom\nMultiple R-squared:  0.006788,  Adjusted R-squared:  0.006428 \nF-statistic: 18.87 on 1 and 2761 DF,  p-value: 1.451e-05\n\nconfint(mod_unjus)\n\n                 2.5 %     97.5 %\n(Intercept) 112.811683 116.310441\nexercise     -9.047117  -3.419576\n\n\nA la luz de las estimaciones:\n\nInterprete el coeficiente asociado al programa de actividad física, acompañe esta interpretación de sus respectivos intervalos de confianza al 95% y valor de p.\n\nSin embargo es de conocimiento pleno que otras variables tambien se relacionan con los niveles de glucosa en sangre, específicamente se tiene conocimiento que el indice de masa corporal que define obesidad, podria tambine jugar un papel preponderante tanto con la glucosa como el programa de actividad fisica. Dado esto se ajusta el efecto entre el progama de actividad fisica y glucosa:\n\nmod &lt;- lm(formula = glucose ~ exercise + BMI , data = hers)\nsummary(mod)\n\n\nCall:\nlm(formula = glucose ~ exercise + BMI, data = hers)\n\nResiduals:\n   Min     1Q Median     3Q    Max \n-79.18 -18.72 -10.35   3.79 192.38 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  62.4154     3.7402  16.688   &lt;2e-16 ***\nexercise     -2.8932     1.4066  -2.057   0.0398 *  \nBMI           1.7794     0.1242  14.331   &lt;2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 35.46 on 2755 degrees of freedom\n  (5 observations deleted due to missingness)\nMultiple R-squared:  0.07576,   Adjusted R-squared:  0.07509 \nF-statistic: 112.9 on 2 and 2755 DF,  p-value: &lt; 2.2e-16\n\n\n\nEl efecto que tiene el programa de ejercicio cambio despues del ajuste?, si fue asi, qué dirección tomo?, cuantifique su cambio porcentual (\\(\\frac{\\beta_{crudo}-\\beta_{ajustado}}{\\beta_{crudo}}\\times100\\)). Se confirma que BMI sesgaba el efecto que tenia el programa de ejercicio sobre la glucosa?. Explique.\nAhora interprete el coeficiente ajustado del programa de actividad fisica. acompañelos de intervalos de confianza y valor de p.\n\n\nconfint(mod)\n\n                2.5 %     97.5 %\n(Intercept) 55.081469 69.7492613\nexercise    -5.651330 -0.1350112\nBMI          1.535926  2.0228348\n\n\n\npor ultimo asuma que evalúa por el contrario el efecto de BMI sobre la glucosa teniendo en cuenta el ajuste por pertenecer a un programa de actividad fisica. Interprete coeficiente ajustado de BMI, no olvide en su interpretación hablar de los intervalos de confianza y valores de p.\nFinalmente se ajusta el siguiente modelo explicativo sobre el efecto sobre la glucosa que tienen diversas variables. Interprete cada uno de los coeficientes, como efecto principal.\n\n\nmod_com &lt;- lm(formula = glucose ~ exercise + BMI + age + drinkany + smoking , data = hers)\nsummary(mod_com)\n\n\nCall:\nlm(formula = glucose ~ exercise + BMI + age + drinkany + smoking, \n    data = hers)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-77.533 -18.879  -9.858   4.765 192.487 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  89.7184     8.7503  10.253  &lt; 2e-16 ***\nexercise     -3.5013     1.4193  -2.467  0.01369 *  \nBMI           1.6225     0.1274  12.733  &lt; 2e-16 ***\nage          -0.2843     0.1051  -2.705  0.00687 ** \ndrinkanyyes  -7.1882     1.3832  -5.197 2.17e-07 ***\nsmokingyes   -6.3218     2.0852  -3.032  0.00245 ** \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 35.24 on 2750 degrees of freedom\n  (7 observations deleted due to missingness)\nMultiple R-squared:  0.08872,   Adjusted R-squared:  0.08707 \nF-statistic: 53.55 on 5 and 2750 DF,  p-value: &lt; 2.2e-16\n\nconfint(mod_com)\n\n                 2.5 %       97.5 %\n(Intercept)  72.560556 106.87633140\nexercise     -6.284288  -0.71838376\nBMI           1.372648   1.87237829\nage          -0.490288  -0.07822204\ndrinkanyyes  -9.900321  -4.47606535\nsmokingyes  -10.410451  -2.23321159\n\n\n\n\nInteracción\nSe quiere evaluar en el modelo de efectos principales del programa de actividad fisica sobre la glucosa la posibilidad de una heterogeneidad de efectos mediada por el indice de masa corporal. Para este proposito se ajusto un modelo con un termino de interacción, entre BMI y el programa de ejercicio:\n\nEscribe la ecuación del modelo con el termino de interacción:\n\n\nmod2 &lt;- lm(formula = glucose ~ exercise + BMI + exercise:BMI, data = hers)\nsummary(mod2)\n\n\nCall:\nlm(formula = glucose ~ exercise + BMI + exercise:BMI, data = hers)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-84.543 -18.890 -10.382   4.243 193.710 \n\nCoefficients:\n             Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)   67.2848     4.4908  14.983   &lt;2e-16 ***\nexercise     -17.4940     7.5928  -2.304   0.0213 *  \nBMI            1.6133     0.1504  10.730   &lt;2e-16 ***\nexercise:BMI   0.5211     0.2663   1.957   0.0505 .  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 35.44 on 2754 degrees of freedom\n  (5 observations deleted due to missingness)\nMultiple R-squared:  0.07705,   Adjusted R-squared:  0.07604 \nF-statistic: 76.63 on 3 and 2754 DF,  p-value: &lt; 2.2e-16\n\n\n\nDespeje de la ecuación de regresión escrita por ud, el efecto (pendiente) del programa de ejercicio para un BMI de 15.2 y para BMI 54.1, calculelo según el modelo estimado e interprételo.\nDespeje de la ecuación de regresión escrita por ud, el efecto (pendiente) del BMI para pertenecer y no al programa de ejercicio, calculelo según el modelo estimado e interprételo.\nEl siguiente grafico refuerza tiene coherencia frente al resultado calculado en el punto anterior (efecto de BMI sobre glucosa según pertenezca al programa)\n\n\nplot_predictions(mod2, by = c(\"BMI\", \"exercise\"))+\n  theme(axis.text = element_text(size = 20), axis.title = element_text(size = 20))",
+    "text": "Taller 3: Ajuste para confusion e interacción en regresion lineal multiple\nEn grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento Documento de trabajo.\nSi desea reproducir los resultados en su PC, los datos se pueden descargar aca 👉 Descargar hers.rds.\n\nConfusión\nSe esta estudiando los efectos que se puedan dar sobre los niveles de glucosa sobre un grupo de pacientes, para esto se ajusto inicialmente un modelo que estimo el principal que tiene un programa donde se recibe actividad física 3 veces a la semana, los resultados fueron los siguientes:\n\nmod_unjus &lt;- lm(formula = glucose ~ exercise, data = hers)\nsummary(mod_unjus)\n\n\nCall:\nlm(formula = glucose ~ exercise, data = hers)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-85.561 -20.561 -12.561   2.672 189.672 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) 114.5611     0.8922 128.408  &lt; 2e-16 ***\nexercise     -6.2333     1.4350  -4.344 1.45e-05 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 36.73 on 2761 degrees of freedom\nMultiple R-squared:  0.006788,  Adjusted R-squared:  0.006428 \nF-statistic: 18.87 on 1 and 2761 DF,  p-value: 1.451e-05\n\nconfint(mod_unjus)\n\n                 2.5 %     97.5 %\n(Intercept) 112.811683 116.310441\nexercise     -9.047117  -3.419576\n\n\nA la luz de las estimaciones:\n\nInterprete el coeficiente asociado al programa de actividad física, acompañe esta interpretación de sus respectivos intervalos de confianza al 95% y valor de p.\n\nSin embargo es de conocimiento pleno que otras variables tambien se relacionan con los niveles de glucosa en sangre, específicamente se tiene conocimiento que el indice de masa corporal que define obesidad, podria tambine jugar un papel preponderante tanto con la glucosa como el programa de actividad fisica. Dado esto se ajusta el efecto entre el progama de actividad fisica y glucosa:\n\nmod &lt;- lm(formula = glucose ~ exercise + BMI , data = hers)\nsummary(mod)\n\n\nCall:\nlm(formula = glucose ~ exercise + BMI, data = hers)\n\nResiduals:\n   Min     1Q Median     3Q    Max \n-79.18 -18.72 -10.35   3.79 192.38 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  62.4154     3.7402  16.688   &lt;2e-16 ***\nexercise     -2.8932     1.4066  -2.057   0.0398 *  \nBMI           1.7794     0.1242  14.331   &lt;2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 35.46 on 2755 degrees of freedom\n  (5 observations deleted due to missingness)\nMultiple R-squared:  0.07576,   Adjusted R-squared:  0.07509 \nF-statistic: 112.9 on 2 and 2755 DF,  p-value: &lt; 2.2e-16\n\n\n\nEl efecto que tiene el programa de ejercicio cambio despues del ajuste?, si fue asi, qué dirección tomo?, cuantifique su cambio porcentual (\\(\\frac{\\beta_{crudo}-\\beta_{ajustado}}{\\beta_{crudo}}\\times100\\)). Se confirma que BMI sesgaba el efecto que tenia el programa de ejercicio sobre la glucosa?. Explique.\nAhora interprete el coeficiente ajustado del programa de actividad fisica. acompañelos de intervalos de confianza y valor de p.\n\n\nconfint(mod)\n\n                2.5 %     97.5 %\n(Intercept) 55.081469 69.7492613\nexercise    -5.651330 -0.1350112\nBMI          1.535926  2.0228348\n\n\n\npor ultimo asuma que evalúa por el contrario el efecto de BMI sobre la glucosa teniendo en cuenta el ajuste por pertenecer a un programa de actividad fisica. Interprete coeficiente ajustado de BMI, no olvide en su interpretación hablar de los intervalos de confianza y valores de p.\nFinalmente se ajusta el siguiente modelo explicativo sobre el efecto sobre la glucosa que tienen diversas variables. Interprete cada uno de los coeficientes, como efecto principal.\n\n\nmod_com &lt;- lm(formula = glucose ~ exercise + BMI + age + drinkany + smoking , data = hers)\nsummary(mod_com)\n\n\nCall:\nlm(formula = glucose ~ exercise + BMI + age + drinkany + smoking, \n    data = hers)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-77.533 -18.879  -9.858   4.765 192.487 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  89.7184     8.7503  10.253  &lt; 2e-16 ***\nexercise     -3.5013     1.4193  -2.467  0.01369 *  \nBMI           1.6225     0.1274  12.733  &lt; 2e-16 ***\nage          -0.2843     0.1051  -2.705  0.00687 ** \ndrinkanyyes  -7.1882     1.3832  -5.197 2.17e-07 ***\nsmokingyes   -6.3218     2.0852  -3.032  0.00245 ** \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 35.24 on 2750 degrees of freedom\n  (7 observations deleted due to missingness)\nMultiple R-squared:  0.08872,   Adjusted R-squared:  0.08707 \nF-statistic: 53.55 on 5 and 2750 DF,  p-value: &lt; 2.2e-16\n\nconfint(mod_com)\n\n                 2.5 %       97.5 %\n(Intercept)  72.560556 106.87633140\nexercise     -6.284288  -0.71838376\nBMI           1.372648   1.87237829\nage          -0.490288  -0.07822204\ndrinkanyyes  -9.900321  -4.47606535\nsmokingyes  -10.410451  -2.23321159\n\n\n\n\nInteracción\nSe quiere evaluar en el modelo de efectos principales del programa de actividad fisica sobre la glucosa la posibilidad de una heterogeneidad de efectos mediada por el indice de masa corporal. Para este proposito se ajusto un modelo con un termino de interacción, entre BMI y el programa de ejercicio:\n\nEscribe la ecuación del modelo con el termino de interacción:\n\n\nmod2 &lt;- lm(formula = glucose ~ exercise + BMI + exercise:BMI, data = hers)\nsummary(mod2)\n\n\nCall:\nlm(formula = glucose ~ exercise + BMI + exercise:BMI, data = hers)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-84.543 -18.890 -10.382   4.243 193.710 \n\nCoefficients:\n             Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)   67.2848     4.4908  14.983   &lt;2e-16 ***\nexercise     -17.4940     7.5928  -2.304   0.0213 *  \nBMI            1.6133     0.1504  10.730   &lt;2e-16 ***\nexercise:BMI   0.5211     0.2663   1.957   0.0505 .  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 35.44 on 2754 degrees of freedom\n  (5 observations deleted due to missingness)\nMultiple R-squared:  0.07705,   Adjusted R-squared:  0.07604 \nF-statistic: 76.63 on 3 and 2754 DF,  p-value: &lt; 2.2e-16\n\n\n\nDespeje de la ecuación de regresión escrita por ud, el efecto (pendiente) del programa de ejercicio para un BMI de 15.2 y para BMI 54.1, calculelo según el modelo estimado e interprételo.\nDespeje de la ecuación de regresión escrita por ud, el efecto (pendiente) del BMI para pertenecer y no al programa de ejercicio, calculelo según el modelo estimado e interprételo.\nEl siguiente grafico refuerza tiene coherencia frente al resultado calculado en el punto anterior (efecto de BMI sobre glucosa según pertenezca al programa)\n\n\nplot_predictions(mod2, by = c(\"BMI\", \"exercise\"))+\n  theme(axis.text = element_text(size = 20), axis.title = element_text(size = 20))\n\nIgnoring unknown labels:\n• linetype : \"exercise\"",
     "crumbs": [
       "Regresión Lineal Multiple"
     ]
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#analisis-de-sobrevida-ó-supervivencia",
+    "href": "diapositivas/sobrevida_KM.html#analisis-de-sobrevida-ó-supervivencia",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Analisis de sobrevida ó supervivencia",
+    "text": "Analisis de sobrevida ó supervivencia\nConjunto de procedimientos estadísticos aplicados cuando el resultado es el tiempo hasta que ocurre un evento.\nEjemplos de eventos:\n\nMuerte\nDiagnóstico de enfermedad\nCuración\nRecaída\nRecuperación o alta hospitalaria"
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#variable-principal",
+    "href": "diapositivas/sobrevida_KM.html#variable-principal",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Variable principal",
+    "text": "Variable principal\nVariable dependiente: tiempo hasta el evento (T)\nEvento: desenlace de interés, usualmente llamado falla (failure)\nPuede representar un desenlace negativo (muerte, enfermedad) o positivo (recuperación).\n\n\n\n\n\n\nTip\n\n\nIdea clave: el tiempo hasta el evento es la información esencial; no solo si ocurre o no."
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#ejmplos-de-uso-de-analisis-tiempo-a-evento",
+    "href": "diapositivas/sobrevida_KM.html#ejmplos-de-uso-de-analisis-tiempo-a-evento",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Ejmplos de uso de analisis Tiempo a Evento",
+    "text": "Ejmplos de uso de analisis Tiempo a Evento\n\n\n\nContexto\nEvento\nTiempo\n\n\n\n\nLeucemia\nRecaída tras remisión\nSemanas\n\n\nCohorte libre de ECV\nIncidencia de enfermedad cardíaca\nAños\n\n\nAdultos mayores\nMuerte\nAños\n\n\nExreclusos\nReincidencia (rearresto)\nSemanas\n\n\nTrasplante cardíaco\nMuerte postoperatoria\nMeses"
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#datos-con-seguimientos-perfectos-y-de-duración-hasta-conocer-desenlace-de-todos",
+    "href": "diapositivas/sobrevida_KM.html#datos-con-seguimientos-perfectos-y-de-duración-hasta-conocer-desenlace-de-todos",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Datos con seguimientos perfectos y de duración hasta conocer desenlace de todos",
+    "text": "Datos con seguimientos perfectos y de duración hasta conocer desenlace de todos"
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#situación-real-en-seguimientos",
+    "href": "diapositivas/sobrevida_KM.html#situación-real-en-seguimientos",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Situación real en seguimientos",
+    "text": "Situación real en seguimientos\n\nNo todos los integrantes se mantienen en seguimiento (perdidas)\nOtros eventos concomitantes afectan su permanencia\nEl estudio no puede durar hasta que el ultimo sujeto se conozca su desenlace.\nno todos ingresan en el mismo tiempo calendario."
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#qué-es-la-censura",
+    "href": "diapositivas/sobrevida_KM.html#qué-es-la-censura",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "¿Qué es la censura?",
+    "text": "¿Qué es la censura?\nLa censura ocurre cuando se tiene información parcial sobre el tiempo al evento, pero no el tiempo exacto.\nEs un componente esencial del análisis de supervivencia.\nEjemplos:\n\nEl evento no ocurre antes de finalizar el estudio.\nEl individuo se pierde en el seguimiento.\nEl individuo abandona el estudio o muere (si la muerte no es el evento de interés)."
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#tipos-de-censura",
+    "href": "diapositivas/sobrevida_KM.html#tipos-de-censura",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Tipos de censura",
+    "text": "Tipos de censura\n\nCensura a la derecha (Right-censored)\nCensura a la izquierda (Left-censored)\nCensura por intervalo (Interval-censored)"
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#censura-a-la-derecha-right-censored",
+    "href": "diapositivas/sobrevida_KM.html#censura-a-la-derecha-right-censored",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Censura a la derecha (Right-censored)",
+    "text": "Censura a la derecha (Right-censored)\nDefinición: El evento ocurre después del periodo observado.\n\n\n\n\n\nKleinbaum & Klein. Survival Analysis – A Self-Learning Text. 3ª ed.\n\n\n\nEjemplo:\n\nSujeto se retiro del estudio\nFinalizo el seguimiento sin presentar el evento\nLo afecto otro evento"
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#censura-a-la-izquierda-left-censored",
+    "href": "diapositivas/sobrevida_KM.html#censura-a-la-izquierda-left-censored",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Censura a la izquierda (Left-censored)",
+    "text": "Censura a la izquierda (Left-censored)\nDefinición: El evento ocurrió antes del inicio del seguimiento.\n\n\n\n\n\nKleinbaum & Klein. Survival Analysis – A Self-Learning Text. 3ª ed.\n\n\n\nEjemplo:\n\nUna persona ya era VIH positiva antes del estudio.\nIngresa al estudio porque se conoce el inicio de sintomas pero no momento de infección"
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#censura-por-intervalo-interval-censored",
+    "href": "diapositivas/sobrevida_KM.html#censura-por-intervalo-interval-censored",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Censura por intervalo (Interval-censored)",
+    "text": "Censura por intervalo (Interval-censored)\nDefinición: El evento ocurre dentro de un intervalo conocido (\\(t_1\\), \\(t_2\\)).\n\n\n\n\n\nKleinbaum & Klein. Survival Analysis – A Self-Learning Text. 3ª ed.\n\n\n\nEjemplo:\n\nVIH negativo en \\(t_1\\) y positivo en \\(t_2\\).\nSe conoce que desarrollo el evento entre dos momentos de seguimiento\nSe conoce dos momentos (fechas) donde mas probable ocurrio la exposición o infección"
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#terminología-y-notación-básica",
+    "href": "diapositivas/sobrevida_KM.html#terminología-y-notación-básica",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Terminología y notación básica",
+    "text": "Terminología y notación básica\nVariable aleatoria de tiempo de supervivencia:\n\\(T=\\) tiempo hasta el evento.\n\\(t=\\) valor específico de \\(T\\)\n\\(\\delta =\\) indicador del evento (1 = falla, 0 = censura)."
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#función-de-supervivencia",
+    "href": "diapositivas/sobrevida_KM.html#función-de-supervivencia",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Función de supervivencia",
+    "text": "Función de supervivencia\nProbabilidad de sobrevivir más allá del tiempo \\(t\\)\n\\[S(t)=P(T&gt;t)\\]\nPropiedades:\n\n\\(S(0) = 1\\)\n\\(S(t)\\) disminuye con el tiempo\nTiende a \\(0\\) si todos eventualmente experimentan el evento."
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#función-de-riesgo-o-de-falla-hazard",
+    "href": "diapositivas/sobrevida_KM.html#función-de-riesgo-o-de-falla-hazard",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Función de riesgo o de falla (Hazard)",
+    "text": "Función de riesgo o de falla (Hazard)\nMide la tasa instantánea de ocurrencia del evento, dada la supervivencia hasta \\(t\\)\n\\[\nh(t)=\\lim _{\\Delta t \\rightarrow 0} \\frac{P(t \\leq T&lt;t+\\Delta t \\mid T \\geq t)}{\\Delta t}\n\\]\nPropiedades:\n\n\\(h(t)≥0\\)\nNo tiene límite superior.\nNo es una probabilidad, sino una tasa instantánea condicionada.\n\nTambién llamada tasa de falla condicional o intensidad de riesgo."
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#relación-entre-st-y-ht",
+    "href": "diapositivas/sobrevida_KM.html#relación-entre-st-y-ht",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Relación entre \\(S(t)\\) y \\(h(t)\\)",
+    "text": "Relación entre \\(S(t)\\) y \\(h(t)\\)\n\\[\n\\begin{gathered}\nS(t)=\\exp \\left[-\\int_0^t h(u) d u\\right] \\\\\nh(t)=-\\frac{d S(t) / d t}{S(t)}\n\\end{gathered}\n\\]\nSi se conoce una de las dos, la otra puede obtenerse.\n\n\n\n\n\n\n\n\nFunción\nEnfoca en\nPerspectiva\n\n\n\n\n\\(S(t)\\)\nSobrevivir más allá de t\nSupervivencia acumulada\n\n\n\\(h(t)\\)\nRiesgo instantáneo de falla\nProbabilidad condicional de evento"
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#estructura-básica-de-datos-para-el-analisis-en-software",
+    "href": "diapositivas/sobrevida_KM.html#estructura-básica-de-datos-para-el-analisis-en-software",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Estructura básica de datos para el analisis en software",
+    "text": "Estructura básica de datos para el analisis en software\nEl formato estándar de los datos para análisis de supervivencia contiene:\n\n\n\nVariable\nDescripción\n\n\n\n\nid\nIdentificador del individuo\n\n\nt\nTiempo observado hasta evento o censura\n\n\nd\nIndicador: 1 = evento, 0 = censura\n\n\nX₁, X₂, …, Xₚ\nCovariables (tratamiento, edad, sexo, etc.)"
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#formula-sin-censura-y-todos-al-final-hacen-el-evento-condición-teorica",
+    "href": "diapositivas/sobrevida_KM.html#formula-sin-censura-y-todos-al-final-hacen-el-evento-condición-teorica",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Formula sin censura y todos al final hacen el evento (condición teorica)",
+    "text": "Formula sin censura y todos al final hacen el evento (condición teorica)\n\\[S(t) = P(T &gt; t)\\] \\[S(t_i) = \\frac{Nº \\text{sobrevivientes pasado t_i}}{n}\\]\n\nCon corrección por censura a derecha:\n\n\\[S(t) = P(T &gt; t) \\times P(T&gt;=t/T&gt;t) \\] ## Recordar:"
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#estrutura-de-datos",
+    "href": "diapositivas/sobrevida_KM.html#estrutura-de-datos",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Estrutura de datos",
+    "text": "Estrutura de datos\n\nInformación mínima requerida es Tiempo de observación, datos censurado o no (la estimación mas común es bajo censura a derecha).\n\nSiguientes datos corresponden a un cohorte de individuos con seguimiento a un año:\n\n\n   id tiempo estado\n1   1      2  Falla\n2   2      3  Falla\n3   3      4  Falla\n4   4      5  Falla\n5   5      6  Falla\n6   6      7  Falla\n7   7      8  Falla\n8   8      9  Falla\n9   9     10  Falla\n10 10     11  Falla"
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#procedimiento-para-estimación-de-curva-superviviencia-k-m",
+    "href": "diapositivas/sobrevida_KM.html#procedimiento-para-estimación-de-curva-superviviencia-k-m",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Procedimiento para estimación de curva superviviencia K-M",
+    "text": "Procedimiento para estimación de curva superviviencia K-M\nPaso 1: Agrupar los datos por tiempos donde ocurrieron fallos de menor a mayor y cuento cuantas fallas y censuras ocurrieron:\n\n\n\nDatos sin censura\n\n\n\ntiemponFallaS_t2131415161718191101111\n\n\n\nPara \\(t = 2\\) y \\(n = 10\\)\n\\(S(t&gt;2) = (10-1)/10 = 0.9\\)\nPara \\(t = 3\\) y \\(n = 10\\)\n\\(S(t&gt;3) = (9-1)/10 = 0.8\\)\ny asi para cada tiempo de falla."
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#section",
+    "href": "diapositivas/sobrevida_KM.html#section",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "",
+    "text": "Datos con censura a derecha\n\n\n\ntiemponFallaCensuraS_t21031040151060171080191010011110\n\n\nPara \\(t=2\\) como es el primer instante de tiempo y no han ocurrido censuras se inicia como el anterior:\n\\(S(t&gt;2) = (10-1)/10 = 0.9\\)\n\\(S(t&gt;3) = S(t&gt;2) \\times S(t&gt;=2/t&gt;3)\\)\n\\(S(t&gt;3) = 0.9 \\times (9-1)/9 = 0.9 \\times 0.888 = 0.8\\) :::\n\n\\(S(t&gt;4) =\\) Falla \\(0\\), Censura \\(1\\), la sobrevida es la misma del anterior \\(0.8\\)\n\\(S(t&gt;5) = 0.8 \\times (7-1)/7 = 0.8 \\times 0.857 = 0.6856\\)\n\\(S(t&gt;6) =\\) Falla \\(0\\), Censura \\(1\\), la sobrevida es la misma del anterior \\(0.6856\\)\n\\(S(t&gt;7) = 0.6856 \\times (5-1)/5 = 0.6856 \\times 0.8333 = 0.5484\\)\n\\(S(t&gt;8) =\\) Falla \\(0\\), Censura \\(1\\), la sobrevida es la misma del anterior \\(0.5484\\)\n\\(S(t&gt;9) = 0.5484 \\times (3-1)/3 = 0.5484 \\times 0.6666 = 0.3655\\)\n\\(S(t&gt;10) =\\) Falla \\(0\\), Censura \\(1\\), la sobrevida es la misma del anterior \\(0.3655\\)\n\\(S(t&gt;11) = 0.3655 \\times (1-1)/1 = 0\\)"
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#finalmente-la-tabla-de-sobrevida-quedaria-asi",
+    "href": "diapositivas/sobrevida_KM.html#finalmente-la-tabla-de-sobrevida-quedaria-asi",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Finalmente la tabla de sobrevida quedaria asi:",
+    "text": "Finalmente la tabla de sobrevida quedaria asi:\n\n\n\n\n\n\n\n\n\n\n\n\n\nj\n\\(t_{(j)}\\)\nCensuras\n\\(n_j\\)\n\\(d_j\\)\nFactor \\((n_j-d_j)/n_j\\)\n\n\\(S(t_{(j)})\\)\n\n\n\n\n1\n2\n0\n10\n1\n\\(\\frac{9}{10}\\)\n\n0.9\n\n\n2\n3\n0\n9\n1\n\\(\\frac{8}{9}\\)\n\\(0.9 \\times 0.888\\)\n0.8\n\n\n3\n5\n1\n7\n1\n\\(\\frac{6}{7}\\)\n\\(0.8 \\times 0.8577\\)\n0.6857\n\n\n4\n7\n1\n5\n1\n\\(\\frac{4}{5}\\)\n\\(0.6857 \\times 0.8\\)\n0.5486\n\n\n5\n9\n1\n3\n1\n\\(\\frac{2}{3}\\)\n\\(0.5486 \\times 0.6666\\)\n0.3657\n\n\n6\n11\n1\n1\n1\n\\(\\frac{0}{1}\\)\n\\(0.3657 \\times 0\\)\n0"
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#section-1",
+    "href": "diapositivas/sobrevida_KM.html#section-1",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "",
+    "text": "Call: survfit(formula = Surv(tiempo, estado) ~ 1, data = df)\n\n time n.risk n.event survival std.err lower 95% CI upper 95% CI\n    2     10       1    0.900  0.0949        0.732            1\n    3      9       1    0.800  0.1265        0.587            1\n    5      7       1    0.686  0.1515        0.445            1\n    7      5       1    0.549  0.1724        0.296            1\n    9      3       1    0.366  0.1884        0.133            1\n   11      1       1    0.000     NaN           NA           NA"
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#interpretaciones-de-la-curva-k-m",
+    "href": "diapositivas/sobrevida_KM.html#interpretaciones-de-la-curva-k-m",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Interpretaciones de la Curva K-M",
+    "text": "Interpretaciones de la Curva K-M"
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#estimaciones-de-supervivencia-para-tiempos-especificos",
+    "href": "diapositivas/sobrevida_KM.html#estimaciones-de-supervivencia-para-tiempos-especificos",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Estimaciones de supervivencia para tiempos especificos",
+    "text": "Estimaciones de supervivencia para tiempos especificos\n\nsummary(survfit(Surv(time, status) ~ 1, data = lung), times = c(182.5, 365.25))\n\nCall: survfit(formula = Surv(time, status) ~ 1, data = lung)\n\n time n.risk n.event survival std.err lower 95% CI upper 95% CI\n  182    156      66    0.708  0.0303        0.651        0.770\n  365     65      55    0.409  0.0358        0.345        0.486\n\n\n\nsurvfit(Surv(time, status) ~ 1, data = lung)\n\nCall: survfit(formula = Surv(time, status) ~ 1, data = lung)\n\n       n events median 0.95LCL 0.95UCL\n[1,] 228    165    310     285     363"
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#comparando-curvas-de-supervivencia-log-rank-test",
+    "href": "diapositivas/sobrevida_KM.html#comparando-curvas-de-supervivencia-log-rank-test",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Comparando Curvas de supervivencia: Log-Rank Test",
+    "text": "Comparando Curvas de supervivencia: Log-Rank Test\n\n\nCall:\nsurvdiff(formula = Surv(time, status) ~ sex, data = lung)\n\n        N Observed Expected (O-E)^2/E (O-E)^2/V\nsex=1 138      112     91.6      4.55      10.3\nsex=2  90       53     73.4      5.68      10.3\n\n Chisq= 10.3  on 1 degrees of freedom, p= 0.001"
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#otras-funciones-proporción-acumulada-del-evento",
+    "href": "diapositivas/sobrevida_KM.html#otras-funciones-proporción-acumulada-del-evento",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Otras funciones: Proporción acumulada del evento",
+    "text": "Otras funciones: Proporción acumulada del evento\n\ncorresponde al complemento de \\(S(t)\\) es decir \\(1-S(t)\\)"
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#otras-funciones-hazard-acumulado-o-riesgo-acumulado",
+    "href": "diapositivas/sobrevida_KM.html#otras-funciones-hazard-acumulado-o-riesgo-acumulado",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Otras funciones: Hazard Acumulado o riesgo Acumulado",
+    "text": "Otras funciones: Hazard Acumulado o riesgo Acumulado\n\ncorresponde \\(H(t) = -log(S(t))\\)"
+  },
+  {
+    "objectID": "diapositivas/sobrevida_KM.html#resumen",
+    "href": "diapositivas/sobrevida_KM.html#resumen",
+    "title": "Introducción al Análisis de Supervivencia o Tiempo a evento",
+    "section": "Resumen",
+    "text": "Resumen\n\n\n\n\n\n\n\n\n\nFunción\nQué mide\nUnidad conceptual\nIntuición práctica\n\n\n\n\n\\(S(t)\\)\nProbabilidad de seguir libre del evento\nProbabilidad \\((0–1)\\)\n“Supervivencia”\n\n\n\\((1 - S(t))\\)\nProporción que ya tuvo el evento\nProbabilidad \\((0–1)\\)\nIncidencia acumulada\n\n\n\\(h(t)\\)\nTasa instantánea de evento\n\\(1/tiempo\\)\nVelocidad del riesgo\n\n\n\\(H(t)\\)\nRiesgo acumulado total\nRiesgo adimensional\n“Cantidad de riesgo acumulada”\n\n\n\n\n\n\nBioestadistica IV"
   },
   {
     "objectID": "rlg_multiple.html",

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Regresión Logistica Simple – Modelos de Regresion para Epidemiologos</title>
+<title>Analisis de sobrevida – Modelos de Regresion para Epidemiologos</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -29,8 +29,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./rlg_multiple.html" rel="next">
-<link href="./rlm.html" rel="prev">
+<link href="./rlg_multiple.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -68,35 +67,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -109,7 +79,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rlg_simple.html">Regresión Logistica Simple</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./survival.html">Analisis de sobrevida</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -160,7 +130,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./rlg_simple.html" class="sidebar-item-text sidebar-link active">
+  <a href="./rlg_simple.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Regresión Logistica Simple</span></a>
   </div>
 </li>
@@ -172,7 +142,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./survival.html" class="sidebar-item-text sidebar-link">
+  <a href="./survival.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Analisis de sobrevida</span></a>
   </div>
 </li>
@@ -187,12 +157,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#diapositivas" id="toc-diapositivas" class="nav-link active" data-scroll-target="#diapositivas">Diapositivas</a></li>
-  <li><a href="#actividad" id="toc-actividad" class="nav-link" data-scroll-target="#actividad">Actividad</a></li>
-  <li><a href="#taller-1-regresion-logistica-simple" id="toc-taller-1-regresion-logistica-simple" class="nav-link" data-scroll-target="#taller-1-regresion-logistica-simple">Taller 1: Regresion Logistica Simple</a>
-  <ul class="collapse">
-  <li><a href="#con-covariable-categorica" id="toc-con-covariable-categorica" class="nav-link" data-scroll-target="#con-covariable-categorica">Con covariable categorica</a></li>
-  <li><a href="#con-covariable-numerica" id="toc-con-covariable-numerica" class="nav-link" data-scroll-target="#con-covariable-numerica">Con covariable numerica</a></li>
-  </ul></li>
+  <li><a href="#taller-analisis-de-sobrevida" id="toc-taller-analisis-de-sobrevida" class="nav-link" data-scroll-target="#taller-analisis-de-sobrevida">Taller: Analisis de sobrevida</a></li>
   </ul>
 </nav>
     </div>
@@ -201,7 +166,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Regresión Logistica Simple</h1>
+<h1 class="title">Analisis de sobrevida</h1>
 </div>
 
 
@@ -220,37 +185,13 @@ window.Quarto = {
 
 <section id="diapositivas" class="level2">
 <h2 class="anchored" data-anchor-id="diapositivas">Diapositivas</h2>
-<iframe class="slide-deck" src="./diapositivas/rlgs.html" height="420" width="747" style="border: 1px solid #2e3846;"></iframe>
+<iframe class="slide-deck" src="./diapositivas/sobrevida_KM.html" height="420" width="747" style="border: 1px solid #2e3846;"></iframe>
+<p>Las diapositivas se puede descargar aca 👉 <a href="diapositivas/sobrevida.pdf">Descargar Analisis de sobrevida.pdf.</a>.</p>
 </section>
-<section id="actividad" class="level2">
-<h2 class="anchored" data-anchor-id="actividad">Actividad</h2>
-<p>En grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento 👉 <a href="https://docs.google.com/document/d/1AMAVQAqwelq2D3bkB47IvIifnSay-XuXfzeXOnWeHF8/edit?usp=sharing">Documento de Trabajo</a>.</p>
-<p>El dataset <code>coronary</code> que se puede descargar aca 👉 <a href="datasets/coronary.rds">Descargar coronary.rds</a>.</p>
-<p>Descargue el siguiente archivo denominado <code>Codigo_taller4.R</code> 👉 <a href="codigo_taller4.R">Descargar Codigo_taller4.R</a>, donde encontrara los códigos necesarios para obtener los resultados solicitados en el taller.</p>
-</section>
-<section id="taller-1-regresion-logistica-simple" class="level2">
-<h2 class="anchored" data-anchor-id="taller-1-regresion-logistica-simple">Taller 1: Regresion Logistica Simple</h2>
-<section id="con-covariable-categorica" class="level3">
-<h3 class="anchored" data-anchor-id="con-covariable-categorica">Con covariable categorica</h3>
-<ol type="1">
-<li><p>Usando la variable <code>cad</code> como variable dependiente (respuesta) y el sexo como la variable explicatoria. Estime una regresion logistica e interprete los coeficientes. ¿Que significan en palabras?.</p></li>
-<li><p>A un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a sexo es igual a cero. ¿Qué concluye?</p></li>
-<li><p>Cual es la interpretacion para el coeficiente de sexo ? no olvide exponenciarlo <span class="math inline">\(e^{\beta_1}\)</span></p></li>
-<li><p>Realice una predicción de probabilidad de enfermedad cardiaca si se es mujer no olvide interpretar el intervalo de confianza.</p></li>
-</ol>
-</section>
-<section id="con-covariable-numerica" class="level3">
-<h3 class="anchored" data-anchor-id="con-covariable-numerica">Con covariable numerica</h3>
-<ol type="1">
-<li><p>Usando la variable <code>cad</code> como variable dependiente (respuesta) y el colesterol como la variable explicatoria. Estime una regresion logistica e interprete los coeficientes. ¿Que significan en palabras?.</p></li>
-<li><p>A un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a colesterol es igual a cero. ¿Qué concluye?</p></li>
-<li><p>Cual es la interpretacion para el coeficiente de colesterol ? no olvide exponenciarlo <span class="math inline">\(e^{\beta_1}\)</span></p></li>
-<li><p>Realice una predicción de probabilidad de enfermedad cardiaca si se tiene un colesterol de 248 y luego con colesterol de 140. Si hace la razon de estas dos cantidades estimadas (mayor sobre la menor) a que medida epidemiologica corresponde ? interprete.</p></li>
-<li><p>Calcule el OR asociado con un cambio de incremento en el colesterol de 108 mg/dl (es decir pasar de 140 mg/dl a 248mg/dl). Compare con la medida anterior, son iguales ?. Explique sus razones por que si o porqué no?.</p></li>
-</ol>
+<section id="taller-analisis-de-sobrevida" class="level2">
+<h2 class="anchored" data-anchor-id="taller-analisis-de-sobrevida">Taller: Analisis de sobrevida</h2>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -676,14 +617,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./rlm.html" class="pagination-link" aria-label="Regresión Lineal Multiple">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Regresión Lineal Multiple</span>
+      <a href="./rlg_multiple.html" class="pagination-link" aria-label="Regresión Logistica Multiple">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Regresión Logistica Multiple</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./rlg_multiple.html" class="pagination-link" aria-label="Regresión Logistica Multiple">
-        <span class="nav-page-text">Regresión Logistica Multiple</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
