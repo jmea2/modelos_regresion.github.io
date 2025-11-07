@@ -711,7 +711,37 @@
     "href": "diapositivas/regresion_cox.html#curvas-de-sobrevida-ajustadas",
     "title": "Regresión de Riesgos Proporcionales de Cox",
     "section": "Curvas de sobrevida ajustadas",
-    "text": "Curvas de sobrevida ajustadas\n\nggadjustedcurves(model_cox, method = \"average\", fun = \"pct\", variable = \"rx\")\n\n\n\n\n\nBioestadistica IV"
+    "text": "Curvas de sobrevida ajustadas\n\nggadjustedcurves(model_cox, method = \"average\", fun = \"pct\", variable = \"rx\")"
+  },
+  {
+    "objectID": "survival.html",
+    "href": "survival.html",
+    "title": "Analisis de sobrevida",
+    "section": "",
+    "text": "Las diapositivas se puede descargar aca 👉 Descargar Analisis de sobrevida.pdf..",
+    "crumbs": [
+      "Analisis de sobrevida"
+    ]
+  },
+  {
+    "objectID": "survival.html#diapositivas",
+    "href": "survival.html#diapositivas",
+    "title": "Analisis de sobrevida",
+    "section": "",
+    "text": "Las diapositivas se puede descargar aca 👉 Descargar Analisis de sobrevida.pdf..",
+    "crumbs": [
+      "Analisis de sobrevida"
+    ]
+  },
+  {
+    "objectID": "survival.html#taller-analisis-de-sobrevida",
+    "href": "survival.html#taller-analisis-de-sobrevida",
+    "title": "Analisis de sobrevida",
+    "section": "Taller: Analisis de sobrevida",
+    "text": "Taller: Analisis de sobrevida\nPara el desarrollo del trabajo realizarlo por grupos sobre el siguiente documento online Documento de trabajo\n\nEn el archivo adjunto que puede descargar aca 👉 Datos sobrevida leucemias, encontrara la tabla completa de los datos para realizar las estimaciones de sobrevida por el metodo de Kaplan-Meier. (Realizarlo en microsoft Excel que incluya el grafico y colocalo en el documento compartido)\n\nEstos datos corresponden a una cohorte retrospectiva de pacientes adultos con leucemia de una institución de salud de la ciudad, que pretende identificar cual es la sobrevida de los pacientes diagnosticados y tratados en la institución, para lo cual encargan al epidemiologo (usted) de la institución que realice dicho analisis.\nPara esto se solicita tener una grafica que muestre como es la sobrevida de los pacientes con relación al tiempo, se estime cual es la mediana de supervivencia y algunos otros datos descriptivos sobre la supervivencia de los pacientes.\nConstruya dicho informe con la grafica de sobrevida e interprete las siguientes medidas calculadas\n\n\nCall: survfit(formula = Surv(temposeg, Mortalidad) ~ 1, data = leu)\n\n      n events median 0.95LCL 0.95UCL\n[1,] 55     38    329     239     545\n\n\nCall: survfit(formula = Surv(temposeg, Mortalidad) ~ 1, data = leu)\n\n time n.risk n.event survival std.err lower 95% CI upper 95% CI\n  182     32      18    0.653  0.0665        0.535        0.797\n  365     21      10    0.443  0.0709        0.323        0.606\n  548     14       5    0.329  0.0687        0.218        0.495\n\n\n\nAhora el comite de auditoria y contratación quiere saber cual es el pronostico en sobrevida segun el tipo de leucemia y poder plantear algunos metas de resultado en salud frente a oportunidad de diagnostico y oportunidad en tratamiento. Para ello se plantea una analisis comparativo de curvas, interprete el grafico, medidas descriptivas y contraste de hipotesis entre curvas.\n\n\n\n\n\n\n\n\n\n\nCall: survfit(formula = Surv(temposeg, Mortalidad) ~ tipo_leuc, data = leu %&gt;% \n    filter(tipo_leuc != \"Promielocítica\", tipo_leuc != \"Mixta\"))\n\n                    n events median 0.95LCL 0.95UCL\ntipo_leuc=Linfoide 18     10    718     265      NA\ntipo_leuc=Mieloide 32     25    300     154     507\n\n\nCall:\nsurvdiff(formula = Surv(temposeg, Mortalidad) ~ tipo_leuc, data = leu %&gt;% \n    filter(tipo_leuc != \"Promielocítica\", tipo_leuc != \"Mixta\"))\n\n                    N Observed Expected (O-E)^2/E (O-E)^2/V\ntipo_leuc=Linfoide 18       10     16.8      2.72      5.52\ntipo_leuc=Mieloide 32       25     18.2      2.50      5.52\n\n Chisq= 5.5  on 1 degrees of freedom, p= 0.02 \n\n\n\nObserve los siguientes graficos de los pacientes con leucemia, que diferencia hay entre ellas ? , Qué muestra cada una ?, para el dia 500, visualice que valor hay en el eje Y para los dos tipos de leucemia, interprete para cada grafica ese valor.",
+    "crumbs": [
+      "Analisis de sobrevida"
+    ]
   },
   {
     "objectID": "diapositivas/generalidades.html#utilidad-propósitos-primarios-de-los-modelos-en-epidemiología",
@@ -934,36 +964,6 @@
     ]
   },
   {
-    "objectID": "rls.html#actividad",
-    "href": "rls.html#actividad",
-    "title": "Regresion Lineal Simple",
-    "section": "Actividad",
-    "text": "Actividad\nEn grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento 👉 Documento de Trabajo, copiando y pegando pantallazos de los resultados y sus interpretaciones.\nEl dataset lowbwt que se puede descargar aca 👉 Descargar lowbwt.rds contiene información para una muestra de 100 recién nacidos con bajo peso al nacer. Mediciones de presión arterial sistolica son guardadas bajo el nombre de sbp y valores de edad gestacional bajo el nombre de gestage.\nDescargue el siguiente archivo denominado Codigo_taller1.R 👉 Descargar Codigo_taller1.R, donde encontrara los códigos necesarios para obtener los resultados solicitados en el taller.",
-    "crumbs": [
-      "Regresión Lineal Simple"
-    ]
-  },
-  {
-    "objectID": "rls.html#taller-1-regresion-lineal-simple",
-    "href": "rls.html#taller-1-regresion-lineal-simple",
-    "title": "Regresion Lineal Simple",
-    "section": "Taller 1: Regresion Lineal Simple",
-    "text": "Taller 1: Regresion Lineal Simple\n\nCon covariable continua\n\nConstruya un grafico de dispersión de presion artetial sistolica y edad gestacional. Sugiere el grafico acerca de la naturaleza de la relación entre las variables (haga una breve interpretacion del grafico).\nUsando la la presion arterial sistolica como variable dependiente (respuesta) y la edad gestacional como la variable explicatoria. Estime una regresion lineal e interprete los coeficientes. ¿Que significan en palabras?.\nA un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a edad gestacional es igual a cero. ¿Qué concluye?\nCual es la media estimada de la presión arterial para la población de recien nacidos con bajo peso en quienes la edad gestacional es 31 semanas.\nConstruya un intervalo de confianza para la media cuando la edad gestacional es 31 semanas.\n¿El modelo ajustado parece ajustar a los datos observados?. comente e interprete el coeficiente de determinación, la tasa de error de las predicciones y los gráficos de diagnostico. Interprete cada uno de ellos.\n\n\n\nCon covariable categorica\nLos niveles de glucosa por encima de 125 mg/dL son diagnósticos de diabetes, mientras que niveles en el rango de 100 a 125 mg/dL indican un mayor riesgo de progresar hacia esta condición seria y cada vez más frecuente. Por ello, resulta de interés determinar si el ejercicio, un factor de estilo de vida modificable, podría ayudar a las personas sin diabetes a reducir sus niveles de glucosa y, de esta manera, evitar la diabetes.\nResponder de manera definitiva a esta pregunta requeriría un ensayo clínico aleatorizado, lo cual constituye una tarea difícil y costosa. Como resultado, preguntas de investigación como esta suelen abordarse inicialmente con datos observacionales. Sin embargo, esto se complica por el hecho de que las personas que hacen ejercicio difieren en muchos aspectos de aquellas que no lo hacen, y algunas de esas diferencias podrían explicar cualquier asociación no ajustada entre el ejercicio y el nivel de glucosa.\nPara los siguientes puntos se usara los datos del estudio HERS que se puede descargar directamente desde R copian y pegando directamente en la consola el siguinete codigo hers &lt;- rio::import(\"https://regression.ucsf.edu/sites/g/files/tkssra16191/files/wysiwyg/home/data/hersdata.dta\") %&gt;% filter(diabetes == 0). (Debes tener conexión a internet)\nEn el archivo denominado Codigo_taller1.R 👉 Descargar Codigo_taller1.R se encuentran los códigos para reproducir los resultados necesarios para contestar las siguientes preguntas:\n\nUsando la glucosa como variable dependiente (respuesta) y la actividad física como la variable explicatoria. Estime una regresión lineal e interprete el coeficiente. ¿Que significan en palabras?. Escriba la ecuación de regresión con los coeficientes estimados.\nA un nivel de 0.05 de error alfa, contraste la hipótesis nula que el coeficiente asociado a actividad física al menos 3 veces por semana es igual a cero. ¿Qué concluye?\nCual es la media estimada de la glucosa para la población que no realiza actividad fisica.\nConstruya un intervalo de confianza al 95% para la media en la glucosa de quienes realizan actividad física.\n¿El modelo ajustado parece ajustar a los datos observados?. comente e interprete el coeficiente de determinación, la tasa de error de las predicciones y los gráficos de diagnostico. Interprete cada uno de ellos.",
-    "crumbs": [
-      "Regresión Lineal Simple"
-    ]
-  },
-  {
-    "objectID": "index.html#objetivos-de-aprendizaje",
-    "href": "index.html#objetivos-de-aprendizaje",
-    "title": "Modelos de Regresion para Epidemiologos",
-    "section": "Objetivos de Aprendizaje",
-    "text": "Objetivos de Aprendizaje\n\nAprender el modelo multivariado adecuado para el control de la interacción y confusión de variables\nImplementar los modelos multivariados en los análisis de factores de riesgo frente a la enfermedad\nIdentificar los métodos adecuados para evaluar relaciones entre dos variables\nDeterminar cuál es el mejor método de análisis cuando la variable principal de resultado es de tipo cuantitativo o categórico\nAnalizar e interpretar las principales metodologías estadísticas en el análisis de datos.",
-    "crumbs": [
-      "Inicio"
-    ]
-  },
-  {
     "objectID": "rlg_simple.html#actividad",
     "href": "rlg_simple.html#actividad",
     "title": "Regresión Logistica Simple",
@@ -984,33 +984,63 @@
     ]
   },
   {
-    "objectID": "survival.html",
-    "href": "survival.html",
-    "title": "Analisis de sobrevida",
-    "section": "",
-    "text": "Las diapositivas se puede descargar aca 👉 Descargar Analisis de sobrevida.pdf..",
+    "objectID": "index.html#objetivos-de-aprendizaje",
+    "href": "index.html#objetivos-de-aprendizaje",
+    "title": "Modelos de Regresion para Epidemiologos",
+    "section": "Objetivos de Aprendizaje",
+    "text": "Objetivos de Aprendizaje\n\nAprender el modelo multivariado adecuado para el control de la interacción y confusión de variables\nImplementar los modelos multivariados en los análisis de factores de riesgo frente a la enfermedad\nIdentificar los métodos adecuados para evaluar relaciones entre dos variables\nDeterminar cuál es el mejor método de análisis cuando la variable principal de resultado es de tipo cuantitativo o categórico\nAnalizar e interpretar las principales metodologías estadísticas en el análisis de datos.",
     "crumbs": [
-      "Analisis de sobrevida"
+      "Inicio"
     ]
   },
   {
-    "objectID": "survival.html#diapositivas",
-    "href": "survival.html#diapositivas",
-    "title": "Analisis de sobrevida",
-    "section": "",
-    "text": "Las diapositivas se puede descargar aca 👉 Descargar Analisis de sobrevida.pdf..",
+    "objectID": "rls.html#actividad",
+    "href": "rls.html#actividad",
+    "title": "Regresion Lineal Simple",
+    "section": "Actividad",
+    "text": "Actividad\nEn grupos desarrollar el siguiente taller en clase, el cual se trabajara de manera directa online en el siguiente documento 👉 Documento de Trabajo, copiando y pegando pantallazos de los resultados y sus interpretaciones.\nEl dataset lowbwt que se puede descargar aca 👉 Descargar lowbwt.rds contiene información para una muestra de 100 recién nacidos con bajo peso al nacer. Mediciones de presión arterial sistolica son guardadas bajo el nombre de sbp y valores de edad gestacional bajo el nombre de gestage.\nDescargue el siguiente archivo denominado Codigo_taller1.R 👉 Descargar Codigo_taller1.R, donde encontrara los códigos necesarios para obtener los resultados solicitados en el taller.",
     "crumbs": [
-      "Analisis de sobrevida"
+      "Regresión Lineal Simple"
     ]
   },
   {
-    "objectID": "survival.html#taller-analisis-de-sobrevida",
-    "href": "survival.html#taller-analisis-de-sobrevida",
-    "title": "Analisis de sobrevida",
-    "section": "Taller: Analisis de sobrevida",
-    "text": "Taller: Analisis de sobrevida",
+    "objectID": "rls.html#taller-1-regresion-lineal-simple",
+    "href": "rls.html#taller-1-regresion-lineal-simple",
+    "title": "Regresion Lineal Simple",
+    "section": "Taller 1: Regresion Lineal Simple",
+    "text": "Taller 1: Regresion Lineal Simple\n\nCon covariable continua\n\nConstruya un grafico de dispersión de presion artetial sistolica y edad gestacional. Sugiere el grafico acerca de la naturaleza de la relación entre las variables (haga una breve interpretacion del grafico).\nUsando la la presion arterial sistolica como variable dependiente (respuesta) y la edad gestacional como la variable explicatoria. Estime una regresion lineal e interprete los coeficientes. ¿Que significan en palabras?.\nA un nivel de 0.05 de error alfa, contraste la hipotesis nula que el coeficiente asociado a edad gestacional es igual a cero. ¿Qué concluye?\nCual es la media estimada de la presión arterial para la población de recien nacidos con bajo peso en quienes la edad gestacional es 31 semanas.\nConstruya un intervalo de confianza para la media cuando la edad gestacional es 31 semanas.\n¿El modelo ajustado parece ajustar a los datos observados?. comente e interprete el coeficiente de determinación, la tasa de error de las predicciones y los gráficos de diagnostico. Interprete cada uno de ellos.\n\n\n\nCon covariable categorica\nLos niveles de glucosa por encima de 125 mg/dL son diagnósticos de diabetes, mientras que niveles en el rango de 100 a 125 mg/dL indican un mayor riesgo de progresar hacia esta condición seria y cada vez más frecuente. Por ello, resulta de interés determinar si el ejercicio, un factor de estilo de vida modificable, podría ayudar a las personas sin diabetes a reducir sus niveles de glucosa y, de esta manera, evitar la diabetes.\nResponder de manera definitiva a esta pregunta requeriría un ensayo clínico aleatorizado, lo cual constituye una tarea difícil y costosa. Como resultado, preguntas de investigación como esta suelen abordarse inicialmente con datos observacionales. Sin embargo, esto se complica por el hecho de que las personas que hacen ejercicio difieren en muchos aspectos de aquellas que no lo hacen, y algunas de esas diferencias podrían explicar cualquier asociación no ajustada entre el ejercicio y el nivel de glucosa.\nPara los siguientes puntos se usara los datos del estudio HERS que se puede descargar directamente desde R copian y pegando directamente en la consola el siguinete codigo hers &lt;- rio::import(\"https://regression.ucsf.edu/sites/g/files/tkssra16191/files/wysiwyg/home/data/hersdata.dta\") %&gt;% filter(diabetes == 0). (Debes tener conexión a internet)\nEn el archivo denominado Codigo_taller1.R 👉 Descargar Codigo_taller1.R se encuentran los códigos para reproducir los resultados necesarios para contestar las siguientes preguntas:\n\nUsando la glucosa como variable dependiente (respuesta) y la actividad física como la variable explicatoria. Estime una regresión lineal e interprete el coeficiente. ¿Que significan en palabras?. Escriba la ecuación de regresión con los coeficientes estimados.\nA un nivel de 0.05 de error alfa, contraste la hipótesis nula que el coeficiente asociado a actividad física al menos 3 veces por semana es igual a cero. ¿Qué concluye?\nCual es la media estimada de la glucosa para la población que no realiza actividad fisica.\nConstruya un intervalo de confianza al 95% para la media en la glucosa de quienes realizan actividad física.\n¿El modelo ajustado parece ajustar a los datos observados?. comente e interprete el coeficiente de determinación, la tasa de error de las predicciones y los gráficos de diagnostico. Interprete cada uno de ellos.",
     "crumbs": [
-      "Analisis de sobrevida"
+      "Regresión Lineal Simple"
+    ]
+  },
+  {
+    "objectID": "cox.html",
+    "href": "cox.html",
+    "title": "Regresión de riesgos proporcionales",
+    "section": "",
+    "text": "Las diapositivas se puede descargar aca 👉 Descargar Regresion de Cox.pdf..",
+    "crumbs": [
+      "Regresión de riesgos proporcionales"
+    ]
+  },
+  {
+    "objectID": "cox.html#diapositivas",
+    "href": "cox.html#diapositivas",
+    "title": "Regresión de riesgos proporcionales",
+    "section": "",
+    "text": "Las diapositivas se puede descargar aca 👉 Descargar Regresion de Cox.pdf..",
+    "crumbs": [
+      "Regresión de riesgos proporcionales"
+    ]
+  },
+  {
+    "objectID": "cox.html#taller-regresión-de-riesgos-proporcionales-de-cox",
+    "href": "cox.html#taller-regresión-de-riesgos-proporcionales-de-cox",
+    "title": "Regresión de riesgos proporcionales",
+    "section": "Taller: Regresión de Riesgos Proporcionales de Cox",
+    "text": "Taller: Regresión de Riesgos Proporcionales de Cox\nPara el desarrollo del trabajo realizarlo por grupos sobre el siguiente documento online Documento de trabajo.\nSe quiere modelar la incidencia de enfermedad coronaria evaluando los efectos de diferentes factores de riesgo. Se inicia por el consumo de cigarrillo, el modelo ajustado es el siguiente:\n\n\nCall:\ncoxph(formula = Surv(time169, chd69) ~ smoke, data = wcgs)\n\n           coef exp(coef) se(coef)     z       p\nsmokeYes 0.6163    1.8521   0.1284 4.798 1.6e-06\n\nLikelihood ratio test=23.81  on 1 df, p=1.062e-06\nn= 3154, number of events= 257 \n\n\n\nInterprete el coeficiente en terminos del logaritmo de \\(h(t)\\) y en terminos de \\(HR\\). Evalue el coeficiente mediante un test de wald.\nAhora se incluye en el modelo el colesterol, para este caso cual seria la interpretación del \\(HR\\) para colesterol, teniendo controlado el efecto que pueda tener el fumar.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCharacteristic\nHR\n95% CI\np-value\n\n\n\n\nsmoke\n\n\n\n\n\n\n\n\n    No\n—\n—\n\n\n\n\n    Yes\n1.74\n1.35, 2.23\n&lt;0.001\n\n\nchol\n1.01\n1.01, 1.01\n&lt;0.001\n\n\n\nAbbreviations: CI = Confidence Interval, HR = Hazard Ratio\n\n\n\n\n\n\n\n\n\nEstime cuanto es el hazard ratio para una aumento de 20 mg/dl en el colesterol independiente que el individuo fume.\nTeniendo como exposición principal el fumar podrias afirmar que los niveles de colesterol puede contribuir con algun tipo de sub o sobre estimación del efecto que tiene el fumar sobre la incidencia de enfermedad coronaria ? justifique su respuesta.\n\nAhora ajustamos un modelo que incluye un termino de interacción:\n\nInterprete el coeficiente de interaccion, vale la pena reportar y describir dicha interacción entre fumar y colesterol para enfermedad coronaria?\n\n\n\nCall:\ncoxph(formula = Surv(time169, chd69) ~ smoke + chol + smoke:chol, \n    data = wcgs)\n\n                   coef exp(coef)  se(coef)      z        p\nsmokeYes      -0.136969  0.871997  0.555988 -0.246    0.805\nchol           0.008655  1.008693  0.001492  5.801 6.61e-09\nsmokeYes:chol  0.002757  1.002761  0.002171  1.270    0.204\n\nLikelihood ratio test=93.24  on 3 df, p=&lt; 2.2e-16\nn= 3142, number of events= 257 \n   (12 observations deleted due to missingness)",
+    "crumbs": [
+      "Regresión de riesgos proporcionales"
     ]
   },
   {
