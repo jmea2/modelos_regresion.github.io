@@ -1,0 +1,192 @@
+---
+title: "Taller de Supervivencia: Estimación No Paramétrica (KM)"
+subtitle: "Maestría en Epidemiología"
+author: "Docente: Jorge Mario Estrada Alvarez PhD."
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: flatly
+    highlight: tango
+---
+
+```{setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Introducción
+
+Este taller utiliza el dataset `Aids2` (Cohorte Australiana de Pacientes con SIDA) para evaluar la probabilidad de supervivencia tras el diagnóstico, identificar factores de riesgo y comparar grupos de exposición clínica.
+
+------------------------------------------------------------------------
+
+# 1. Preparación del Entorno
+
+Ejecute el siguiente bloque para cargar las librerías necesarias y los datos.
+
+```{r preparacion}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(tidyverse, survival, ggsurvfit, gtsummary, Rdatasets, muhaz)
+
+# Cargar los datos
+datos <- Rdatasets::rddata(dataset = "Aids2")
+
+# Definición de TIEMPO y EVENTO
+datos <- datos %>%
+  mutate(
+    tiempo_dias = death - diag,
+    evento = ifelse(status == "D", 1, 0) # 1 = Muerte (Falla), 0 = Vivo (Censura)
+  )
+```
+
+### PREGUNTA 1
+
+Observe la variable `evento`. ¿Qué representa epidemiológicamente un sujeto con `evento == 0` al final del seguimiento?
+
+> **RESPUESTA:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+# 2. Análisis Descriptivo Inicial
+
+Es fundamental conocer la población antes del análisis de supervivencia.
+
+```{r descriptivo}
+datos %>%
+  select(age, sex, T.categ, state, evento) %>%
+  tbl_summary(
+    by = evento, 
+    label = list(age ~ "Edad al diagnóstico", T.categ ~ "Categoría de transmisión")
+  ) %>%
+  add_p()
+```
+
+------------------------------------------------------------------------
+
+# 3. Estimación de la Supervivencia Global (Kaplan-Meier)
+
+```{r km_global}
+fit_global <- survfit(Surv(tiempo_dias, evento) ~ 1, data = datos)
+
+fit_global %>%
+  ggsurvfit() +
+  add_confidence_interval() +
+  labs(
+    title = "Curva de Supervivencia Global tras Diagnóstico de SIDA",
+    x = "Días desde el diagnóstico",
+    y = "Probabilidad de supervivencia S(t)"
+  )
+```
+
+### PREGUNTA 2
+
+A partir de la gráfica y el resumen siguiente, ¿Cuál es la probabilidad de que un paciente sobreviva más de 500 días tras el diagnóstico?
+
+```{r km_summary}
+summary(fit_global, times = 500)
+```
+
+> **RESPUESTA:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+------------------------------------------------------------------------
+
+# 4. Mediana de Supervivencia
+
+```{r mediana}
+print(fit_global)
+```
+
+### PREGUNTA 3
+
+¿Cómo le explicaría usted a un comité de ética o a un paciente qué significa la **"Mediana de Supervivencia"** en este contexto?
+
+> **RESPUESTA:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+------------------------------------------------------------------------
+
+# 5. Comparación de Grupos: Categoría de Transmisión
+
+```{r comparacion}
+fit_transmision <- survfit2(Surv(tiempo_dias, evento) ~ T.categ, data = datos)
+
+# Log-Rank Test
+test_logrank <- survdiff(Surv(tiempo_dias, evento) ~ T.categ, data = datos)
+print(test_logrank)
+
+# Visualización
+fit_transmision %>%
+  ggsurvfit() +
+  labs(
+    title = "Supervivencia por Categoría de Transmisión",
+    x = "Días",
+    y = "S(t)"
+  ) +
+  add_pvalue()
+```
+
+### PREGUNTA 4
+
+Si el p-valor del Log-Rank test es \< 0.05, ¿podemos afirmar que una categoría tiene mayor "riesgo" que otra basándonos solo en esta prueba? Justifique.
+
+> **RESPUESTA:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+------------------------------------------------------------------------
+
+# 6. Incidencia Acumulada
+
+```{r incidencia}
+fit_global %>%
+  ggsurvfit(type = "risk") +
+  labs(
+    title = "Probabilidad Acumulada de Muerte (Incidencia Acumulada)",
+    x = "Días",
+    y = "F(t) = 1 - S(t)"
+  )
+```
+
+### PREGUNTA 5 (Escenario Clínico)
+
+Un gestor de salud observa que la curva de supervivencia cae drásticamente en los primeros 100 días. Como epidemiólogo, ¿qué medidas de salud pública sugeriría investigar?
+
+> **RESPUESTA:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+------------------------------------------------------------------------
+
+# 7. Riesgo Acumulado (Hazard Acumulado)
+
+```{r hazard_acumulado}
+fit_global %>%
+  ggsurvfit(type = "cumhaz") +
+  labs(
+    title = "Función de Riesgo Acumulado (Cumulative Hazard)",
+    x = "Días desde el diagnóstico",
+    y = "H(t)"
+  )
+```
+
+### PREGUNTA 6
+
+Observe la pendiente de la curva de Hazard Acumulado. ¿En qué periodo de tiempo (rango de días) la pendiente es más pronunciada y qué significa esto en términos de la velocidad con la que ocurren las muertes?
+
+> **RESPUESTA:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+------------------------------------------------------------------------
+
+# 8. Riesgo Instantáneo (Hazard Function - h(t))
+
+```{r hazard_instantaneo}
+# Estimación del hazard (suavizado por kernel)
+haz_estimado <- muhaz(datos$tiempo_dias, datos$evento)
+
+# Visualización
+plot(haz_estimado, 
+     main = "Función de Riesgo Instantáneo h(t) Suavizada",
+     xlab = "Días desde el diagnóstico", 
+     ylab = "h(t) - Tasa de falla instantánea",
+     col = "darkred", lwd = 2)
+```
+
+### PREGUNTA 7
+
+Al observar la gráfica de $h(t)$, ¿el riesgo de morir es constante a lo largo del tiempo o identifica algún "pico" de riesgo en algún momento específico? ¿Cómo explicaría esto biológicamente?
+
+> **RESPUESTA:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_

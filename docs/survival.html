@@ -68,6 +68,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -164,7 +193,8 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#diapositivas" id="toc-diapositivas" class="nav-link active" data-scroll-target="#diapositivas">Diapositivas</a></li>
-  <li><a href="#taller-analisis-de-sobrevida" id="toc-taller-analisis-de-sobrevida" class="nav-link" data-scroll-target="#taller-analisis-de-sobrevida">Taller: Analisis de sobrevida</a></li>
+  <li><a href="#parte-i-taller-analisis-de-sobrevida" id="toc-parte-i-taller-analisis-de-sobrevida" class="nav-link" data-scroll-target="#parte-i-taller-analisis-de-sobrevida">Parte I: Taller: Analisis de sobrevida</a></li>
+  <li><a href="#parte-ii-taller-analisis-de-sobrevida" id="toc-parte-ii-taller-analisis-de-sobrevida" class="nav-link" data-scroll-target="#parte-ii-taller-analisis-de-sobrevida">Parte II: Taller: Analisis de sobrevida</a></li>
   </ul>
 </nav>
     </div>
@@ -195,83 +225,21 @@ ul.task-list li input[type="checkbox"] {
 <iframe class="slide-deck" src="./diapositivas/sobrevida_KM.html" height="420" width="747" style="border: 1px solid #2e3846;"></iframe>
 <p>Las diapositivas se puede descargar aca 👉 <a href="teoria_supervivencia.pdf">Descargar Analisis de sobrevida.pdf.</a>.</p>
 </section>
-<section id="taller-analisis-de-sobrevida" class="level2">
-<h2 class="anchored" data-anchor-id="taller-analisis-de-sobrevida">Taller: Analisis de sobrevida</h2>
+<section id="parte-i-taller-analisis-de-sobrevida" class="level2">
+<h2 class="anchored" data-anchor-id="parte-i-taller-analisis-de-sobrevida">Parte I: Taller: Analisis de sobrevida</h2>
 <p>Para el desarrollo del trabajo realizarlo por grupos sobre el siguiente documento online <a href="https://docs.google.com/document/d/1ZdieyHBfRqbrycDIfGNuZqWn94dFreCPUjRRPPeiEck/edit?usp=sharing">Documento de trabajo</a></p>
 <ol type="1">
-<li>En el archivo adjunto que puede descargar aca 👉 <a href="datasets/leu.xlsx">Datos sobrevida leucemias</a>, encontrara la tabla completa de los datos para realizar las estimaciones de sobrevida por el metodo de Kaplan-Meier. (Realizarlo en microsoft Excel que incluya el grafico y colocalo en el documento compartido)</li>
+<li>En el archivo adjunto que puede descargar aca 👉 <a href="datasets/ejercicio_tabla_vida.xlsx">Datos sobrevida</a>, encontrara la tabla completa de los datos para realizar las estimaciones de sobrevida por el metodo de Kaplan-Meier. Estime <span class="math inline">\(\hat{S}(t)\)</span> y <span class="math inline">\(\hat{H}(t)\)</span> (Realizarlo en microsoft Excel que incluya el grafico y colocalo en el documento compartido).</li>
 </ol>
-<p>Estos datos corresponden a una cohorte retrospectiva de pacientes adultos con leucemia de una institución de salud de la ciudad, que pretende identificar cual es la sobrevida de los pacientes diagnosticados y tratados en la institución, para lo cual encargan al epidemiologo (usted) de la institución que realice dicho analisis.</p>
-<p>Para esto se solicita tener una grafica que muestre como es la sobrevida de los pacientes con relación al tiempo, se estime cual es la mediana de supervivencia y algunos otros datos descriptivos sobre la supervivencia de los pacientes.</p>
-<p>Construya dicho informe con la grafica de sobrevida e interprete las siguientes medidas calculadas</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Call: survfit(formula = Surv(temposeg, Mortalidad) ~ 1, data = leu)
-
-      n events median 0.95LCL 0.95UCL
-[1,] 55     38    329     239     545</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Call: survfit(formula = Surv(temposeg, Mortalidad) ~ 1, data = leu)
-
- time n.risk n.event survival std.err lower 95% CI upper 95% CI
-  182     32      18    0.653  0.0665        0.535        0.797
-  365     21      10    0.443  0.0709        0.323        0.606
-  548     14       5    0.329  0.0687        0.218        0.495</code></pre>
-</div>
-</div>
-<ol start="2" type="1">
-<li>Ahora el comite de auditoria y contratación quiere saber cual es el pronostico en sobrevida segun el tipo de leucemia y poder plantear algunos metas de resultado en salud frente a oportunidad de diagnostico y oportunidad en tratamiento. Para ello se plantea una analisis comparativo de curvas, interprete el grafico, medidas descriptivas y contraste de hipotesis entre curvas.</li>
+<!-- -->
+<ol type="a">
+<li>Segun los calculos cual es la mediana de sobrevida</li>
+<li>Cual es el numero de eventos esperados <span class="math inline">\(t=20\)</span></li>
 </ol>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="survival_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Call: survfit(formula = Surv(temposeg, Mortalidad) ~ tipo_leuc, data = leu %&gt;% 
-    filter(tipo_leuc != "Promielocítica", tipo_leuc != "Mixta"))
-
-                    n events median 0.95LCL 0.95UCL
-tipo_leuc=Linfoide 18     10    718     265      NA
-tipo_leuc=Mieloide 32     25    300     154     507</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Call:
-survdiff(formula = Surv(temposeg, Mortalidad) ~ tipo_leuc, data = leu %&gt;% 
-    filter(tipo_leuc != "Promielocítica", tipo_leuc != "Mixta"))
-
-                    N Observed Expected (O-E)^2/E (O-E)^2/V
-tipo_leuc=Linfoide 18       10     16.8      2.72      5.52
-tipo_leuc=Mieloide 32       25     18.2      2.50      5.52
-
- Chisq= 5.5  on 1 degrees of freedom, p= 0.02 </code></pre>
-</div>
-</div>
-<ol start="3" type="1">
-<li>Observe los siguientes graficos de los pacientes con leucemia, que diferencia hay entre ellas ? , Qué muestra cada una ?, para el dia 500, visualice que valor hay en el eje Y para los dos tipos de leucemia, interprete para cada grafica ese valor.</li>
-</ol>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="survival_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="survival_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
+</section>
+<section id="parte-ii-taller-analisis-de-sobrevida" class="level2">
+<h2 class="anchored" data-anchor-id="parte-ii-taller-analisis-de-sobrevida">Parte II: Taller: Analisis de sobrevida</h2>
+<p>Descargue el siguiente archivo de Rmarkdown descargar aca 👉 <a href="taller_supervivencia_KM.Rmd">Taller Rmarkdown</a>, para que lo abra en su <em>RStudio</em> en su computador y desarrolle el cuestionario. Ejecute linea por linea de codigo para observar las estimaciones y conteste las preguntas en el espacio indicado como <strong>RESPUESTA</strong>. <em>Solo hasta el final</em> , cuando halla contestado todas las preguntas, renderize todo el documento y el archivo HMTL producido envielo al correo del docente.</p>
 
 
 </section>

@@ -825,11 +825,21 @@
     ]
   },
   {
-    "objectID": "survival.html#taller-analisis-de-sobrevida",
-    "href": "survival.html#taller-analisis-de-sobrevida",
+    "objectID": "survival.html#parte-i-taller-analisis-de-sobrevida",
+    "href": "survival.html#parte-i-taller-analisis-de-sobrevida",
     "title": "Analisis de sobrevida",
-    "section": "Taller: Analisis de sobrevida",
-    "text": "Taller: Analisis de sobrevida\nPara el desarrollo del trabajo realizarlo por grupos sobre el siguiente documento online Documento de trabajo\n\nEn el archivo adjunto que puede descargar aca 👉 Datos sobrevida leucemias, encontrara la tabla completa de los datos para realizar las estimaciones de sobrevida por el metodo de Kaplan-Meier. (Realizarlo en microsoft Excel que incluya el grafico y colocalo en el documento compartido)\n\nEstos datos corresponden a una cohorte retrospectiva de pacientes adultos con leucemia de una institución de salud de la ciudad, que pretende identificar cual es la sobrevida de los pacientes diagnosticados y tratados en la institución, para lo cual encargan al epidemiologo (usted) de la institución que realice dicho analisis.\nPara esto se solicita tener una grafica que muestre como es la sobrevida de los pacientes con relación al tiempo, se estime cual es la mediana de supervivencia y algunos otros datos descriptivos sobre la supervivencia de los pacientes.\nConstruya dicho informe con la grafica de sobrevida e interprete las siguientes medidas calculadas\n\n\nCall: survfit(formula = Surv(temposeg, Mortalidad) ~ 1, data = leu)\n\n      n events median 0.95LCL 0.95UCL\n[1,] 55     38    329     239     545\n\n\nCall: survfit(formula = Surv(temposeg, Mortalidad) ~ 1, data = leu)\n\n time n.risk n.event survival std.err lower 95% CI upper 95% CI\n  182     32      18    0.653  0.0665        0.535        0.797\n  365     21      10    0.443  0.0709        0.323        0.606\n  548     14       5    0.329  0.0687        0.218        0.495\n\n\n\nAhora el comite de auditoria y contratación quiere saber cual es el pronostico en sobrevida segun el tipo de leucemia y poder plantear algunos metas de resultado en salud frente a oportunidad de diagnostico y oportunidad en tratamiento. Para ello se plantea una analisis comparativo de curvas, interprete el grafico, medidas descriptivas y contraste de hipotesis entre curvas.\n\n\n\n\n\n\n\n\n\n\nCall: survfit(formula = Surv(temposeg, Mortalidad) ~ tipo_leuc, data = leu %&gt;% \n    filter(tipo_leuc != \"Promielocítica\", tipo_leuc != \"Mixta\"))\n\n                    n events median 0.95LCL 0.95UCL\ntipo_leuc=Linfoide 18     10    718     265      NA\ntipo_leuc=Mieloide 32     25    300     154     507\n\n\nCall:\nsurvdiff(formula = Surv(temposeg, Mortalidad) ~ tipo_leuc, data = leu %&gt;% \n    filter(tipo_leuc != \"Promielocítica\", tipo_leuc != \"Mixta\"))\n\n                    N Observed Expected (O-E)^2/E (O-E)^2/V\ntipo_leuc=Linfoide 18       10     16.8      2.72      5.52\ntipo_leuc=Mieloide 32       25     18.2      2.50      5.52\n\n Chisq= 5.5  on 1 degrees of freedom, p= 0.02 \n\n\n\nObserve los siguientes graficos de los pacientes con leucemia, que diferencia hay entre ellas ? , Qué muestra cada una ?, para el dia 500, visualice que valor hay en el eje Y para los dos tipos de leucemia, interprete para cada grafica ese valor.",
+    "section": "Parte I: Taller: Analisis de sobrevida",
+    "text": "Parte I: Taller: Analisis de sobrevida\nPara el desarrollo del trabajo realizarlo por grupos sobre el siguiente documento online Documento de trabajo\n\nEn el archivo adjunto que puede descargar aca 👉 Datos sobrevida, encontrara la tabla completa de los datos para realizar las estimaciones de sobrevida por el metodo de Kaplan-Meier. Estime \\(\\hat{S}(t)\\) y \\(\\hat{H}(t)\\) (Realizarlo en microsoft Excel que incluya el grafico y colocalo en el documento compartido).\n\n\n\nSegun los calculos cual es la mediana de sobrevida\nCual es el numero de eventos esperados \\(t=20\\)",
+    "crumbs": [
+      "Analisis de sobrevida"
+    ]
+  },
+  {
+    "objectID": "survival.html#parte-ii-taller-analisis-de-sobrevida",
+    "href": "survival.html#parte-ii-taller-analisis-de-sobrevida",
+    "title": "Analisis de sobrevida",
+    "section": "Parte II: Taller: Analisis de sobrevida",
+    "text": "Parte II: Taller: Analisis de sobrevida\nDescargue el siguiente archivo de Rmarkdown descargar aca 👉 Taller Rmarkdown, para que lo abra en su RStudio en su computador y desarrolle el cuestionario. Ejecute linea por linea de codigo para observar las estimaciones y conteste las preguntas en el espacio indicado como RESPUESTA. Solo hasta el final , cuando halla contestado todas las preguntas, renderize todo el documento y el archivo HMTL producido envielo al correo del docente.",
     "crumbs": [
       "Analisis de sobrevida"
     ]
