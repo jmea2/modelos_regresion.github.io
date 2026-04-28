@@ -30,71 +30,6 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -684,7 +619,8 @@ h(t)=-\frac{d S(t) / d t}{S(t)}
 <ul>
 <li>Con corrección por censura a derecha:</li>
 </ul>
-<p><span class="math display">\[S(t) = P(T &gt; t) \times P(T&gt;=t/T&gt;t) \]</span> ## Recordar:</p>
+<p><span class="math display">\[S(t) = P(T &gt; t) \times P(T&gt;=t/T&gt;t) \]</span><br>
+</p>
 </section>
 <section id="estrutura-de-datos" class="slide level2">
 <h2>Estrutura de datos</h2>
@@ -718,7 +654,7 @@ h(t)=-\frac{d S(t) / d t}{S(t)}
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-98c58bb4{}.cl-98c2307c{font-family:'Helvetica';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-98c23090{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-98c38eea{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-98c39c28{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98c39c29{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98c39c2a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-98c58bb4"><thead><tr style="overflow-wrap:break-word;"><th class="cl-98c39c28"><p class="cl-98c38eea"><span class="cl-98c2307c">tiempo</span></p></th><th class="cl-98c39c28"><p class="cl-98c38eea"><span class="cl-98c2307c">n</span></p></th><th class="cl-98c39c28"><p class="cl-98c38eea"><span class="cl-98c2307c">Falla</span></p></th><th class="cl-98c39c28"><p class="cl-98c38eea"><span class="cl-98c2307c">S_t</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-98c39c29"><p class="cl-98c38eea"><span class="cl-98c23090">2</span></p></td><td class="cl-98c39c29"><p class="cl-98c38eea"><span class="cl-98c23090"></span></p></td><td class="cl-98c39c29"><p class="cl-98c38eea"><span class="cl-98c23090">1</span></p></td><td class="cl-98c39c29"><p class="cl-98c38eea"><span class="cl-98c23090"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-98c39c2a"><p class="cl-98c38eea"><span class="cl-98c23090">3</span></p></td><td class="cl-98c39c2a"><p class="cl-98c38eea"><span class="cl-98c23090"></span></p></td><td class="cl-98c39c2a"><p class="cl-98c38eea"><span class="cl-98c23090">1</span></p></td><td class="cl-98c39c2a"><p class="cl-98c38eea"><span class="cl-98c23090"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-98c39c29"><p class="cl-98c38eea"><span class="cl-98c23090">4</span></p></td><td class="cl-98c39c29"><p class="cl-98c38eea"><span class="cl-98c23090"></span></p></td><td class="cl-98c39c29"><p class="cl-98c38eea"><span class="cl-98c23090">1</span></p></td><td class="cl-98c39c29"><p class="cl-98c38eea"><span class="cl-98c23090"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-98c39c2a"><p class="cl-98c38eea"><span class="cl-98c23090">5</span></p></td><td class="cl-98c39c2a"><p class="cl-98c38eea"><span class="cl-98c23090"></span></p></td><td class="cl-98c39c2a"><p class="cl-98c38eea"><span class="cl-98c23090">1</span></p></td><td class="cl-98c39c2a"><p class="cl-98c38eea"><span class="cl-98c23090"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-98c39c29"><p class="cl-98c38eea"><span class="cl-98c23090">6</span></p></td><td class="cl-98c39c29"><p class="cl-98c38eea"><span class="cl-98c23090"></span></p></td><td class="cl-98c39c29"><p class="cl-98c38eea"><span class="cl-98c23090">1</span></p></td><td class="cl-98c39c29"><p class="cl-98c38eea"><span class="cl-98c23090"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-98c39c2a"><p class="cl-98c38eea"><span class="cl-98c23090">7</span></p></td><td class="cl-98c39c2a"><p class="cl-98c38eea"><span class="cl-98c23090"></span></p></td><td class="cl-98c39c2a"><p class="cl-98c38eea"><span class="cl-98c23090">1</span></p></td><td class="cl-98c39c2a"><p class="cl-98c38eea"><span class="cl-98c23090"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-98c39c29"><p class="cl-98c38eea"><span class="cl-98c23090">8</span></p></td><td class="cl-98c39c29"><p class="cl-98c38eea"><span class="cl-98c23090"></span></p></td><td class="cl-98c39c29"><p class="cl-98c38eea"><span class="cl-98c23090">1</span></p></td><td class="cl-98c39c29"><p class="cl-98c38eea"><span class="cl-98c23090"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-98c39c2a"><p class="cl-98c38eea"><span class="cl-98c23090">9</span></p></td><td class="cl-98c39c2a"><p class="cl-98c38eea"><span class="cl-98c23090"></span></p></td><td class="cl-98c39c2a"><p class="cl-98c38eea"><span class="cl-98c23090">1</span></p></td><td class="cl-98c39c2a"><p class="cl-98c38eea"><span class="cl-98c23090"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-98c39c29"><p class="cl-98c38eea"><span class="cl-98c23090">10</span></p></td><td class="cl-98c39c29"><p class="cl-98c38eea"><span class="cl-98c23090"></span></p></td><td class="cl-98c39c29"><p class="cl-98c38eea"><span class="cl-98c23090">1</span></p></td><td class="cl-98c39c29"><p class="cl-98c38eea"><span class="cl-98c23090"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-98c39c2a"><p class="cl-98c38eea"><span class="cl-98c23090">11</span></p></td><td class="cl-98c39c2a"><p class="cl-98c38eea"><span class="cl-98c23090"></span></p></td><td class="cl-98c39c2a"><p class="cl-98c38eea"><span class="cl-98c23090">1</span></p></td><td class="cl-98c39c2a"><p class="cl-98c38eea"><span class="cl-98c23090"></span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-2b75d84e{}.cl-2b73146a{font-family:'Helvetica';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2b731474{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2b7430d4{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2b743ed0{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2b743eda{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2b743edb{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-2b75d84e"><thead><tr style="overflow-wrap:break-word;"><th class="cl-2b743ed0"><p class="cl-2b7430d4"><span class="cl-2b73146a">tiempo</span></p></th><th class="cl-2b743ed0"><p class="cl-2b7430d4"><span class="cl-2b73146a">n</span></p></th><th class="cl-2b743ed0"><p class="cl-2b7430d4"><span class="cl-2b73146a">Falla</span></p></th><th class="cl-2b743ed0"><p class="cl-2b7430d4"><span class="cl-2b73146a">S_t</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-2b743eda"><p class="cl-2b7430d4"><span class="cl-2b731474">2</span></p></td><td class="cl-2b743eda"><p class="cl-2b7430d4"><span class="cl-2b731474"></span></p></td><td class="cl-2b743eda"><p class="cl-2b7430d4"><span class="cl-2b731474">1</span></p></td><td class="cl-2b743eda"><p class="cl-2b7430d4"><span class="cl-2b731474"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2b743edb"><p class="cl-2b7430d4"><span class="cl-2b731474">3</span></p></td><td class="cl-2b743edb"><p class="cl-2b7430d4"><span class="cl-2b731474"></span></p></td><td class="cl-2b743edb"><p class="cl-2b7430d4"><span class="cl-2b731474">1</span></p></td><td class="cl-2b743edb"><p class="cl-2b7430d4"><span class="cl-2b731474"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2b743eda"><p class="cl-2b7430d4"><span class="cl-2b731474">4</span></p></td><td class="cl-2b743eda"><p class="cl-2b7430d4"><span class="cl-2b731474"></span></p></td><td class="cl-2b743eda"><p class="cl-2b7430d4"><span class="cl-2b731474">1</span></p></td><td class="cl-2b743eda"><p class="cl-2b7430d4"><span class="cl-2b731474"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2b743edb"><p class="cl-2b7430d4"><span class="cl-2b731474">5</span></p></td><td class="cl-2b743edb"><p class="cl-2b7430d4"><span class="cl-2b731474"></span></p></td><td class="cl-2b743edb"><p class="cl-2b7430d4"><span class="cl-2b731474">1</span></p></td><td class="cl-2b743edb"><p class="cl-2b7430d4"><span class="cl-2b731474"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2b743eda"><p class="cl-2b7430d4"><span class="cl-2b731474">6</span></p></td><td class="cl-2b743eda"><p class="cl-2b7430d4"><span class="cl-2b731474"></span></p></td><td class="cl-2b743eda"><p class="cl-2b7430d4"><span class="cl-2b731474">1</span></p></td><td class="cl-2b743eda"><p class="cl-2b7430d4"><span class="cl-2b731474"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2b743edb"><p class="cl-2b7430d4"><span class="cl-2b731474">7</span></p></td><td class="cl-2b743edb"><p class="cl-2b7430d4"><span class="cl-2b731474"></span></p></td><td class="cl-2b743edb"><p class="cl-2b7430d4"><span class="cl-2b731474">1</span></p></td><td class="cl-2b743edb"><p class="cl-2b7430d4"><span class="cl-2b731474"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2b743eda"><p class="cl-2b7430d4"><span class="cl-2b731474">8</span></p></td><td class="cl-2b743eda"><p class="cl-2b7430d4"><span class="cl-2b731474"></span></p></td><td class="cl-2b743eda"><p class="cl-2b7430d4"><span class="cl-2b731474">1</span></p></td><td class="cl-2b743eda"><p class="cl-2b7430d4"><span class="cl-2b731474"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2b743edb"><p class="cl-2b7430d4"><span class="cl-2b731474">9</span></p></td><td class="cl-2b743edb"><p class="cl-2b7430d4"><span class="cl-2b731474"></span></p></td><td class="cl-2b743edb"><p class="cl-2b7430d4"><span class="cl-2b731474">1</span></p></td><td class="cl-2b743edb"><p class="cl-2b7430d4"><span class="cl-2b731474"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2b743eda"><p class="cl-2b7430d4"><span class="cl-2b731474">10</span></p></td><td class="cl-2b743eda"><p class="cl-2b7430d4"><span class="cl-2b731474"></span></p></td><td class="cl-2b743eda"><p class="cl-2b7430d4"><span class="cl-2b731474">1</span></p></td><td class="cl-2b743eda"><p class="cl-2b7430d4"><span class="cl-2b731474"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2b743edb"><p class="cl-2b7430d4"><span class="cl-2b731474">11</span></p></td><td class="cl-2b743edb"><p class="cl-2b7430d4"><span class="cl-2b731474"></span></p></td><td class="cl-2b743edb"><p class="cl-2b7430d4"><span class="cl-2b731474">1</span></p></td><td class="cl-2b743edb"><p class="cl-2b7430d4"><span class="cl-2b731474"></span></p></td></tr></tbody></table></div>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -738,7 +674,7 @@ h(t)=-\frac{d S(t) / d t}{S(t)}
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-98d0f698{}.cl-98cdedae{font-family:'Helvetica';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-98cdedb8{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-98cf310a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-98cf3cea{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98cf3ceb{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98cf3cf4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-98d0f698"><thead><tr style="overflow-wrap:break-word;"><th class="cl-98cf3cea"><p class="cl-98cf310a"><span class="cl-98cdedae">tiempo</span></p></th><th class="cl-98cf3cea"><p class="cl-98cf310a"><span class="cl-98cdedae">n</span></p></th><th class="cl-98cf3cea"><p class="cl-98cf310a"><span class="cl-98cdedae">Falla</span></p></th><th class="cl-98cf3cea"><p class="cl-98cf310a"><span class="cl-98cdedae">Censura</span></p></th><th class="cl-98cf3cea"><p class="cl-98cf310a"><span class="cl-98cdedae">S_t</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8">2</span></p></td><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8"></span></p></td><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8">1</span></p></td><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8">0</span></p></td><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8">3</span></p></td><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8"></span></p></td><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8">1</span></p></td><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8">0</span></p></td><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8">4</span></p></td><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8"></span></p></td><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8">0</span></p></td><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8">1</span></p></td><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8">5</span></p></td><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8"></span></p></td><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8">1</span></p></td><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8">0</span></p></td><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8">6</span></p></td><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8"></span></p></td><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8">0</span></p></td><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8">1</span></p></td><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8">7</span></p></td><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8"></span></p></td><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8">1</span></p></td><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8">0</span></p></td><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8">8</span></p></td><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8"></span></p></td><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8">0</span></p></td><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8">1</span></p></td><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8">9</span></p></td><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8"></span></p></td><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8">1</span></p></td><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8">0</span></p></td><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8">10</span></p></td><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8"></span></p></td><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8">0</span></p></td><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8">1</span></p></td><td class="cl-98cf3ceb"><p class="cl-98cf310a"><span class="cl-98cdedb8"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8">11</span></p></td><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8"></span></p></td><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8">1</span></p></td><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8">0</span></p></td><td class="cl-98cf3cf4"><p class="cl-98cf310a"><span class="cl-98cdedb8"></span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-2b7ed430{}.cl-2b7c2e10{font-family:'Helvetica';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2b7c2e1a{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2b7d6ab4{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2b7d773e{width:0.75in;background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2b7d7748{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2b7d7749{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-2b7ed430"><thead><tr style="overflow-wrap:break-word;"><th class="cl-2b7d773e"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e10">tiempo</span></p></th><th class="cl-2b7d773e"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e10">n</span></p></th><th class="cl-2b7d773e"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e10">Falla</span></p></th><th class="cl-2b7d773e"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e10">Censura</span></p></th><th class="cl-2b7d773e"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e10">S_t</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">2</span></p></td><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a"></span></p></td><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">1</span></p></td><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">0</span></p></td><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">3</span></p></td><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a"></span></p></td><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">1</span></p></td><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">0</span></p></td><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">4</span></p></td><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a"></span></p></td><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">0</span></p></td><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">1</span></p></td><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">5</span></p></td><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a"></span></p></td><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">1</span></p></td><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">0</span></p></td><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">6</span></p></td><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a"></span></p></td><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">0</span></p></td><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">1</span></p></td><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">7</span></p></td><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a"></span></p></td><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">1</span></p></td><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">0</span></p></td><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">8</span></p></td><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a"></span></p></td><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">0</span></p></td><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">1</span></p></td><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">9</span></p></td><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a"></span></p></td><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">1</span></p></td><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">0</span></p></td><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">10</span></p></td><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a"></span></p></td><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">0</span></p></td><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">1</span></p></td><td class="cl-2b7d7748"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">11</span></p></td><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a"></span></p></td><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">1</span></p></td><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a">0</span></p></td><td class="cl-2b7d7749"><p class="cl-2b7d6ab4"><span class="cl-2b7c2e1a"></span></p></td></tr></tbody></table></div>
 </div>
 </div>
 <p>Para <span class="math inline">\(t=2\)</span> como es el primer instante de tiempo y no han ocurrido censuras se inicia como el anterior:</p>
@@ -759,25 +695,13 @@ h(t)=-\frac{d S(t) / d t}{S(t)}
 <section id="finalmente-la-tabla-de-sobrevida-quedaria-asi" class="slide level2">
 <h2>Finalmente la tabla de sobrevida quedaria asi:</h2>
 <table class="caption-top">
-<colgroup>
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">j</th>
+<th style="text-align: right;"><span class="math inline">\(j\)</span></th>
 <th style="text-align: center;"><span class="math inline">\(t_{(j)}\)</span></th>
 <th style="text-align: center;">Censuras</th>
 <th style="text-align: center;"><span class="math inline">\(n_j\)</span></th>
 <th style="text-align: center;"><span class="math inline">\(d_j\)</span></th>
-<th style="text-align: center;">Factor <span class="math inline">\((n_j-d_j)/n_j\)</span></th>
-<th></th>
 <th style="text-align: center;"><span class="math inline">\(S(t_{(j)})\)</span></th>
 </tr>
 </thead>
@@ -788,8 +712,6 @@ h(t)=-\frac{d S(t) / d t}{S(t)}
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">10</td>
 <td style="text-align: center;">1</td>
-<td style="text-align: center;"><span class="math inline">\(\frac{9}{10}\)</span></td>
-<td></td>
 <td style="text-align: center;">0.9</td>
 </tr>
 <tr class="even">
@@ -798,8 +720,6 @@ h(t)=-\frac{d S(t) / d t}{S(t)}
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">9</td>
 <td style="text-align: center;">1</td>
-<td style="text-align: center;"><span class="math inline">\(\frac{8}{9}\)</span></td>
-<td><span class="math inline">\(0.9 \times 0.888\)</span></td>
 <td style="text-align: center;">0.8</td>
 </tr>
 <tr class="odd">
@@ -808,9 +728,7 @@ h(t)=-\frac{d S(t) / d t}{S(t)}
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">7</td>
 <td style="text-align: center;">1</td>
-<td style="text-align: center;"><span class="math inline">\(\frac{6}{7}\)</span></td>
-<td><span class="math inline">\(0.8 \times 0.8577\)</span></td>
-<td style="text-align: center;">0.6857</td>
+<td style="text-align: center;">0.69</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">4</td>
@@ -818,9 +736,7 @@ h(t)=-\frac{d S(t) / d t}{S(t)}
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">5</td>
 <td style="text-align: center;">1</td>
-<td style="text-align: center;"><span class="math inline">\(\frac{4}{5}\)</span></td>
-<td><span class="math inline">\(0.6857 \times 0.8\)</span></td>
-<td style="text-align: center;">0.5486</td>
+<td style="text-align: center;">0.54</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">5</td>
@@ -828,8 +744,6 @@ h(t)=-\frac{d S(t) / d t}{S(t)}
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">3</td>
 <td style="text-align: center;">1</td>
-<td style="text-align: center;"><span class="math inline">\(\frac{2}{3}\)</span></td>
-<td><span class="math inline">\(0.5486 \times 0.6666\)</span></td>
 <td style="text-align: center;">0.3657</td>
 </tr>
 <tr class="even">
@@ -838,8 +752,6 @@ h(t)=-\frac{d S(t) / d t}{S(t)}
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">1</td>
-<td style="text-align: center;"><span class="math inline">\(\frac{0}{1}\)</span></td>
-<td><span class="math inline">\(0.3657 \times 0\)</span></td>
 <td style="text-align: center;">0</td>
 </tr>
 </tbody>
@@ -862,31 +774,279 @@ h(t)=-\frac{d S(t) / d t}{S(t)}
 
 </div>
 <img data-src="sobrevida_KM_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<section id="estimador-de-nelson-aalen" class="slide level2 smaller">
+<h2>Estimador de Nelson-Aalen</h2>
+<p>El estimador de Nelson-Aalen (también conocido como estimación de Altshuler) es un procedimiento no paramétrico que se utiliza para estimar la función de riesgo acumulado y la función de supervivencia a partir de los tiempos individuales en los que ocurren los eventos.</p>
+<p><strong>Recordar que:</strong> <span class="math inline">\(H(t) = -\log S(t)\)</span> (Buen desempeño en muestras pequeñas)</p>
+<p><span class="math display">\[\begin{align}
+\tilde{H}(t) = \sum_{j=1}^k \frac{d_j}{n_j}
+\end{align}\]</span></p>
+<p><span class="math display">\[-\log S(t) = \sum_{j=1}^k \frac{d_j}{n_j}\]</span></p>
+<p><span class="math display">\[e^{\log S(t)} = e^{\sum_{j=1}^k -\frac{d_j}{n_j}}\]</span></p>
+<p><span class="math display">\[\begin{align}
+\tilde{S}(t) = \prod_{j=1}^k e^{\left(-\frac{d_j}{n_j}\right)}
+\end{align}\]</span></p>
+</section>
+<section id="intervalo-de-confianza-para-la-supervivencia" class="slide level2">
+<h2>Intervalo de confianza para la supervivencia</h2>
+<p>Para calcular un intervalo de confianza puntual en un tiempo <span class="math inline">\(t\)</span>, el proceso asume que la estimación <span class="math inline">\(\hat{S}(t)\)</span> sigue una distribución normal.</p>
+<ol type="1">
+<li><strong>El Método Estándar (Simétrico):</strong> La expresion es:</li>
+</ol>
+<p><span class="math display">\[\begin{align}
+\hat{S}(t) \pm z_{\alpha/2} \times se\{\hat{S}(t)\}
+\end{align}\]</span> <span class="math display">\[\begin{align}
+se\{\hat{S}(t)\} \approx \hat{S}(t) \left[ \sum_{j=1}^k \frac{d_j}{n_j(n_j - d_j)} \right]^{1/2}
+\end{align}\]</span></p>
+<p>Pueden dar resultados ilógicos (mayores a 1 o menores a 0) cerca de los extremos. Una posible solución al límite que excede [0, 1], se trunca manualmente a 0.0 o 1.0.</p>
+</section>
+<section id="section-2" class="slide level2">
+<h2></h2>
+<ol start="2" type="1">
+<li><strong>El Método de Transformación (Log-Log):</strong> Para evitar límites imposibles, se transforma <span class="math inline">\(\hat{S}(t)\)</span> a una escala infinita (<span class="math inline">\(-\infty, +\infty\)</span>), se calcula el intervalo y se aplica la transformación inversa:</li>
+</ol>
+<p><span class="math display">\[\begin{align}
+\text{var} \left[ \log \{ -\log \hat{S}(t) \} \right] \approx \frac{1}{\{ \log \hat{S}(t) \}^2} \sum_{j=1}^{k} \frac{d_j}{n_j(n_j - d_j)}
+\end{align}\]</span> <span class="math display">\[\begin{align}
+\text{se} \{ \log [ -\log \hat{S}(t) ] \} = \sqrt{\text{var} \left[ \log \{ -\log \hat{S}(t) \} \right]}
+\end{align}\]</span> <span class="math display">\[\begin{align}
+\hat{S}(t)^{\exp [ \pm z_{\alpha/2} \, \text{se} \{ \log [ -\log \hat{S}(t) ] \} ]}
+\end{align}\]</span></p>
+</section>
 <section id="interpretaciones-de-la-curva-k-m" class="slide level2">
 <h2>Interpretaciones de la Curva K-M</h2>
 
 <img data-src="sobrevida_KM_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
-<section id="estimaciones-de-supervivencia-para-tiempos-especificos" class="slide level2">
-<h2>Estimaciones de supervivencia para tiempos especificos</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">summary</span>(<span class="fu">survfit</span>(<span class="fu">Surv</span>(time, status) <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> lung), <span class="at">times =</span> <span class="fu">c</span>(<span class="fl">182.5</span>, <span class="fl">365.25</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Call: survfit(formula = Surv(time, status) ~ 1, data = lung)
-
- time n.risk n.event survival std.err lower 95% CI upper 95% CI
-  182    156      66    0.708  0.0303        0.651        0.770
-  365     65      55    0.409  0.0358        0.345        0.486</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">survfit</span>(<span class="fu">Surv</span>(time, status) <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> lung)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Call: survfit(formula = Surv(time, status) ~ 1, data = lung)
-
-       n events median 0.95LCL 0.95UCL
-[1,] 228    165    310     285     363</code></pre>
-</div>
-</div>
+<section id="estimación-de-la-función-hazard-hatht" class="slide level2">
+<h2>Estimación de la Función Hazard <span class="math inline">\(\hat{h}(t)\)</span></h2>
+<h3 id="el-riesgo-instantáneo">El riesgo instantáneo</h3>
+<p><strong>Concepto:</strong> Es la tasa de fallo en un instante exacto, condicionado a que el sujeto haya sobrevivido hasta ese momento. No es una probabilidad, sino una <strong>tasa</strong>.</p>
+<p><strong>Expresión Matemática:</strong> <span class="math display">\[\hat{h}(t) = \frac{d_j}{n_j \tau_j}\]</span></p>
+<ul>
+<li><span class="math inline">\(d_j\)</span>: Número de eventos en el tiempo <span class="math inline">\(t_j\)</span>.</li>
+<li><span class="math inline">\(n_j\)</span>: Sujetos en riesgo justo antes de <span class="math inline">\(t_j\)</span>.</li>
+<li><span class="math inline">\(\tau_j\)</span>: Tiempo hasta el próximo evento (<span class="math inline">\(t_{j+1} - t_j\)</span>).</li>
+</ul>
+</section>
+<section id="datos-estimación-puntual-ht" class="slide level2 small">
+<h2>Datos: Estimación puntual <span class="math inline">\(h(t)\)</span></h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(j\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(t_{(j)}\)</span></th>
+<th style="text-align: center;">Censuras</th>
+<th style="text-align: center;"><span class="math inline">\(n_j\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(d_j\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(S(t_{(j)})\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.69</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.54</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.3657</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cuál-es-el-riesgo-en-el-día-7">¿Cuál es el riesgo en el Día 7?</h3>
+<p>De nuestra tabla de datos en el <strong>Día 7</strong>: - Eventos (<span class="math inline">\(d_4\)</span>): 1 evento. - En riesgo (<span class="math inline">\(n_4\)</span>): 5 pacientes. - Intervalo (<span class="math inline">\(\tau_4\)</span>): 2 día (del día 9 al 7).</p>
+<p><span class="math display">\[\hat{h}(7) = \frac{1}{5 \times 2} \approx 0.1 \text{ eventos/día}\]</span></p>
+<p><em>Interpretación:</em> Los pacientes que llegan sin el evento al día 7 tienen una tasa de riesgo de evento de 0.1 por cada día adicional de seguimiento.</p>
+</section>
+<section id="hazard-acumulado-hatht" class="slide level2">
+<h2>Hazard Acumulado <span class="math inline">\(\hat{H}(t)\)</span></h2>
+<h3 id="el-contador-de-eventos-esperados">El “contador” de eventos esperados</h3>
+<p><strong>Concepto:</strong> Representa el riesgo acumulado hasta el tiempo <span class="math inline">\(t\)</span>. Una interpretación epidemiológica útil es el número esperado de eventos si estos fueran repetibles.</p>
+<p><span class="math display">\[\hat{H}(t) = -\ln[\hat{S}(t)]\]</span></p>
+<p>O mediante Nelson-Aalen: <span class="math inline">\(\hat{H}(t) = \sum_{j=1}^k \frac{d_j}{n_j}\)</span></p>
+</section>
+<section id="datos-estimación-puntual-hat-ht" class="slide level2 small">
+<h2>Datos: Estimación puntual <span class="math inline">\(\hat H(t)\)</span></h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(j\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(t_{(j)}\)</span></th>
+<th style="text-align: center;">Censuras</th>
+<th style="text-align: center;"><span class="math inline">\(n_j\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(d_j\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(S(t_{(j)})\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.69</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.54</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.37</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="riesgo-acumulado-al-día-8">Riesgo acumulado al Día 8</h3>
+<p>En el <strong>Día 9</strong>, nuestra supervivencia estimada es <span class="math inline">\(\hat{S}(9) = 0.37\)</span>.</p>
+<p><span class="math display">\[\hat{H}(9) = -\ln(0.37) \approx 0.99\]</span></p>
+<p>Al llegar al día 9, Si el evento fuera un evento recurrente, esperaríamos que un paciente promedio ya hubiera experimentado 1 .</p>
+</section>
+<section id="la-mediana-del-tiempo-de-supervivencia" class="slide level2">
+<h2>La mediana del tiempo de supervivencia</h2>
+<p><strong>Concepto:</strong> La mediana (<span class="math inline">\(\hat{t}_{50}\)</span>) es el tiempo donde la probabilidad de estar libre del evento cae por debajo del 50%.</p>
+<p><span class="math display">\[IC_{95\%} = \hat{t}_p \pm 1.96 \times \frac{se\{\hat{S}(\hat{t}_p)\}}{\hat{f}(\hat{t}_p)}\]</span></p>
+<p><span class="math inline">\(\hat{f}(t)\)</span>: Densidad estimada (velocidad de caída de la curva).</p>
+<p><span class="math inline">\(\hat{f}{\hat{t}(p)} = \frac{\hat{S}\{\hat{u}(p)\} - \hat{S}\{\hat{l}(p)\}}{\hat{l}(p) - \hat{u}(p)}\)</span> <span class="math inline">\(\hat{u}(p) = \max \left\{ t_{(j)} \mid \hat{S}(t_{(j)}) \geqslant 1 - \frac{p}{100} + \epsilon \right\} \\ \hat{l}(p) = \min \left\{ t_{(j)} \mid \hat{S}(t_{(j)}) \leqslant 1 - \frac{p}{100} - \epsilon \right\}\)</span></p>
+<p>para <span class="math inline">\(j = 1, 2, \dots, r\)</span>, y valores pequeños de <span class="math inline">\(\epsilon\)</span>. En muchos casos, tomar <span class="math inline">\(\epsilon = 0.05\)</span> sera suficiente.</p>
+</section>
+<section id="ejemplo-mediana-de-supevivencia-y-su-intervalo-de-confianza" class="slide level2">
+<h2>Ejemplo: Mediana de supevivencia y su intervalo de confianza</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(j\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(t_{(j)}\)</span></th>
+<th style="text-align: center;">Censuras</th>
+<th style="text-align: center;"><span class="math inline">\(n_j\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(d_j\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(S(t_{(j)})\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.69</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.54</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.37</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table>
+<p><code>n events median 0.95LCL 0.95UCL</code></p>
+<p><code>10   6      9       5      NA</code></p>
 </section>
 <section id="comparando-curvas-de-supervivencia-log-rank-test" class="slide level2">
 <h2>Comparando Curvas de supervivencia: Log-Rank Test</h2>
@@ -903,21 +1063,14 @@ sex=2  90       53     73.4      5.68      10.3
 </div>
 
 </div>
-<img data-src="sobrevida_KM_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
+<img data-src="sobrevida_KM_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
 <section id="otras-funciones-proporción-acumulada-del-evento" class="slide level2">
 <h2>Otras funciones: Proporción acumulada del evento</h2>
 <ul>
 <li>corresponde al complemento de <span class="math inline">\(S(t)\)</span> es decir <span class="math inline">\(1-S(t)\)</span></li>
 </ul>
 
-<img data-src="sobrevida_KM_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section>
-<section id="otras-funciones-hazard-acumulado-o-riesgo-acumulado" class="slide level2">
-<h2>Otras funciones: Hazard Acumulado o riesgo Acumulado</h2>
-<ul>
-<li>corresponde <span class="math inline">\(H(t) = -log(S(t))\)</span></li>
-</ul>
-
-<img data-src="sobrevida_KM_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
+<img data-src="sobrevida_KM_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section>
 <section id="resumen" class="slide level2 small">
 <h2>Resumen</h2>
 <table class="caption-top">
